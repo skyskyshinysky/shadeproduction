@@ -14,13 +14,15 @@ class ControllerLogin extends Controller
         // проверка на существование данных, которые необходимо обработать
 
         if(!empty($_POST['username']) or !empty($_POST['password']) )
-        $userName = json_decode($_POST['username'], true);
-        $userPassword = json_decode($_POST['password'], true);
-        echo "<br> Username:"  . $userName;
-        echo "<br> Username password:" . $userPassword;
-        $response_array['status'] = 'success';
-        echo "true";
-        return json_encode($response_array);
+        {
+            $userName = json_decode($_POST['username'], true);
+            $userPassword = json_decode($_POST['password'], true);
+            echo "<br> Username:"  . $userName;
+            echo "<br> Username password:" . $userPassword;
+            $response_array['status'] = 'success';
+            echo "true";
+            return json_encode($response_array);
+        }
 //       / if(!empty($_POST[]))
       //  $jsonUsername = json_decode($_POST);
       //  $jsonUsernamePassword = $_POST['password'];
