@@ -54,7 +54,7 @@ class Router
         }
         else {
             //редирект на 404
-          //  $this->ErrorPage404();
+           // $this->ErrorPage404();
         }
         $controller = new $controllerName;
         $action = $actionName;
@@ -65,7 +65,7 @@ class Router
             $controller->$action();
         } else {
             //редирект на 404
-           // $this->ErrorPage404();
+          //  $this->ErrorPage404();
         }
     }
     function errorPage404()

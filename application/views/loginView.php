@@ -1,21 +1,35 @@
+
+<script type="text/javascript">
+    function sendRequest() {
+        var userName = $('#username').val();
+        var passwordUsername = $('#passwordUsername').val();
+        $.ajax({
+                type: "post",
+                dataType: 'json',
+                url: '/login/validate',
+                data: {'username' : JSON.stringify(userName), 'password' : JSON.stringify(passwordUsername)},
+                success: function (result) {
+                    if(result == 'true') {
+                        console.log(result);
+                        console.log("success");
+                    }
+                },
+                error: function (result) {
+                    console.log("unsucces");
+                }
+            });
+    }
+    $(document).ready(function() {
+        console.log("clickqweqwe!");
+        $('#save').on('click', sendRequest);
+    });
+</script>
+
 <h1>Страница авторизации</h1>
-<p>
-<form action="" method="post">
-    <table class="login">
-        <tr>
-            <th colspan="2">Авторизация</th>
-        </tr>
-        <tr>
-            <td>Логин</td>
-            <td><input type="text" name="login"></td>
-        </tr>
-        <tr>
-            <td>Пароль</td>
-            <td><input type="password" name="password"></td>
-        </tr>
-        <th colspan="2" style="text-align: right">
-            <input type="submit" value="Войти" name="btn"
-                   style="width: 150px; height: 30px;"></th>
-    </table>
+
+<form id="form">
+    <input id = "username" type="text" name="username" required="required"/>
+    <input id = "passwordUsername" type="password" name="password" required="required"/>
+    <button type="button" id="save" >Save</button>
 </form>
-</p>
+
