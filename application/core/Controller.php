@@ -10,6 +10,7 @@ class Controller
 {
     public $view;
     public $model;
+    public $databaseInterface;
 
     function __construct()
     {

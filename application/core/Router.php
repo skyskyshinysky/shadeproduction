@@ -13,7 +13,7 @@ class Router
 
     }
 
-    function run()
+    function run($interface)
     {
         // контроллер и действие по умолчанию
         $controllerName = 'Main';
@@ -54,7 +54,7 @@ class Router
         }
         else {
             //редирект на 404
-           // $this->ErrorPage404();
+            $this->ErrorPage404();
         }
         $controller = new $controllerName;
         $action = $actionName;
@@ -62,10 +62,11 @@ class Router
         //проверяем существование метода у контроллера
         if(method_exists($controller, $action)) {
             //вызова метода контроллера
+            $controller->databaseInterface = $interface;
             $controller->$action();
         } else {
             //редирект на 404
-          //  $this->ErrorPage404();
+            $this->ErrorPage404();
         }
     }
     function errorPage404()

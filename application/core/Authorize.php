@@ -11,14 +11,18 @@ class Authorize
 
     public $databaseInterface;
 
-
     /**
      * @param $interface - class CRUD
      */
     function checkAuthorize($interface)
     {
-        $databaseInterface = &$interface;
+        // проверяем на страницу по умолчанию
+        if(strcasecmp($_SERVER['REQUEST_URI'], '/') == 0)
+        {
+            return;
+        }
 
+        $databaseInterface = &$interface;
         if(isset($_COOKIE['id']) and isset($_COOKIE['hash']))
         {
             echo "Authorize";
@@ -28,7 +32,7 @@ class Authorize
             if(strcasecmp($routes[1], 'login') == 0) {
                 return;
             }
-            header("Location: ./login");
+            header("Location: http://www.shadeproduction.local/login");
             echo "<br> No authorize";
             echo '<br>' . $_SERVER['REQUEST_URI'];
         }

@@ -23,4 +23,4 @@
     //Создаем объект класса Router
     //Вызываем метод run
     $router = new Router();
-    $router->run();
+    $router->run($interfaceDatabase);
