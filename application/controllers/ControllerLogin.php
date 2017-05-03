@@ -56,7 +56,7 @@ class ControllerLogin extends Controller
                 $data['activationStatus'] = 'activationFailed';
             }
         }
-        $this->view->generate('successActivationView.php', 'templateView.php', $data);
+        $this->view->generate('activationView.php', 'templateView.php', $data);
         echo "<br>ControllerLogin/actionActiovation";
     }
     function actionSignIn()

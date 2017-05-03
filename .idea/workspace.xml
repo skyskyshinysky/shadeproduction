@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e841a0f-2685-415c-be05-fc17d61a8a99" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/successActivationView.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.htaccess" afterPath="$PROJECT_DIR$/.htaccess" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/bootstrap.php" afterPath="$PROJECT_DIR$/application/bootstrap.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/application/views/successActivationView.php" afterPath="$PROJECT_DIR$/application/views/activationView.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/ControllerLogin.php" afterPath="$PROJECT_DIR$/application/controllers/ControllerLogin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/core/Authorize.php" afterPath="$PROJECT_DIR$/application/core/Authorize.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/core/DAL/MySQLInterface.php" afterPath="$PROJECT_DIR$/application/core/DAL/MySQLInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/core/Mail/Mail.php" afterPath="$PROJECT_DIR$/application/core/Mail/Mail.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/loginView.php" afterPath="$PROJECT_DIR$/application/views/loginView.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/singInView.php" afterPath="$PROJECT_DIR$/application/views/singInView.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,19 +31,29 @@
       <file leaf-file-name="ControllerLogin.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/controllers/ControllerLogin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="107" column="123" lean-forward="false" selection-start-line="107" selection-start-column="123" selection-end-line="107" selection-end-column="123" />
+            <state relative-caret-position="193">
+              <caret line="58" column="32" lean-forward="false" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
               <folding>
-                <marker date="1493855469875" expanded="true" signature="1567:1608" ph="SELECT Id FR... users" />
-                <marker date="1493855469875" expanded="true" signature="1807:1844" ph="UPDATE users... " />
-                <marker date="1493855469875" expanded="true" signature="1813:1820" ph="INSERT INTO users... " />
-                <marker date="1493855469875" expanded="true" signature="2986:3040" ph="SELECT Id FR... users" />
-                <marker date="1493855469875" expanded="true" signature="3626:3719" ph="INSERT INTO users... " />
-                <marker date="1493855469875" expanded="true" signature="4088:4147" ph="INSERT INTO users_password... " />
-                <marker date="1493855469875" expanded="true" signature="5034:5074" ph="SELECT Id FR... users" />
-                <marker date="1493855469875" expanded="true" signature="5202:5255" ph="SELECT userP... users_password" />
-                <marker date="1493855469875" expanded="true" signature="5527:5566" ph="UPDATE users... " />
+                <marker date="1493855663950" expanded="true" signature="1567:1608" ph="SELECT Id FR... users" />
+                <marker date="1493855663950" expanded="true" signature="1807:1844" ph="UPDATE users... " />
+                <marker date="1493855663950" expanded="true" signature="1813:1820" ph="INSERT INTO users... " />
+                <marker date="1493855663950" expanded="true" signature="2979:3033" ph="SELECT Id FR... users" />
+                <marker date="1493855663950" expanded="true" signature="3619:3712" ph="INSERT INTO users... " />
+                <marker date="1493855663950" expanded="true" signature="4081:4140" ph="INSERT INTO users_password... " />
+                <marker date="1493855663950" expanded="true" signature="5027:5067" ph="SELECT Id FR... users" />
+                <marker date="1493855663950" expanded="true" signature="5195:5248" ph="SELECT userP... users_password" />
+                <marker date="1493855663950" expanded="true" signature="5520:5559" ph="UPDATE users... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activationView.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/activationView.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="64" lean-forward="false" selection-start-line="6" selection-start-column="64" selection-end-line="6" selection-end-column="64" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -368,12 +370,12 @@
       <updated>1493729883425</updated>
       <workItem from="1493729889994" duration="31367000" />
       <workItem from="1493835788770" duration="4436000" />
-      <workItem from="1493846630365" duration="8212000" />
+      <workItem from="1493846630365" duration="8400000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44015000" />
+    <option name="totallyTimeSpent" value="44203000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-186" width="1936" height="1056" extended-state="6" />
@@ -383,6 +385,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -393,7 +396,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -427,15 +429,15 @@
         <state relative-caret-position="833">
           <caret line="49" column="1" lean-forward="false" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
           <folding>
-            <marker date="1493855469875" expanded="true" signature="1567:1608" ph="SELECT Id FR... users" />
-            <marker date="1493855469875" expanded="true" signature="1807:1844" ph="UPDATE users... " />
-            <marker date="1493855469875" expanded="true" signature="1813:1820" ph="INSERT INTO users... " />
-            <marker date="1493855469875" expanded="true" signature="2986:3040" ph="SELECT Id FR... users" />
-            <marker date="1493855469875" expanded="true" signature="3626:3719" ph="INSERT INTO users... " />
-            <marker date="1493855469875" expanded="true" signature="4088:4147" ph="INSERT INTO users_password... " />
-            <marker date="1493855469875" expanded="true" signature="5034:5074" ph="SELECT Id FR... users" />
-            <marker date="1493855469875" expanded="true" signature="5202:5255" ph="SELECT userP... users_password" />
-            <marker date="1493855469875" expanded="true" signature="5527:5566" ph="UPDATE users... " />
+            <marker date="1493855663950" expanded="true" signature="1567:1608" ph="SELECT Id FR... users" />
+            <marker date="1493855663950" expanded="true" signature="1807:1844" ph="UPDATE users... " />
+            <marker date="1493855663950" expanded="true" signature="1813:1820" ph="INSERT INTO users... " />
+            <marker date="1493855663950" expanded="true" signature="2979:3033" ph="SELECT Id FR... users" />
+            <marker date="1493855663950" expanded="true" signature="3619:3712" ph="INSERT INTO users... " />
+            <marker date="1493855663950" expanded="true" signature="4081:4140" ph="INSERT INTO users_password... " />
+            <marker date="1493855663950" expanded="true" signature="5027:5067" ph="SELECT Id FR... users" />
+            <marker date="1493855663950" expanded="true" signature="5195:5248" ph="SELECT userP... users_password" />
+            <marker date="1493855663950" expanded="true" signature="5520:5559" ph="UPDATE users... " />
           </folding>
         </state>
       </provider>
@@ -702,14 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/successActivationView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="64" lean-forward="false" selection-start-line="6" selection-start-column="64" selection-end-line="6" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/core/Mail/Mail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -781,20 +775,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/activationView.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="64" lean-forward="false" selection-start-line="6" selection-start-column="64" selection-end-line="6" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/ControllerLogin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="107" column="123" lean-forward="false" selection-start-line="107" selection-start-column="123" selection-end-line="107" selection-end-column="123" />
+        <state relative-caret-position="193">
+          <caret line="58" column="32" lean-forward="false" selection-start-line="58" selection-start-column="32" selection-end-line="58" selection-end-column="32" />
           <folding>
-            <marker date="1493855469875" expanded="true" signature="1567:1608" ph="SELECT Id FR... users" />
-            <marker date="1493855469875" expanded="true" signature="1807:1844" ph="UPDATE users... " />
-            <marker date="1493855469875" expanded="true" signature="1813:1820" ph="INSERT INTO users... " />
-            <marker date="1493855469875" expanded="true" signature="2986:3040" ph="SELECT Id FR... users" />
-            <marker date="1493855469875" expanded="true" signature="3626:3719" ph="INSERT INTO users... " />
-            <marker date="1493855469875" expanded="true" signature="4088:4147" ph="INSERT INTO users_password... " />
-            <marker date="1493855469875" expanded="true" signature="5034:5074" ph="SELECT Id FR... users" />
-            <marker date="1493855469875" expanded="true" signature="5202:5255" ph="SELECT userP... users_password" />
-            <marker date="1493855469875" expanded="true" signature="5527:5566" ph="UPDATE users... " />
+            <marker date="1493855663950" expanded="true" signature="1567:1608" ph="SELECT Id FR... users" />
+            <marker date="1493855663950" expanded="true" signature="1807:1844" ph="UPDATE users... " />
+            <marker date="1493855663950" expanded="true" signature="1813:1820" ph="INSERT INTO users... " />
+            <marker date="1493855663950" expanded="true" signature="2979:3033" ph="SELECT Id FR... users" />
+            <marker date="1493855663950" expanded="true" signature="3619:3712" ph="INSERT INTO users... " />
+            <marker date="1493855663950" expanded="true" signature="4081:4140" ph="INSERT INTO users_password... " />
+            <marker date="1493855663950" expanded="true" signature="5027:5067" ph="SELECT Id FR... users" />
+            <marker date="1493855663950" expanded="true" signature="5195:5248" ph="SELECT userP... users_password" />
+            <marker date="1493855663950" expanded="true" signature="5520:5559" ph="UPDATE users... " />
           </folding>
         </state>
       </provider>
