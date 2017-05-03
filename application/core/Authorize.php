@@ -15,7 +15,7 @@ class Authorize
 
     public function __construct()
     {
-        include (ROOT . '/application/controllers/ControllerLogin.php');
+        require_once (ROOT . '/application/controllers/ControllerLogin.php');
         $this->controllerLogin = new ControllerLogin();
     }
 

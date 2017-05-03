@@ -44,13 +44,13 @@ class Router
         $modelFile = strtolower($modelName) . '.php';
         $modelPath = ROOT . '/application/models/' . $modelFile;
         if(file_exists($modelPath)) {
-            include ($modelPath);
+            require_once ($modelPath);
         }
         // подключаем файл с классом контроллера (должен быть всегда)
         $controllerFile = strtolower($controllerName) . '.php';
         $controllerPath = ROOT . '/application/controllers/' . $controllerFile;
         if(file_exists($controllerPath)) {
-            include ($controllerPath);
+            require_once ($controllerPath);
         }
         else {
             //редирект на 404
