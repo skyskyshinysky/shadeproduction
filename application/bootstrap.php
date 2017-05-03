@@ -14,7 +14,6 @@
     // подключаем CRUD и класс, отвечающий за авторизацию
     require_once (ROOT . '/application/core/DAL/MySQLInterface.php');
     require_once (ROOT . '/application/core/Authorize.php');
-
     // создаем объект класса CRUD и контроллер проверки авторизации пользователя
     $interfaceDatabase = new MySQLInterface();
     $authorize = new Authorize();

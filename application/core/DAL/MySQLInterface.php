@@ -559,4 +559,15 @@ class MySQLInterface
         $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
+    function generateCode($length=6) {
+
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHI JKLMNOPRQSTUVWXYZ0123456789";
+        $code = "";
+        $clen = strlen($chars) - 1;
+        while (strlen($code) < $length) {
+
+            $code .= $chars[mt_rand(0,$clen)];
+        }
+        return $code;
+    }
 }
