@@ -11,20 +11,25 @@ class Authorize
 
     public $databaseInterface;
     private $controllerLogin;
-    private $statusCookies;
+    public $statusCookies;
 
     public function __construct()
     {
         require_once (ROOT . '/application/controllers/ControllerLogin.php');
         $this->controllerLogin = new ControllerLogin();
+        $this->statusCookies = false;
     }
-
+    public function destroyCookie()
+    {
+        setcookie("Id", "", time() - 3600*24*30*12, "/");
+        setcookie("Hash", "", time() - 3600*24*30*12, "/");
+    }
     private function checkHash()
     {
         $userHash = $this->databaseInterface->getOne('SELECT userHash FROM users_password WHERE Id = ?s', $_COOKIE['Id']);
         // если хеши не сошлись
         if($userHash !== $_COOKIE['Hash']) {
-            $this->controllerLogin->destroyCookie();
+            $this->destroyCookie();
             return false;
         }
         return true;
@@ -42,8 +47,10 @@ class Authorize
             if(isset($_COOKIE['Id']) and isset($_COOKIE['Hash']))
             {
                 if(($this->statusCookies = $this->checkHash()) == true) {
-                    // редирект на страницу пользователя
-                    echo "Redirect default page user";
+                    // вытаскиваем Username
+                    $userName = $this->databaseInterface->getOne('SELECT userName FROM users WHERE Id = ?s', $_COOKIE['Id']);
+                    // редирект на страницу пользователя, где далее маршрут будет разбирать роутер
+                    header('Location: http://' . $_SERVER['HTTP_HOST'] . '/user/profile/' . $userName);
                 }
             }
             return;
@@ -52,17 +59,17 @@ class Authorize
         {
             if(($this->statusCookies = $this->checkHash()) == true) {
                 // оставляем на разбор роутеру
-                echo "Run router";
+                return;
             }
         }
-        else {
+        else
+        {
+            // получаем маршрут, если в маршруте уже на логин, то отдаем на разбор роутеру
             $routes = explode('/', $_SERVER['REQUEST_URI']);
             if(strcasecmp($routes[1], 'login') == 0) {
                 return;
             }
-            header("Location: http://www.shadeproduction.local/login");
-            echo "<br> No authorize";
-            echo '<br>' . $_SERVER['REQUEST_URI'];
+            header('Location: http:// ' . $_SERVER['HTTP_HOST'] . '/login');
         }
     }
 }

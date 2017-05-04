@@ -13,7 +13,7 @@ class Router
 
     }
 
-    function run($interface)
+    function run($interface, $authorizeController)
     {
         // контроллер и действие по умолчанию
         $controllerName = 'Main';
@@ -39,7 +39,6 @@ class Router
         echo "<br>Name Controller: ". $controllerName;
         echo "<br>Action : " . $actionName;
         echo "<br>Model : " . $modelName;
-
         // подключаем файл с классом модели (его может и не быть, это некритично)
         $modelFile = strtolower($modelName) . '.php';
         $modelPath = ROOT . '/application/models/' . $modelFile;
@@ -63,6 +62,7 @@ class Router
         if(method_exists($controller, $action)) {
             //вызова метода контроллера
             $controller->databaseInterface = $interface;
+            $controller->authorizeController = $authorizeController;
             $controller->$action();
         } else {
             //редирект на 404

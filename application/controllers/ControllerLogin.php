@@ -9,11 +9,7 @@
 class ControllerLogin extends Controller
 {
     private $mail;
-    public function destroyCookie()
-    {
-        setcookie("Id", "", time() - 3600*24*30*12, "/");
-        setcookie("Hash", "", time() - 3600*24*30*12, "/");
-    }
+
     public function setCookie($hash,$id)
     {
         setcookie("Id", $id, time()+60*60*24*30);
@@ -126,15 +122,18 @@ class ControllerLogin extends Controller
     function actionIndex()
     {
         $data['login_status'] = null;
+        // проверяем присутствие куков
+        if($this->authorizeController->statusCookies == true) {
+            // редиректим со страницы логина
+            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/');
+        }
         if(isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['password']) && !empty($_POST['password']))
         {
             // проводим аутентификацию, если $status == true, то редиректим на дефолтную страницу пользователя
             list($data, $status) = $this->checkAuthorizeParameters();
             if($status == true) {
-                echo "Redirect yopta";
-                die();
                 // редирект на дефолтную страницу пользователя
-                header('Location: www.shadeproduction.local');
+                header('Location: http://' . $_SERVER['HTTP_HOST']);
             }
         }
         $this->view->generate('loginView.php', 'templateView.php', $data);

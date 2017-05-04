@@ -1,4 +1,5 @@
 <h1>Тут типа страница активации</h1>
+<a href="/login">Log in</a>
 
 <?php extract($data); ?>
 <?php if($activationStatus == "activationCompletedSuccessfully") { ?>

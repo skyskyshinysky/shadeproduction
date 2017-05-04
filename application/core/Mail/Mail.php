@@ -10,12 +10,12 @@ class Mail
 {
     public $subject="Confirm email";
     public $body='Hello! Confirm your mailbox! Click on the link: ';
-    public $base_url='http://www.shadeproduction.local/login/';
     public $to;
 
     public function sendMail($activation)
     {
-        $this->body = $this->body . '<a href="'. $this->base_url.'activation/'.$activation.'">'. $this->base_url.'activation/'.$activation.'</a>';
+        $base_url='http://' . $_SERVER['HTTP_HOST'] . '/login/';
+        $this->body = $this->body . '<a href="'. $base_url.'activation/'.$activation.'">'. $base_url.'activation/'.$activation.'</a>';
         require 'class.phpmailer.php';
         $from       = "from@shadeproduction.local";
         $mail       = new PHPMailer();

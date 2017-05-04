@@ -11,6 +11,7 @@ class Controller
     public $view;
     public $model;
     public $databaseInterface;
+    public $authorizeController;
 
     function __construct()
     {

@@ -3,5 +3,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^login/activation/([a-zA-Z0-9_-]+)$ index.php?code=$1
 RewriteRule ^login/activation/([a-zA-Z0-9_-]+)/$ index.php?code=$1
+RewriteRule ^user/profile/([a-zA-Z0-9_-]+)$ index.php?userNameDefaultPage=$1
+RewriteRule ^user/profile/([a-zA-Z0-9_-]+)/$ index.php?userNameDefaultPage=$1
 RewriteRule .* index.php [QSA,L]
 Options -Indexes
