@@ -19,6 +19,29 @@ class ControllerLogin extends Controller
         setcookie("Id", $id, time()+60*60*24*30);
         setcookie("Hash", $hash, time()+60*60*24*30);
     }
+    private function checkAuthorizeParameters()
+    {
+        $data['login_status'] = 'access_granted';
+        $result = $this->databaseInterface->getRow('SELECT Id,statusActivation  FROM users WHERE userName = ?s', $_POST['userName']);
+        if(!empty($result['Id']) and $result['statusActivation'] != null)
+        {
+            $userPassword = $this->databaseInterface->getOne('SELECT userPassword FROM users_password WHERE Id = ?s', $result['Id']);
+            if(!empty($userPassword)) {
+                if($userPassword === md5(md5($_POST['password']))) {
+                    $hash = md5($this->databaseInterface->generateCode(10));
+                    $this->databaseInterface->query('UPDATE users_password SET userHash = ?s',$hash);
+                    $this->setCookie($hash,$result['Id']);
+                } else {
+                    $data['login_status'] = 'access_denied';
+                    return array($data, false);
+                }
+            }
+        } else {
+            $data['login_status'] = 'access_denied';
+            return array($data, false);
+        }
+        return array ($data, true);
+    }
     private function checkCorrectParameters()
     {
         $data['signInStatus'] = null;
@@ -105,20 +128,13 @@ class ControllerLogin extends Controller
         $data['login_status'] = null;
         if(isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['password']) && !empty($_POST['password']))
         {
-            $usernameId = $this->databaseInterface->getOne('SELECT Id FROM users WHERE userName = ?s', $_POST['userName']);
-            if(!empty($usernameId)) {
-                $userPassword = $this->databaseInterface->getOne('SELECT userPassword FROM users_password WHERE Id = ?s', $usernameId);
-                if(!empty($userPassword)) {
-                    if($userPassword === md5(md5($_POST['password']))) {
-                        $hash = md5($this->databaseInterface->generateCode(10));
-                        $this->databaseInterface->query('UPDATE users_password SET userHash = ?s',$hash);
-                        $this->setCookie($hash,$usernameId);
-                        $data['login_status'] = 'access_granted';
-                        // в будушем перенаправление на страницу пользователя
-                        //header("Location: www.shadeproduction.local/");
-                    }
-
-                }
+            // проводим аутентификацию, если $status == true, то редиректим на дефолтную страницу пользователя
+            list($data, $status) = $this->checkAuthorizeParameters();
+            if($status == true) {
+                echo "Redirect yopta";
+                die();
+                // редирект на дефолтную страницу пользователя
+                header('Location: www.shadeproduction.local');
             }
         }
         $this->view->generate('loginView.php', 'templateView.php', $data);
