@@ -24,6 +24,7 @@ class ControllerLogin extends Controller
             $userPassword = $this->databaseInterface->getOne('SELECT userPassword FROM users_password WHERE Id = ?s', $result['Id']);
             if(!empty($userPassword)) {
                 if($userPassword === md5(md5($_POST['password']))) {
+                    $data['userHash'] = $this->databaseInterface->getOne('SELECT userHash FROM users_password WHERE Id = ?s', $result['Id']);
                     $hash = md5($this->databaseInterface->generateCode(10));
                     $this->databaseInterface->query('UPDATE users_password SET userHash = ?s',$hash);
                     $this->setCookie($hash,$result['Id']);
@@ -76,7 +77,6 @@ class ControllerLogin extends Controller
             }
         }
         $this->view->generate('activationView.php', 'templateView.php', $data);
-        echo "<br>ControllerLogin/actionActiovation";
     }
     function actionSignIn()
     {
@@ -129,11 +129,14 @@ class ControllerLogin extends Controller
         }
         if(isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['password']) && !empty($_POST['password']))
         {
-            // проводим аутентификацию, если $status == true, то редиректим на дефолтную страницу пользователя
+            // проводим аутентификацию, если $status == true, то редиректим на дефолтную страницу пользователя в случае его парвого посещения
+            // иначе выкидываем на мейнПайдж
             list($data, $status) = $this->checkAuthorizeParameters();
-            if($status == true) {
+            if($status == true and empty($data['userHash'])) {
                 // редирект на дефолтную страницу пользователя
-                header('Location: http://' . $_SERVER['HTTP_HOST']);
+                header('Location: http://' . $_SERVER['HTTP_HOST'] . '/user/profile/' . $_POST['userName']);
+            } else {
+                header('Location: http://' . $_SERVER['HTTP_HOST'] . '/main');
             }
         }
         $this->view->generate('loginView.php', 'templateView.php', $data);

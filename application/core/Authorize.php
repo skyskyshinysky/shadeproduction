@@ -50,8 +50,11 @@ class Authorize
                     // вытаскиваем Username
                     $userName = $this->databaseInterface->getOne('SELECT userName FROM users WHERE Id = ?s', $_COOKIE['Id']);
                     // редирект на страницу пользователя, где далее маршрут будет разбирать роутер
-                    header('Location: http://' . $_SERVER['HTTP_HOST'] . '/user/profile/' . $userName);
+                    header('Location: http://' . $_SERVER['HTTP_HOST'] . '/main');
                 }
+            }
+            else {
+                header('Location: http://' . $_SERVER['HTTP_HOST'] . '/main/welcome');
             }
             return;
         }
@@ -66,7 +69,7 @@ class Authorize
         {
             // получаем маршрут, если в маршруте уже на логин, то отдаем на разбор роутеру
             $routes = explode('/', $_SERVER['REQUEST_URI']);
-            if(strcasecmp($routes[1], 'login') == 0) {
+            if(strcasecmp($routes[1], 'login') == 0 or strcasecmp($routes[1], 'main') == 0) {
                 return;
             }
             header('Location: http:// ' . $_SERVER['HTTP_HOST'] . '/login');

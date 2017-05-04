@@ -14,8 +14,11 @@ class UserService
     {
         $this->databaseInterface = $interface;
     }
-    public function getUser($userName)
+    public function getUser($userName = null)
     {
+        if($userName == null) {
+            $userName = $this->databaseInterface->getRow('SELECT userName FROM users WHERE Id = ?s', $_COOKIE['Id']);
+        }
         $modelUser = new ModelUser($userName);
         $result = $this->databaseInterface->getRow('SELECT * FROM users WHERE userName = ?s', $modelUser->userName);
         $modelUser->id = $result['Id'];
@@ -23,5 +26,9 @@ class UserService
         $modelUser->lastName = $result['lastName'];
         $modelUser->email = $result['email'];
         return $modelUser;
+    }
+    public function getNameUser()
+    {
+        return $this->getUser()->userName;
     }
 }
