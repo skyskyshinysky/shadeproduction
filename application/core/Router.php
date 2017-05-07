@@ -36,9 +36,9 @@ class Router
         $actionName = 'action'. ucfirst($actionName);
 
         // выводим сформированные данные для отладки
-        echo "<br>Name Controller: ". $controllerName;
+    /*    echo "<br>Name Controller: ". $controllerName;
         echo "<br>Action : " . $actionName;
-        echo "<br>Model : " . $modelName;
+        echo "<br>Model : " . $modelName;*/
         // подключаем файл с классом модели (его может и не быть, это некритично)
         $modelFile = strtolower($modelName) . '.php';
         $modelPath = ROOT . '/application/models/' . $modelFile;
@@ -53,6 +53,8 @@ class Router
         }
         else {
             //редирект на 404
+            echo "404";
+            die();
             $this->ErrorPage404();
         }
         $controller = new $controllerName;
@@ -66,6 +68,8 @@ class Router
             $controller->$action();
         } else {
             //редирект на 404
+            echo "404";
+            die();
             $this->ErrorPage404();
         }
     }

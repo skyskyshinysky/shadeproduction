@@ -8,8 +8,6 @@
  */
 class ControllerLogin extends Controller
 {
-    private $mail;
-
     public function setCookie($hash,$id)
     {
         setcookie("Id", $id, time()+60*60*24*30);
@@ -18,7 +16,7 @@ class ControllerLogin extends Controller
     private function checkAuthorizeParameters()
     {
         $data['login_status'] = 'access_granted';
-        $result = $this->databaseInterface->getRow('SELECT Id,statusActivation  FROM users WHERE userName = ?s', $_POST['userName']);
+        $result = $this->databaseInterface->getRow('SELECT *  FROM users WHERE userName = ?s', $_POST['userName']);
         if(!empty($result['Id']) and $result['statusActivation'] != null)
         {
             $userPassword = $this->databaseInterface->getOne('SELECT userPassword FROM users_password WHERE Id = ?s', $result['Id']);
@@ -37,7 +35,7 @@ class ControllerLogin extends Controller
             $data['login_status'] = 'access_denied';
             return array($data, false);
         }
-        return array ($data, true);
+        return array ($data, true, $result['typeAccount']);
     }
     private function checkCorrectParameters()
     {
@@ -82,39 +80,17 @@ class ControllerLogin extends Controller
     {
         $data['signInStatus'] = null;
         // проверка на существование данных, которые необходимо обработать
-        if(isset($_POST['firstName']) && !empty($_POST['firstName']) && isset($_POST['lastName']) &&
-            !empty($_POST['lastName']) && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['reEnterEmail']) &&
+        if((isset($_POST['firstName']) && !empty($_POST['firstName']) && isset($_POST['lastName']) &&
+            !empty($_POST['lastName'])) or isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['reEnterEmail']) &&
             !empty($_POST['reEnterEmail']) && isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['password']) &&
-            !empty($_POST['password']))
+            !empty($_POST['password']) && isset($_POST['typeAccount']) && !empty($_POST['typeAccount']))
         {
             list ($data, $status) = $this->checkCorrectParameters();
             if($status == true){
-                // попытка получения записи с заданным почтовым ящиком или ником
-                $result = $this->databaseInterface->getOne("SELECT Id FROM users WHERE email = ?s OR username = ?s", $_POST['email'], $_POST['userName']);
-                // если пользователя не существует
-                if(empty($result)) {
-                    //подключаем класс для подтверждения регистрации пользователя
-                    require_once (ROOT . '/application/core/Mail/Mail.php');
-                    //генерируем Id пользователя
-                    $guid = $this->databaseInterface->guidv4();
-                    //добавляем в таблицу и генерируем activation code
-                    $activation=md5($_POST['email'].time());
-                    $this->databaseInterface->query('INSERT INTO users (Id,firstName,lastName,userName,email,activation) VALUES(?s,?s,?s,?s,?s,?s)', $guid,
-                        $_POST['firstName'], $_POST['lastName'], $_POST['userName'],  $_POST['email'],$activation);
-                    //убираем лишние пробелы и делаем двойное шифрование
-                    $password = md5(md5(trim($_POST['password'])));
-                    //добавляем запись в таблицу
-                    $this->databaseInterface->query('INSERT INTO users_password (Id, userPassword) VALUES(?s,?s)', $guid, $password);
-                    // формируем электронное письмо подтверждения регистрации
-                    $this->mail = new Mail();
-                    $this->mail->to=$_POST['email'];
-                    $this->mail->sendMail($activation);
-                    // формируем статус регистрации
-                    $data['signInStatus'] = "registrationCompletedSuccessfully";
-                }
-                else {
-                    $data['signInStatus'] = "registrationFailed";
-                }
+                // подключаем сервис работы с пользователем
+                require_once (ROOT . '/application/services/UserService.php');
+                $serviceUser = new UserService($this->databaseInterface);
+                $data = $serviceUser->saveUser();
             }
         }
         $this->view->generate('singInView.php', 'templateView.php', $data);
@@ -130,13 +106,19 @@ class ControllerLogin extends Controller
         if(isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['password']) && !empty($_POST['password']))
         {
             // проводим аутентификацию, если $status == true, то редиректим на дефолтную страницу пользователя в случае его парвого посещения
-            // иначе выкидываем на мейнПайдж
-            list($data, $status) = $this->checkAuthorizeParameters();
-            if($status == true and empty($data['userHash'])) {
-                // редирект на дефолтную страницу пользователя
-                header('Location: http://' . $_SERVER['HTTP_HOST'] . '/user/profile/' . $_POST['userName']);
-            } else {
-                header('Location: http://' . $_SERVER['HTTP_HOST'] . '/main');
+            // иначе выкидываем на мейнПейдж
+            list($data, $status, $typeAccount) = $this->checkAuthorizeParameters();
+            if($status == true and strcasecmp($typeAccount, 'user') == 0) {
+                if($data['userHash'] == null) {
+                    // редирект на дефолтную страницу пользователя
+                    header('Location: http://' . $_SERVER['HTTP_HOST'] . '/user/profile/' . $_POST['userName']);
+                } else {
+                    // если не первая авторизация, то редиректим на мейнпейдж
+                    header('Location: http://' . $_SERVER['HTTP_HOST'] . '/main');
+                }
+            } elseif ($status == true and strcasecmp($typeAccount, 'band') == 0) {
+                // редирект на дефолтную страницу банды
+                header('Location: http://' . $_SERVER['HTTP_HOST'] . '/user/profileBand/' . $_POST['userName']);
             }
         }
         $this->view->generate('loginView.php', 'templateView.php', $data);

@@ -1,12 +1,59 @@
-<form id="form" method="post">
-    First Name: <input type="text" name="firstName" title="First Name"/> <br>
-    Last Name : <input  type="text" name="lastName" title="Last Name"/> <br>
-    Email: <input type="email" name="email" title="Email"/> <br>
-    Re-enter Email: <input type="email" name="reEnterEmail" title="Re-enter Email"/> <br>
-    Username: <input type="text" name="userName" title="Username"/> <br>
-    Password: <input type="password" name="password" title="Password"/> <br>
-    <button type="submit" id="save" >Create an account</button>
-</form>
+<script>
+    function selectEditInformation()
+    {
+        if($('#accountType').val() == 'band') {
+            $('#firstNameLine').hide();
+            $('#lastNameLine').hide();
+        } else {
+            $('#firstNameLine').show();
+            $('#lastNameLine').show();
+        }
+
+    }
+    $(document).ready(function() {
+        $('#accountType').on('change', selectEditInformation);
+    });
+</script>
+<div id="addItem">
+    <form id="form" method="post">
+        <select id="accountType" name="typeAccount">
+            <option>user</option>
+            <option>band</option>
+        </select>
+    <div>
+        <table>
+            <tr id="firstNameLine">
+                <td>First Name:</td>
+                <td><input id="firstName" type="text" name="firstName" title="First Name"/></td>
+            </tr>
+            <tr id="lastNameLine">
+                <td>Last Name :</td>
+                <td><input id="lastName" type="text" name="lastName" title="Last Name"/></td>
+            </tr>
+            <tr id="userNameLine">
+                <td>Username:</td>
+                <td><input id="userName" type="text" name="userName" title="Username"/></td>
+            </tr>
+            <tr id="emailNameLine">
+                <td>Email: </td>
+                <td><input id="email" type="email" name="email" title="Email"/></td>
+            </tr>
+            <tr id="reEnterEmailNameLine">
+                <td>Re-enter Email:</td>
+                <td><input id="reEnterEmail" type="email" name="reEnterEmail" title="Re-enter Email"/></td>
+            </tr>
+            <tr id="passwordUserLine">
+                <td>Password:</td>
+                <td><input id="passwordUser" type="password" name="password" title="Password"/></td>
+            </tr>
+            <tr id="userNameLine">
+                <td><button type="submit" id="save" >Create an account</button></td>
+            </tr>
+
+        </table>
+    </div>
+    </form>
+</div>
 <?php extract($data); ?>
 <?php
     if($signInStatus == "registrationCompletedSuccessfully") { ?>

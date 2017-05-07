@@ -28,4 +28,13 @@ class ModelUser extends Model
             'email' => $this->email
         );
     }
+    function getDataBand()
+    {
+        return array(
+            'Id' => $this->id,
+            'userName' => $this->userName,
+            'email' => $this->email
+        );
+    }
+
 }
