@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4e841a0f-2685-415c-be05-fc17d61a8a99" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/images/404.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/services/ImageService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/services/MusicService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/404View.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/bandView.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/musicBandView.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/audioPlayer.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/audioplayer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.htaccess" afterPath="$PROJECT_DIR$/.htaccess" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/ControllerLogin.php" afterPath="$PROJECT_DIR$/application/controllers/ControllerLogin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/ControllerUser.php" afterPath="$PROJECT_DIR$/application/controllers/ControllerUser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/core/Router.php" afterPath="$PROJECT_DIR$/application/core/Router.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/ModelUser.php" afterPath="$PROJECT_DIR$/application/models/ModelUser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/services/UserService.php" afterPath="$PROJECT_DIR$/application/services/UserService.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/singInView.php" afterPath="$PROJECT_DIR$/application/views/singInView.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/templateView.php" afterPath="$PROJECT_DIR$/application/views/templateView.php" />
-    </list>
+    <list default="true" id="4e841a0f-2685-415c-be05-fc17d61a8a99" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,8 +52,8 @@
       <file leaf-file-name="ImageService.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/services/ImageService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+            <state relative-caret-position="238">
+              <caret line="14" column="46" lean-forward="true" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
               <folding>
                 <marker date="1494168325165" expanded="true" signature="334:390" ph="INSERT INTO music... " />
                 <marker date="1494168325165" expanded="true" signature="558:607" ph="SELECT nameL... logo" />
@@ -470,12 +452,12 @@
       <workItem from="1493835788770" duration="4436000" />
       <workItem from="1493846630365" duration="8965000" />
       <workItem from="1493887788090" duration="30688000" />
-      <workItem from="1494106922438" duration="22019000" />
+      <workItem from="1494106922438" duration="22590000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97475000" />
+    <option name="totallyTimeSpent" value="98046000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-186" width="1936" height="1056" extended-state="6" />
@@ -902,8 +884,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/services/ImageService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        <state relative-caret-position="238">
+          <caret line="14" column="46" lean-forward="true" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
           <folding>
             <marker date="1494168325165" expanded="true" signature="334:390" ph="INSERT INTO music... " />
             <marker date="1494168325165" expanded="true" signature="558:607" ph="SELECT nameL... logo" />
