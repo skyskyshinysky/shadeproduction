@@ -8,6 +8,7 @@
  */
 class ControllerUser extends Controller
 {
+
     function actionProfile() {
         $data = null;
         require_once(ROOT . '/application/services/UserService.php');
@@ -23,26 +24,60 @@ class ControllerUser extends Controller
         }
         $this->view->generate('404View.php', 'templateView.php', $data);
     }
+    function actionSendMessage(){
+
+        require_once(ROOT . '/application/services/CommentService.php');
+        $message = json_decode($_POST['message']);
+        if( $this->authorizeController->statusCookies == true and isset($message)
+            and !empty($message)) {
+            $commentService = new CommentService($this->databaseInterface);
+            $commentService->addComment();
+        }
+    }
+    function actionGetCountComments()
+    {
+        require_once(ROOT . '/application/services/CommentService.php');
+        $commentService = new CommentService($this->databaseInterface);
+        echo htmlspecialchars($commentService->countCommentService());
+    }
+    function actionGetComments()
+    {
+        require_once(ROOT . '/application/services/CommentService.php');
+        $commentService = new CommentService($this->databaseInterface);
+        echo json_encode($commentService->getComments());
+    }
+    function actionGetPageNum()
+    {
+        require_once(ROOT . '/application/services/CommentService.php');
+        $commentService = new CommentService($this->databaseInterface);
+        echo json_encode($commentService->getComments($_GET['pageNum']));
+
+    }
     function actionProfileBand() {
         $data = null;
         require_once(ROOT . '/application/services/UserService.php');
         require_once(ROOT . '/application/services/ImageService.php');
+        require_once (ROOT . '/application/services/MusicService.php');
+
         $userService = new UserService($this->databaseInterface);
         $imageService = new ImageService($this->databaseInterface);
-        if(($this->model = $userService->getBand($_GET['userNameDefaultPage'])) != null
+        $musicService = new MusicService($this->databaseInterface);
+
+        if(isset($_GET['userNameDefaultPage']) and ($this->model = $userService->getBand($_GET['userNameDefaultPage'])) != null
             and $this->authorizeController->statusCookies == true)
         {
             $data = $this->model->getDataBand();
-            if(isset($_POST['submit'])) {
+            if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
                 $imageService->uploadLogo();
             }
             $data['logoBand'] = $imageService->getLogoBand();
+            $data['musicBand'] = $musicService->getMusicBand();
             $this->view->generate('bandView.php', 'templateView.php', $data);
             return;
         }
         $this->view->generate('404View.php', 'templateView.php', $data);
     }
-    function actionMusicBand()
+    function actionUploadMusicBand()
     {
 
         $data = null;
@@ -57,7 +92,7 @@ class ControllerUser extends Controller
             }
             $data = $this->model->getDataBand();
             $data['musicBand'] = $musicService->getMusicBand();
-            $this->view->generate('musicBandView.php', 'templateView.php', $data);
+            $this->view->generate('uploadMusicBandView.php', 'templateView.php', $data);
             return;
         }
         $this->view->generate('404View.php', 'templateView.php', $data);

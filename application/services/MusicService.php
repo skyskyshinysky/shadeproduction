@@ -11,15 +11,14 @@ class MusicService
 
     private function saveMusic($uploadDir)
     {
-        $this->databaseInterface->query('INSERT INTO music (Id,nameMusic,pathFile,bandId) VALUES(?s,?s,?s,?s)',  $this->databaseInterface->guidv4(),
-            $_FILES['uploadFile']['name'], $uploadDir, $_COOKIE['Id']);
+        $this->databaseInterface->query('INSERT INTO music (Id,nameMusic,pathFile,bandId,genreMusic) VALUES(?s,?s,?s,?s,?s)',  $this->databaseInterface->guidv4(),
+            $_FILES['uploadFile']['name'], $uploadDir, $_COOKIE['Id'], $_POST['genreMusic']);
     }
     function uploadMusic()
     {
         // Каталог, в который мы будем принимать файл:
         $uploadDir = ROOT . '\data\music\\' ;
         $uploadFile = $uploadDir.basename($_FILES['uploadFile']['name']);
-
         // Копируем файл из каталога для временного хранения файлов:
         if (copy($_FILES['uploadFile']['tmp_name'], $uploadFile))
         {
@@ -36,6 +35,9 @@ class MusicService
         $this->saveMusic('\data\music\\');
     }
     function getMusicBand(){
-        return $this->databaseInterface->getAll('SELECT nameMusic, pathFile FROM music WHERE bandId = ?s', $_COOKIE['Id']);
+        $fullPath = explode('/', $_SERVER['REQUEST_URI']);
+
+        return $this->databaseInterface->getAll('SELECT nameMusic, pathFile FROM music WHERE bandId = ?s',
+            $this->databaseInterface->getOne('SELECT Id FROM users WHERE userName=?s', $fullPath[3]));
     }
 }

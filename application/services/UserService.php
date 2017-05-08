@@ -31,13 +31,16 @@ class UserService
         $modelUser->email = $result['email'];
         return $modelUser;
     }
-    public function getBand($userName = null)
+    public function getBand($userName)
     {
         if($userName == null) {
-            $userName = $this->databaseInterface->getRow('SELECT userName FROM users WHERE Id = ?s', $_COOKIE['Id']);
+            return null;
         }
         $modelUser = new ModelUser($userName);
         $result = $this->databaseInterface->getRow('SELECT * FROM users WHERE userName = ?s', $modelUser->userName);
+        if($result == null) {
+            return null;
+        }
         $modelUser->id = $result['Id'];
         $modelUser->email = $result['email'];
         return $modelUser;
