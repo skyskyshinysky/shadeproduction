@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Май 08 2017 г., 20:59
+-- Время создания: Май 08 2017 г., 23:08
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.1
 
@@ -50,7 +50,7 @@ CREATE TABLE `logo` (
 --
 
 INSERT INTO `logo` (`Id`, `nameLogo`, `pathFile`) VALUES
-('29d2e7e5-ebd4-459d-9fe7-a675798d659c', 'photo_2017-04-24_21-27-18.jpg', '\\data\\images\\logo\\');
+('27ff66da-8fe8-405e-97ec-218cf02f763a', 'photo_2017-04-24_21-27-18.jpg', '\\data\\images\\logo\\');
 
 -- --------------------------------------------------------
 
@@ -71,7 +71,7 @@ CREATE TABLE `music` (
 --
 
 INSERT INTO `music` (`Id`, `nameMusic`, `pathFile`, `bandId`, `genreMusic`) VALUES
-('25385b33-eefc-41dd-921b-2b1c1848536d', '10. Blood Like Gasoline.mp3', '\\data\\music\\', '29d2e7e5-ebd4-459d-9fe7-a675798d659c', 'Rock');
+('bd12ed30-a778-43ef-bce9-f87159ba65fd', '01. Running With The Wild Things.mp3', '\\data\\music\\', '27ff66da-8fe8-405e-97ec-218cf02f763a', 'Rock');
 
 -- --------------------------------------------------------
 
@@ -97,8 +97,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Id`, `firstName`, `lastName`, `userName`, `email`, `activation`, `statusActivation`, `typeAccount`, `genreMusic`, `bandName`) VALUES
-('29d2e7e5-ebd4-459d-9fe7-a675798d659c', '', '', 'shadeproduction', '1362856@mail.ru', '4348ab1cf11ae7770dc48c9baa834177', 1, 'band', NULL, 'Enter Shikari'),
-('bb063dff-5e20-4e1a-a08e-bb1c83b99b92', 'Ilya', 'Pankov', 'ilyapankov', 'skyskyshinysky@yandex.ru', '264de01bcaf4060490d3a1ed0048e26f', 1, 'user', NULL, NULL);
+('27ff66da-8fe8-405e-97ec-218cf02f762', NULL, NULL, 'kakaha', 'qwe@mail.ru', '1123131231231231231231231', 1, 'band', 'Rock', 'Shikari'),
+('27ff66da-8fe8-405e-97ec-218cf02f763a', '', '', 'shadeproduction', '1362856@mail.ru', '539341207999e03bc96e8f01e10c7104', 1, 'band', 'Rock', 'Enter Shikari'),
+('a74f0ba6-4209-481c-a57b-2f91ab304056', 'Ilya', 'Pankov', 'ilyapankov', 'skyskyshinysky@yandex.ru', 'cecfcaab0495cb4d1d687cdbfa7c2a8a', 1, 'user', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -117,8 +118,8 @@ CREATE TABLE `users_password` (
 --
 
 INSERT INTO `users_password` (`Id`, `userPassword`, `userHash`) VALUES
-('29d2e7e5-ebd4-459d-9fe7-a675798d659c', 'ea1b20f09d53fe011c0369e47a8f1514', '05d7ac019f059cc093f1bb144a3de66f'),
-('bb063dff-5e20-4e1a-a08e-bb1c83b99b92', 'ea1b20f09d53fe011c0369e47a8f1514', '05d7ac019f059cc093f1bb144a3de66f');
+('27ff66da-8fe8-405e-97ec-218cf02f763a', 'ea1b20f09d53fe011c0369e47a8f1514', 'dc540764cb5291e7720a65c6b4df3306'),
+('a74f0ba6-4209-481c-a57b-2f91ab304056', 'ea1b20f09d53fe011c0369e47a8f1514', 'dc540764cb5291e7720a65c6b4df3306');
 
 --
 -- Индексы сохранённых таблиц

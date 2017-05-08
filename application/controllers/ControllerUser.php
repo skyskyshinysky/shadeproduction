@@ -38,10 +38,11 @@ class ControllerUser extends Controller
     {
         require_once(ROOT . '/application/services/UserService.php');
         $message = json_decode($_POST['message']);
+        $jenreMusic = json_decode($_POST['jenre']);
         if( $this->authorizeController->statusCookies == true and isset($message)
             and !empty($message)) {
             $userService = new UserService($this->databaseInterface);
-            $userService->renameBand($message);
+            $userService->editBand($message, $jenreMusic);
         }
     }
     function actionGetCountComments()

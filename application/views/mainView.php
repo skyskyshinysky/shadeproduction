@@ -25,7 +25,7 @@
     }
 
     #search {
-        background: url('pics/find.png') no-repeat 1px 0px;
+        background: url('/data/images/find.png') no-repeat 1px 0px;
         border:solid 1px #6D8EB2;
         background-color: #EEF2F6;
         font-size:12px;
@@ -75,20 +75,18 @@
     function getResult(){
         query = $("#search").val();
     }
-    function updateBoxContent(items)
+    function updateBoxContent(bands, music)
     {
-        if($("#parameterSearching").val() == 'Genre Music') {
-            for (var i = 0; i < Math.round(items.length/2); i++){
-                boxContent = boxContent + '<div class="item" cat="'+items[0].nameMusic +'">'+items[0].nameMusic+'</div>';
+        if(typeof bands[0].userName !== 'undefined'){
+            for(var count = 0; count < bands.length; count++) {
+                boxContent = boxContent + '<div class="item" cat=/user/profileBand/'+ bands[count].userName +'>'+bands[count].bandName+'</div>';
             }
-        } else if($("#parameterSearching").val() == 'Users') {
-            for (var i = 0; i < Math.round(items.length/2); i++){
-                boxContent = boxContent + '<div class="item" cat="'+items[0].userName +'">' + items[0].firstName + ' ' +items[0].lastName+'</div>';
-            }
-        } else {
-            boxContent = boxContent + '<div class="item" cat="'+items[0].userName +'">' + items[0].bandName + '</div>';
         }
-
+        if(typeof music[0].nameMusic !== 'undefined'){
+            for(var count = 0; count < music.length; count++) {
+                boxContent = boxContent + '<div class="item" cat="'+ music[count].nameMusic +'">'+music[count].nameMusic+'</div>';
+            }
+        }
     }
     function callbackSearching(code)
     {
@@ -98,20 +96,23 @@
             return;
         }
         querySearhing = $("#search").val();
-        queryParameterSearhing = $("#parameterSearching").val();
         if(querySearhing.length >= 3) {
             boxContent = '';
-            $.post("/main/searchBox", {searchString: querySearhing ,
-                parameterSearching: queryParameterSearhing},function(data){
+            $.post("/main/searchBox", {searchString: querySearhing},function(data){
                 if(data!='') {
                     if(!visib) {
                         $("#box").fadeIn(100);
                         visib = true;
                     }
                     boxContent = '';
-                    console.log(data);
                     items = JSON.parse(data);
-                    updateBoxContent(items);
+                    bands = $.map(items,function (val, bands) {
+                        return val;
+                    });
+                    music = $.map(items,function (val, music) {
+                        return val;
+                    });
+                    updateBoxContent(bands, music);
                     $("#box").html(boxContent);
                     $(".item").bind("click",itmclick);
                     } else {
@@ -126,24 +127,19 @@
     }
     function callbackFocusout()
     {
-        if($(this).val()=='') $(this).val('Поиск...');
+        if($(this).val()=='') $(this).val('Enter a name or band...');
         $("#box").fadeOut(100);
         visib = false;
     }
     function callbackFocusin()
     {
-        if($(this).val()=='Поиск...') $(this).val('');
+        if($(this).val()=='Enter a name or band...') $(this).val('');
     }
 
     function itmclick(){
-        if($("#parameterSearching").val() == 'Users') {
-            window.location.pathname = '/user/profile/'+$(this).attr("cat");
-        }else if($("#parameterSearching").val() == 'Bands') {
-            window.location.pathname = '/user/profileBand/'+$(this).attr("cat");
-        }else {
-
-        }
+        window.location.pathname = $(this).attr("cat");
     }
+    
     $(document).ready(function () {
         $("#search").on('keyup', callbackSearching);
         $("#search").on('focusout', callbackFocusout);
@@ -152,10 +148,12 @@
 </script>
 <a href="/user/profile">Music</a>
 <a href="/user/profile">Artists</a>
-<input type="text" size="50" maxlength="100" autocomplete="off" id="search" value="Поиск..."/>
-<select id="parameterSearching" name="parameterSearching">
-    <option>Genre Music</option>
-    <option>Users</option>
-    <option>Bands</option>
+<input type="text" size="50" maxlength="100" autocomplete="off" id="search" value="Enter a name or band..."/>
+<select id="genreMusic" name="genreMusic">
+    <option>Rock</option>
+    <option>Classic</option>
+    <option>Rap</option>
+    <option>Pop</option>
+    <option>Punk</option>
 </select>
 <div id="box"></div>

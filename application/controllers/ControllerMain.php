@@ -10,21 +10,10 @@ class ControllerMain extends Controller
 {
     function actionSearchBox()
     {
-        switch ($_POST['parameterSearching']) {
-            case 'Genre Music':
-                echo json_encode($this->databaseInterface->getAll('SELECT nameMusic, genreMusic FROM music WHERE nameMusic LIKE ?s OR genreMusic LIKE ?s LIMIT 15',
-                    $_POST['searchString'], $_POST['searchString']));
-                break;
-            case 'Users':
-                echo json_encode($this->databaseInterface->getAll('SELECT firstName, lastName, userName FROM users WHERE userName LIKE ?s OR firstName LIKE ?s OR lastName LIKE ?s LIMIT 15',
-                    $_POST['searchString'], $_POST['searchString'], $_POST['searchString']));
-                break;
-            case 'Bands':
-                echo json_encode($this->databaseInterface->getAll('SELECT bandName,userName FROM users WHERE typeAccount = ?s AND userName LIKE ?s OR bandName LIKE ?s LIMIT 15', "band",
-                    $_POST['searchString'], $_POST['searchString']));
-                break;
-
-        }
+        $searchString = $_POST["searchString"];
+        $data['music'] =  $this->databaseInterface->getAll('SELECT nameMusic, genreMusic FROM music WHERE nameMusic LIKE ?s LIMIT 15', "%$searchString%");
+        $data['bands'] = $this->databaseInterface->getAll('SELECT userName,bandName,genreMusic FROM users WHERE bandName LIKE ?s LIMIT 15', "%$searchString%");
+        echo json_encode($data);
     }
     function actionIndex()
     {

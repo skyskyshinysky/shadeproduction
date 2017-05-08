@@ -66,7 +66,7 @@
             type: 'POST',
             dataType: 'text',
             url: "/user/sendMessageRenameBand",
-            data: "message=" + JSON.stringify($('#renameBand').val()),
+            data: 'message=' + JSON.stringify($('#renameBand').val()) + '&jenre=' + JSON.stringify($('#genreMusic').val()),
             success: function(result) {
                 $('#nameBand').text(data);
             },
@@ -95,7 +95,6 @@
         initializeComments();
         $( 'audio' ).audioPlayer();
         initPageNumbers();
-
     });
 
 </script>
@@ -124,7 +123,14 @@
     echo '</form><br>';
     echo  $email . '<br>';
     if($owner) {
-        echo '<input type="text" size="30" maxlength="70" autocomplete="off" id="renameBand" value="Name band..."/><button id="sendMessageRenameBand">Rename Band</button>';
+        echo '<input type="text" size="30" maxlength="70" autocomplete="off" id="renameBand" value="Name band..."/>
+        <select id="genreMusic" name="genreMusic">
+                <option>Rock</option>
+                <option>Classic</option>
+                <option>Rap</option>
+                <option>Pop</option>
+                <option>Punk</option>
+        </select><button id="sendMessageRenameBand">Rename Band</button>';
         echo '<a href=/user/uploadMusicBand/'. $userName . '>Upload Music</a><br>';
     }
 ?>
