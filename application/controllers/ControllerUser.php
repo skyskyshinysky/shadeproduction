@@ -34,6 +34,16 @@ class ControllerUser extends Controller
             $commentService->addComment();
         }
     }
+    function actionSendMessageRenameBand()
+    {
+        require_once(ROOT . '/application/services/UserService.php');
+        $message = json_decode($_POST['message']);
+        if( $this->authorizeController->statusCookies == true and isset($message)
+            and !empty($message)) {
+            $userService = new UserService($this->databaseInterface);
+            $userService->renameBand($message);
+        }
+    }
     function actionGetCountComments()
     {
         require_once(ROOT . '/application/services/CommentService.php');
@@ -72,11 +82,16 @@ class ControllerUser extends Controller
             }
             $data['logoBand'] = $imageService->getLogoBand();
             $data['musicBand'] = $musicService->getMusicBand();
+            $data['owner'] = false;
+            if(strcasecmp($_COOKIE['Id'], $this->model->id) == 0) {
+                $data['owner'] = true;
+            }
             $this->view->generate('bandView.php', 'templateView.php', $data);
             return;
         }
         $this->view->generate('404View.php', 'templateView.php', $data);
     }
+
     function actionUploadMusicBand()
     {
 

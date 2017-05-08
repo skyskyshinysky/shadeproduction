@@ -16,8 +16,8 @@ class ImageService
     }
     private function saveLogo($uploadDir)
     {
-        $this->databaseInterface->query('INSERT INTO logo (Id,nameLogo,pathFile) VALUES(?s,?s,?s)',  $_COOKIE['Id'],
-            $_FILES['uploadFileLogo']['name'], $uploadDir);
+        $this->databaseInterface->query('INSERT INTO logo (Id,nameLogo,pathFile) VALUES(?s,?s,?s) ON DUPLICATE KEY UPDATE nameLogo=?s',
+            $_COOKIE['Id'], $_FILES['uploadFileLogo']['name'], $uploadDir, $_FILES['uploadFileLogo']['name']);
     }
     function getLogoBand()
     {

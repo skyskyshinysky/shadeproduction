@@ -29,6 +29,8 @@ class UserService
         $modelUser->firstName = $result['firstName'];
         $modelUser->lastName = $result['lastName'];
         $modelUser->email = $result['email'];
+        $modelUser->bandName = $result['bandName'];
+        $modelUser->genreMusic = $result['genreMusic'];
         return $modelUser;
     }
     public function getBand($userName)
@@ -42,8 +44,21 @@ class UserService
             return null;
         }
         $modelUser->id = $result['Id'];
+        $modelUser->bandName = $result['bandName'];
         $modelUser->email = $result['email'];
+        $modelUser->genreMusic = $result['genreMusic'];
         return $modelUser;
+    }
+    public function renameBand($nameBand)
+    {
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
+        $modelUser = $this->getBand($fullPath[5]);
+        $modelUser->bandName = $nameBand;
+        $this->updateUser($modelUser);
+    }
+    public function updateUser($modelUser)
+    {
+        $this->databaseInterface->query('UPDATE users SET email=?s ,genreMusic=?s, bandName=?s',$modelUser->email, $modelUser->genreMusic, $modelUser->bandName);
     }
     public function getNameUser()
     {

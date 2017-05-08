@@ -13,6 +13,8 @@ class ModelUser extends Model
     public $lastName;
     public $userName;
     public $email;
+    public $bandName;
+    public $genreMusic;
 
     function __construct($username)
     {
@@ -33,7 +35,8 @@ class ModelUser extends Model
         return array(
             'Id' => $this->id,
             'userName' => $this->userName,
-            'email' => $this->email
+            'email' => $this->email,
+            'bandName' => $this->bandName
         );
     }
 
