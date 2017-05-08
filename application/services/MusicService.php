@@ -36,7 +36,6 @@ class MusicService
     }
     function getMusicBand(){
         $fullPath = explode('/', $_SERVER['REQUEST_URI']);
-
         return $this->databaseInterface->getAll('SELECT nameMusic, pathFile FROM music WHERE bandId = ?s',
             $this->databaseInterface->getOne('SELECT Id FROM users WHERE userName=?s', $fullPath[3]));
     }

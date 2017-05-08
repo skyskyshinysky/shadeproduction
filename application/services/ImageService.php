@@ -21,7 +21,9 @@ class ImageService
     }
     function getLogoBand()
     {
-        return $this->databaseInterface->getRow('SELECT nameLogo, pathFile FROM logo WHERE Id = ?s', $_COOKIE['Id']);
+        $fullPath = explode('/', $_SERVER['REQUEST_URI']);
+        return $this->databaseInterface->getRow('SELECT nameLogo, pathFile FROM logo WHERE Id = ?s',
+            $this->databaseInterface->getOne('SELECT Id FROM users WHERE userName=?s', $fullPath[3]));
     }
     function uploadLogo()
     {
