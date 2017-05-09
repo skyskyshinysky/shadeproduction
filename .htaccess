@@ -7,6 +7,8 @@ RewriteRule ^user/profile/([a-zA-Z0-9_-]+)/$ index.php?userNameDefaultPage=$1
 RewriteRule ^user/profile/([a-zA-Z0-9_-]+)$ index.php?userNameDefaultPage=$1
 RewriteRule ^user/profileBand/([a-zA-Z0-9_-]+)/$ index.php?userNameDefaultPage=$1
 RewriteRule ^user/profileBand/([a-zA-Z0-9_-]+)$ index.php?userNameDefaultPage=$1
+RewriteRule ^user/profileBandEdit/([a-zA-Z0-9_-]+)/$ index.php?userNameDefaultPage=$1
+RewriteRule ^user/profileBandEdit/([a-zA-Z0-9_-]+)$ index.php?userNameDefaultPage=$1
 RewriteRule ^user/uploadMusicBand/([a-zA-Z0-9_-]+)/$ index.php?userNameMusicBand=$1
 RewriteRule ^user/uploadMusicBand/([a-zA-Z0-9_-]+)$ index.php?userNameMusicBand=$1
 

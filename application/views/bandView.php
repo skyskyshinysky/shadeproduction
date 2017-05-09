@@ -59,38 +59,7 @@
             }
         });
     }
-    function sendMessageRenameBand()
-    {
-        var data = $('#renameBand').val();
-        $.ajax({
-            type: 'POST',
-            dataType: 'text',
-            url: "/user/sendMessageRenameBand",
-            data: 'message=' + JSON.stringify($('#renameBand').val()) + '&jenre=' + JSON.stringify($('#genreMusic').val()),
-            success: function(result) {
-                $('#nameBand').text(data);
-            },
-            error: function(result) {
-                // todo: handle error;
-            },
-            processData: false,
-            async: false
-        });
-    }
-    function callbackFocusout()
-    {
-        if($(this).val()=='') $(this).val('Name band...');
-        $("#box").fadeOut(100);
-        visib = false;
-    }
-    function callbackFocusin()
-    {
-        if($(this).val()=='Name band...') $(this).val('');
-    }
     $(document).ready(function() {
-        $("#renameBand").on('focusout', callbackFocusout);
-        $("#renameBand").on('focusin', callbackFocusin);
-        $('#sendMessageRenameBand').on('click', sendMessageRenameBand);
         $('#sendMessageInBand').on('click', sendMessageInBand);
         initializeComments();
         $( 'audio' ).audioPlayer();
@@ -104,34 +73,17 @@
     echo '<h1>Это типа страница банды <p id="nameBand">' . $bandName . '</p></h1>';
 ?>
 <p>Логотипчик рядом с ней Юзернейм</p>
-
 <?php
 
     echo '<br>' . $userName . '<br>';
     echo '<img src="http://' . $_SERVER['HTTP_HOST']  . $logoBand['pathFile'] . $logoBand['nameLogo'] . '" alt="Logo">';
-    echo '<form action="http://' . $_SERVER['HTTP_HOST'] . '/user/profileBand/' . $userName . '" method="post" enctype="multipart/form-data" >'
 ?>
-<table>
-    <tr>
-        <td><input type="file" name="uploadFileLogo" /></td>
-    </tr>
-    <tr>
-        <td><input type="submit" name="submit" value="Upload"/></td>
-    </tr>
-</table>
 <?php
-    echo '</form><br>';
+
     echo  $email . '<br>';
     if($owner) {
-        echo '<input type="text" size="30" maxlength="70" autocomplete="off" id="renameBand" value="Name band..."/>
-        <select id="genreMusic" name="genreMusic">
-                <option>Rock</option>
-                <option>Classic</option>
-                <option>Rap</option>
-                <option>Pop</option>
-                <option>Punk</option>
-        </select><button id="sendMessageRenameBand">Rename Band</button>';
-        echo '<a href=/user/uploadMusicBand/'. $userName . '>Upload Music</a><br>';
+        echo '<a href=/user/uploadMusicBand/'. $userName . '>Upload Music</a><br>
+        <a href=/user/profileBandEdit/'. $userName . '>Edit profile</a><br>';
     }
 ?>
 <textarea id="messageBody" placeholder="Message Body"></textarea>

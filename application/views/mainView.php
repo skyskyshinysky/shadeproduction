@@ -66,6 +66,7 @@
         height:22px;
     }
 </style>
+<link rel="stylesheet" href="/css/tabs.css" />
 <script>
 
     var visib = false;
@@ -125,35 +126,101 @@
                 visib = false;
             }
     }
-    function callbackFocusout()
-    {
+    function callbackFocusout() {
         if($(this).val()=='') $(this).val('Enter a name or band...');
         $("#box").fadeOut(100);
         visib = false;
     }
-    function callbackFocusin()
-    {
+    function callbackFocusin() {
         if($(this).val()=='Enter a name or band...') $(this).val('');
     }
 
     function itmclick(){
         window.location.pathname = $(this).attr("cat");
     }
-    
+    function lightTabs()
+    {
+        var createTabs = function(){
+            tabs = this;
+            i = 0;
+
+            showPage = function(i){
+                $(tabs).children("div").children("div").hide();
+                $(tabs).children("div").children("div").eq(i).show();
+                $(tabs).children("ul").children("li").removeClass("active");
+                $(tabs).children("ul").children("li").eq(i).addClass("active");
+            }
+
+            showPage(0);
+
+            $(tabs).children("ul").children("li").each(function(index, element){
+                $(element).attr("data-page", i);
+                i++;
+            });
+
+            $(tabs).children("ul").children("li").click(function(){
+                showPage(parseInt($(this).attr("data-page")));
+            });
+        };
+        return this.each(createTabs);
+    }
+   (function($){
+       jQuery.fn.lightTabs = function(options){
+
+           var createTabs = function(){
+               tabs = this;
+               i = 0;
+
+               showPage = function(i){
+                   $(tabs).children("div").children("div").hide();
+                   $(tabs).children("div").children("div").eq(i).show();
+                   $(tabs).children("ul").children("li").removeClass("active");
+                   $(tabs).children("ul").children("li").eq(i).addClass("active");
+               }
+
+               showPage(0);
+
+               $(tabs).children("ul").children("li").each(function(index, element){
+                   $(element).attr("data-page", i);
+                   i++;
+               });
+
+               $(tabs).children("ul").children("li").click(function(){
+                   showPage(parseInt($(this).attr("data-page")));
+               });
+           };
+           return this.each(createTabs);
+       };
+   })(jQuery);
     $(document).ready(function () {
         $("#search").on('keyup', callbackSearching);
         $("#search").on('focusout', callbackFocusout);
         $("#search").on('focusin', callbackFocusin);
+        $(".tabs").lightTabs();
     });
 </script>
 <a href="/user/profile">Music</a>
 <a href="/user/profile">Artists</a>
-<input type="text" size="50" maxlength="100" autocomplete="off" id="search" value="Enter a name or band..."/>
+<div id="searchContainer">
+    <input type="text" size="50" maxlength="100" autocomplete="off" id="search" value="Enter a name or band..."/>
+    <div id="box"></div>
+</div>
+
 <select id="genreMusic" name="genreMusic">
     <option>Rock</option>
     <option>Classic</option>
     <option>Rap</option>
     <option>Pop</option>
     <option>Punk</option>
-</select>
-<div id="box"></div>
+</select><br>
+
+<div class="tabs">
+    <ul>
+        <li>Songs</li>
+        <li>Bands</li>
+    </ul>
+    <div>
+        <div>Первое содержимое</div>
+        <div>Второе содержимое</div>
+    </div>
+</div>

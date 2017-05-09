@@ -11,8 +11,8 @@ class MusicService
 
     private function saveMusic($uploadDir)
     {
-        $this->databaseInterface->query('INSERT INTO music (Id,nameMusic,pathFile,bandId,genreMusic) VALUES(?s,?s,?s,?s,?s)',  $this->databaseInterface->guidv4(),
-            $_FILES['uploadFile']['name'], $uploadDir, $_COOKIE['Id'], $_POST['genreMusic']);
+        $this->databaseInterface->query('INSERT INTO music (Id,nameMusic,pathFile,bandId,genreMusic,time) VALUES(?s,?s,?s,?s,?s,?s)',  $this->databaseInterface->guidv4(),
+            $_FILES['uploadFile']['name'], $uploadDir, $_COOKIE['Id'], $_POST['genreMusic'],date("Y-m-d H:i:s"));
     }
     function uploadMusic()
     {
