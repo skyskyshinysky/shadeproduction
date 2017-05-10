@@ -1,5 +1,6 @@
-<script>
+<script type="text/javascript">
     var rowsPerPage = 10;
+
     function getPage(page_num)
     {
         $('#wallBand').html('');
@@ -14,6 +15,7 @@
             }
         });
     }
+
     function initPageNumbers()
     {
         $.get('/user/getCountComments',function (data) {
@@ -27,6 +29,7 @@
             }
         });
     }
+
     function sendMessageInBand() {
         var data = $('#messageBody').val();
         console.log('data = ' + data);
@@ -45,6 +48,7 @@
             async: false
         });
     }
+
     function initializeComments()
     {
         //получаем в переменную data комменты
@@ -59,51 +63,80 @@
             }
         });
     }
+
     $(document).ready(function() {
         $('#sendMessageInBand').on('click', sendMessageInBand);
         initializeComments();
         $( 'audio' ).audioPlayer();
         initPageNumbers();
     });
-
 </script>
 
 <?php
     extract($data);
-    echo '<h1>Это типа страница банды <p id="nameBand">' . $bandName . '</p></h1>';
 ?>
-<p>Логотипчик рядом с ней Юзернейм</p>
-<?php
 
-    echo '<br>' . $userName . '<br>';
-    echo '<img src="http://' . $_SERVER['HTTP_HOST']  . $logoBand['pathFile'] . $logoBand['nameLogo'] . '" alt="Logo">';
-?>
-<?php
+<div class="profile">
+    <div style="display: inline-block;">
+        <div class="main-profile-info">
+            <div class="logo-wrapper">
+                <?php
+                    echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . $logoBand['pathFile'] . $logoBand['nameLogo'] . '" />';
+                ?>
+            </div>
+            <div>
+                <?php
+                    echo '<h2 style="text-align: center;" id="nameBand">' . $bandName . '</h2>';
+                ?>
+            </div>
+            <div>
+                <?php
+                    echo '<h3 style="text-align: center;" id="nameBand">Genre is here</h3>';
+                ?>
+            </div>
+        </div>
+        <div class="profile-info">
+            <div>
+                <p style="margin: 0;">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. 
+                </p>
+            </div>
+            <div>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. 
+                </p>
+            </div>
+        </div>        
+    </div>
 
-    echo  $email . '<br>';
-    if($owner) {
-        echo '<a href=/user/uploadMusicBand/'. $userName . '>Upload Music</a><br>
-        <a href=/user/profileBandEdit/'. $userName . '>Edit profile</a><br>';
-    }
-?>
-<textarea id="messageBody" placeholder="Message Body"></textarea>
-<button id="sendMessageInBand">Send Message</button>
 
-    <a href="/user/logout"> Log out</a>
-    <a href="/user/playlist"> Playlist</a>
-    <a href="/user/photo"> Photo</a>
-    <a href="/user/logout"> </a>
-<div id="wrapper">
     <?php
-    foreach ($data['musicBand'] as $musicBand) {
-        echo '<br>' . $musicBand['nameMusic'];
-        echo '<audio preload="auto" controls>';
-        echo '<source src="http://'. $_SERVER['HTTP_HOST'] . '/' . $musicBand['pathFile'] . $musicBand['nameMusic'] . '" type="audio/mp3"/>';
-        echo '</audio>';
-    }
+
+        echo  $email . '<br>';
+        if($owner) {
+            echo '<a href=/user/uploadMusicBand/'. $userName . '>Upload Music</a><br>
+            <a href=/user/profileBandEdit/'. $userName . '>Edit profile</a><br>';
+        }
     ?>
+    <textarea id="messageBody" placeholder="Message Body"></textarea>
+    <button id="sendMessageInBand">Send Message</button>
+
+        <a href="/user/logout"> Log out</a>
+        <a href="/user/playlist"> Playlist</a>
+        <a href="/user/photo"> Photo</a>
+        <a href="/user/logout"> </a>
+    <div id="wrapper">
+        <?php
+        foreach ($data['musicBand'] as $musicBand) {
+            echo '<br>' . $musicBand['nameMusic'];
+            echo '<audio preload="auto" controls>';
+            echo '<source src="http://'. $_SERVER['HTTP_HOST'] . '/' . $musicBand['pathFile'] . $musicBand['nameMusic'] . '" type="audio/mp3"/>';
+            echo '</audio>';
+        }
+        ?>
+    </div>
+    <br>
+    <div id="wallBand">
+    </div>
+    <ul id="page-numbers"></ul>
 </div>
-<br>
-<div id="wallBand">
-</div>
-<ul id="page-numbers"></ul>

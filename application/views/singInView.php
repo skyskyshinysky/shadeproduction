@@ -10,50 +10,45 @@
         }
 
     }
+
     $(document).ready(function() {
         $('#accountType').on('change', selectEditInformation);
     });
 </script>
-<div id="addItem">
-    <form id="form" method="post">
-        <select id="accountType" name="typeAccount">
-            <option>user</option>
-            <option>band</option>
-        </select>
-    <div>
-        <table>
-            <tr id="firstNameLine">
-                <td>First Name:</td>
-                <td><input id="firstName" type="text" name="firstName" title="First Name"/></td>
-            </tr>
-            <tr id="lastNameLine">
-                <td>Last Name :</td>
-                <td><input id="lastName" type="text" name="lastName" title="Last Name"/></td>
-            </tr>
-            <tr id="userNameLine">
-                <td>Username:</td>
-                <td><input id="userName" type="text" name="userName" title="Username"/></td>
-            </tr>
-            <tr id="emailNameLine">
-                <td>Email: </td>
-                <td><input id="email" type="email" name="email" title="Email"/></td>
-            </tr>
-            <tr id="reEnterEmailNameLine">
-                <td>Re-enter Email:</td>
-                <td><input id="reEnterEmail" type="email" name="reEnterEmail" title="Re-enter Email"/></td>
-            </tr>
-            <tr id="passwordUserLine">
-                <td>Password:</td>
-                <td><input id="passwordUser" type="password" name="password" title="Password"/></td>
-            </tr>
-            <tr id="userNameLine">
-                <td><button type="submit" id="save" >Create an account</button></td>
-            </tr>
 
-        </table>
-    </div>
+<div id="addItem">
+    <form method="post" id="form">
+        <div>
+            <div id="firstNameLine" style="margin-top: 20px;">
+                <label for="firstName">First name</label>
+                <input class="form-input" id="firstName" type="text" name="firstName" placeholder="" ="First name"/> 
+            </div>
+            <div id="lastNameLine" style="margin-top: 20px;">
+                <label for="lastName">Last name</label>
+                <input class="form-input" id="lastName" type="text" name="lastName" placeholder="Last name"/>
+            </div>
+
+            <div id="userNameLine" style="margin-top: 20px;">
+                <label for="userName">User name</label>
+                <input class="form-input" id="userName" type="text" name="userName" placeholder="User name"/>
+            </div>
+            <div id="emailNameLine" style="margin-top: 20px;">
+                <label for="email">Email</label>
+                <input class="form-input" id="email" type="text" name="email" placeholder="Email"/>
+            </div>
+            <div id="reEnterEmailNameLine" style="margin-top: 20px;">
+                <label for="reEnterEmail">Re-enter email</label>
+                <input class="form-input" id="reEnterEmail" type="text" name="reEnterEmail" placeholder="Email"/>
+            </div>
+            <div id="passwordUserLine" style="margin-top: 20px;">
+                <label for="passwordUser">Password</label>
+                <input class="form-input" id="passwordUser" type="text" name="passwordUser"/>
+            </div>
+            <button style="margin-top: 20px;" class="button" type="submit" id="save" >Sign up</button>
+        </div>
     </form>
 </div>
+
 <?php extract($data); ?>
 <?php
     if($signInStatus == "registrationCompletedSuccessfully") { ?>
@@ -62,8 +57,8 @@
     <p style="color:red">Пользователь с таким логином уже существует в базе данных.</p>
 <?php } elseif($signInStatus == "errorRangeUsername") { ?>
     <p style="color:red">Username должен быть не меньше 3-х символов и не больше 30.</p>
-    <?php }  elseif($signInStatus == "errorRangePassword") { ?>
-        <p style="color:red">Пароль должен быть не меньше 6-х символов и не больше 20.</p>
-    <?php }  elseif($signInStatus == "errorCorrectEmail") { ?>
-        <p style="color:red">Email не совпадает.</p>
-    <?php }  ?>
+<?php }  elseif($signInStatus == "errorRangePassword") { ?>
+    <p style="color:red">Пароль должен быть не меньше 6-х символов и не больше 20.</p>
+<?php }  elseif($signInStatus == "errorCorrectEmail") { ?>
+    <p style="color:red">Email не совпадает.</p>
+<?php }  ?>

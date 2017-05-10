@@ -22,7 +22,7 @@
     <div class="navigation-bar">
         <div class="navigation-bar-wrapper">
             <div class="navigation-bar-header">
-                <a class="navigation-bar-link" href="">Sound Side</a>
+                <a class="navigation-bar-header-link" href="">Sound Side</a>
             </div>
             <div class="navigation-bar-menu">
                 <a class="navigation-bar-link" href="">Music</a>
