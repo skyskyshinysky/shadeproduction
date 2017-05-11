@@ -24,24 +24,16 @@
         color:#fff;
     }
 
-    #search {
-        background: url('/data/images/find.png') no-repeat 1px 0px;
-        border:solid 1px #6D8EB2;
-        background-color: #EEF2F6;
-        font-size:12px;
-        padding-left:22px;
-        height:22px;
-    }
     #box {
         display:none;
-        position:absolute;
+        position:center;
         width:300px;
         z-index:99;
         left: auto;
         top: auto;
         margin-left:2px;
         margin-top:1px;
-        background-color: #EEF2F6;
+        background-color: #f0d0b0;
         border: 1px solid #6D8EB2;
         padding-top: 2px;
     }
@@ -56,19 +48,9 @@
         background-color: #6D8EB2;
         color:#fff;
     }
-
-    #search {
-        background: url('/data/images/find.png') no-repeat 1px 0px;
-        border:solid 1px #6D8EB2;
-        background-color: #EEF2F6;
-        font-size:12px;
-        padding-left:22px;
-        height:22px;
-    }
 </style>
 <link rel="stylesheet" href="/css/tabs.css" />
 <script>
-
     var visib = false;
     var querySearhing;
     var ra;
@@ -138,13 +120,12 @@
     function itmclick(){
         window.location.pathname = $(this).attr("cat");
     }
-    function lightTabs()
-    {
-        var createTabs = function(){
+    function lightTabs() {
+        var createTabs = function () {
             tabs = this;
             i = 0;
 
-            showPage = function(i){
+            showPage = function (i) {
                 $(tabs).children("div").children("div").hide();
                 $(tabs).children("div").children("div").eq(i).show();
                 $(tabs).children("ul").children("li").removeClass("active");
@@ -153,74 +134,67 @@
 
             showPage(0);
 
-            $(tabs).children("ul").children("li").each(function(index, element){
+            $(tabs).children("ul").children("li").each(function (index, element) {
                 $(element).attr("data-page", i);
                 i++;
             });
 
-            $(tabs).children("ul").children("li").click(function(){
+            $(tabs).children("ul").children("li").click(function () {
                 showPage(parseInt($(this).attr("data-page")));
             });
         };
         return this.each(createTabs);
     }
-   (function($){
-       jQuery.fn.lightTabs = function(options){
+    function callbackTabs(){
+        var tab_id = $(this).attr('data-tab');
 
-           var createTabs = function(){
-               tabs = this;
-               i = 0;
+        $('ul.tabs li').removeClass('current');
+        $('.tab-content').removeClass('current');
 
-               showPage = function(i){
-                   $(tabs).children("div").children("div").hide();
-                   $(tabs).children("div").children("div").eq(i).show();
-                   $(tabs).children("ul").children("li").removeClass("active");
-                   $(tabs).children("ul").children("li").eq(i).addClass("active");
-               }
-
-               showPage(0);
-
-               $(tabs).children("ul").children("li").each(function(index, element){
-                   $(element).attr("data-page", i);
-                   i++;
-               });
-
-               $(tabs).children("ul").children("li").click(function(){
-                   showPage(parseInt($(this).attr("data-page")));
-               });
-           };
-           return this.each(createTabs);
-       };
-   })(jQuery);
+        $(this).addClass('current');
+        $("#"+tab_id).addClass('current');
+    }
     $(document).ready(function () {
         $("#search").on('keyup', callbackSearching);
         $("#search").on('focusout', callbackFocusout);
         $("#search").on('focusin', callbackFocusin);
-        $(".tabs").lightTabs();
+        $("ul.tabs li").on('click', callbackTabs);
     });
 </script>
-<a href="/user/profile">Music</a>
-<a href="/user/profile">Artists</a>
-<div id="searchContainer">
-    <input type="text" size="50" maxlength="100" autocomplete="off" id="search" value="Enter a name or band..."/>
-    <div id="box"></div>
-</div>
-
-<select id="genreMusic" name="genreMusic">
-    <option>Rock</option>
-    <option>Classic</option>
-    <option>Rap</option>
-    <option>Pop</option>
-    <option>Punk</option>
-</select><br>
-
-<div class="tabs">
-    <ul>
-        <li>Songs</li>
-        <li>Bands</li>
+<header class="header-bg" style="background-image: url('/images/header-bg.jpg')">
+    <div class="header-title">
+        <h1>
+            Listen to Music
+        </h1>
+    </div>
+    <div id="searchContainer">
+        <input class="music-input" type="text" size="50" maxlength="100" autocomplete="off" id="search" value="Enter a name or band..."/>
+        <div id="box"></div>
+    </div>
+</header>
+<div class="container">
+    <ul class="tabs">
+        <li class="tab-link current" data-tab="tab-1">Songs</li>
+        <li class="tab-link" data-tab="tab-2">Artists</li>
     </ul>
-    <div>
-        <div>Первое содержимое</div>
-        <div>Второе содержимое</div>
+    <div id="tab-1" class="tab-content current">
+        <select id="genreMusic" name="genreMusic">
+            <option>Rock</option>
+            <option>Classic</option>
+            <option>Rap</option>
+            <option>Pop</option>
+            <option>Punk</option>
+        </select>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </div>
+    <div id="tab-2" class="tab-content">
+        <select id="genreMusic" name="genreMusic">
+            <option>Rock</option>
+            <option>Classic</option>
+            <option>Rap</option>
+            <option>Pop</option>
+            <option>Punk</option>
+        </select>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
 </div>

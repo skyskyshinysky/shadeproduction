@@ -36,7 +36,8 @@ class ModelUser extends Model
             'Id' => $this->id,
             'userName' => $this->userName,
             'email' => $this->email,
-            'bandName' => $this->bandName
+            'bandName' => $this->bandName,
+            'genreMusic' => $this->genreMusic
         );
     }
 

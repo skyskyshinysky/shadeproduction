@@ -254,3 +254,40 @@ div.profile-info {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+select {
+  align-items: center;
+  white-space: pre;
+}
+
+.header-bg {
+  background-size: cover;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  background-position: center center;
+  margin: 0px 0px 40px;
+  padding: 80px 0px;
+}
+
+.music-input {
+  background: url('/data/images/find.png') no-repeat 1px 0px;
+  background-color: #f0d0b0;
+  box-shadow: rgb(72, 55, 53) 0px 1px 1px inset;
+  border-radius: 25px;
+  width: 300px;
+  cursor: auto;
+  font-size: 14px;
+  padding-left:22px;
+  font-family: inherit;
+  user-select: text;
+  text-rendering: auto;
+  color: initial;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  margin: 0em 0em 0em 0em;
+}

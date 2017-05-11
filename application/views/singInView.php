@@ -21,7 +21,7 @@
         <div>
             <div id="firstNameLine" style="margin-top: 20px;">
                 <label for="firstName">First name</label>
-                <input class="form-input" id="firstName" type="text" name="firstName" placeholder="" ="First name"/> 
+                <input class="form-input" id="firstName" type="text" name="firstName" placeholder="First name"/>
             </div>
             <div id="lastNameLine" style="margin-top: 20px;">
                 <label for="lastName">Last name</label>

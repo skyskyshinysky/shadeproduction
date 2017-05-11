@@ -16,6 +16,7 @@ class ControllerLogin extends Controller
     private function checkAuthorizeParameters()
     {
         $data['login_status'] = 'access_granted';
+        $data['authorize'] = true;
         $result = $this->databaseInterface->getRow('SELECT *  FROM users WHERE userName = ?s', $_POST['userName']);
         if(!empty($result['Id']) and $result['statusActivation'] != null)
         {
@@ -28,11 +29,13 @@ class ControllerLogin extends Controller
                     $this->setCookie($hash,$result['Id']);
                 } else {
                     $data['login_status'] = 'access_denied';
+                    $data['authorize'] = false;
                     return array($data, false);
                 }
             }
         } else {
             $data['login_status'] = 'access_denied';
+            $data['authorize'] = false;
             return array($data, false);
         }
         return array ($data, true, $result['typeAccount']);
@@ -79,6 +82,7 @@ class ControllerLogin extends Controller
     function actionSignIn()
     {
         $data['signInStatus'] = null;
+        $data['authorize'] = false;
         // проверка на существование данных, которые необходимо обработать
         if((isset($_POST['firstName']) && !empty($_POST['firstName']) && isset($_POST['lastName']) &&
             !empty($_POST['lastName'])) or isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['reEnterEmail']) &&
@@ -98,6 +102,7 @@ class ControllerLogin extends Controller
     function actionIndex()
     {
         $data['login_status'] = null;
+        $data['authorize'] = false;
         // проверяем присутствие куков
         if($this->authorizeController->statusCookies == true) {
             // редиректим со страницы логина

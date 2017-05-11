@@ -72,7 +72,7 @@ class Authorize
             if(strcasecmp($routes[1], 'login') == 0 or strcasecmp($routes[1], 'main') == 0) {
                 return;
             }
-            header('Location: http:// ' . $_SERVER['HTTP_HOST'] . '/login');
+            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/login');
         }
     }
 }

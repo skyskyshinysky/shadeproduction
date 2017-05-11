@@ -91,7 +91,7 @@
             </div>
             <div>
                 <?php
-                    echo '<h3 style="text-align: center;" id="nameBand">Genre is here</h3>';
+                    echo '<h3 style="text-align: center;" id="nameBand">Genre is here ' .$genreMusic . '</h3>';
                 ?>
             </div>
         </div>
@@ -109,9 +109,7 @@
         </div>        
     </div>
 
-
     <?php
-
         echo  $email . '<br>';
         if($owner) {
             echo '<a href=/user/uploadMusicBand/'. $userName . '>Upload Music</a><br>
@@ -120,11 +118,8 @@
     ?>
     <textarea id="messageBody" placeholder="Message Body"></textarea>
     <button id="sendMessageInBand">Send Message</button>
-
-        <a href="/user/logout"> Log out</a>
-        <a href="/user/playlist"> Playlist</a>
+        <a href="/user/playlist">Playlist</a>
         <a href="/user/photo"> Photo</a>
-        <a href="/user/logout"> </a>
     <div id="wrapper">
         <?php
         foreach ($data['musicBand'] as $musicBand) {

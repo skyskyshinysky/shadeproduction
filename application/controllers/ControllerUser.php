@@ -71,6 +71,7 @@ class ControllerUser extends Controller
     }
     function actionProfileBand($status = null) {
         $data = null;
+        $data['authorize'] = false;
         require_once(ROOT . '/application/services/UserService.php');
         require_once(ROOT . '/application/services/ImageService.php');
         require_once (ROOT . '/application/services/MusicService.php');
@@ -83,9 +84,7 @@ class ControllerUser extends Controller
             and $this->authorizeController->statusCookies == true)
         {
             $data = $this->model->getDataBand();
-            if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
-                $imageService->uploadLogo();
-            }
+            $data['authorize'] = true;
             $data['logoBand'] = $imageService->getLogoBand();
             $data['musicBand'] = $musicService->getMusicBand();
             $data['owner'] = false;
@@ -103,7 +102,6 @@ class ControllerUser extends Controller
 
     function actionUploadMusicBand()
     {
-
         $data = null;
         require_once(ROOT . '/application/services/UserService.php');
         require_once (ROOT . '/application/services/MusicService.php');

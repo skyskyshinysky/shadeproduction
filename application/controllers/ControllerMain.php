@@ -17,12 +17,17 @@ class ControllerMain extends Controller
     }
     function actionIndex()
     {
-       $data=null;
-       $this->view->generate('mainView.php', 'templateView.php', $data);
+       $data['authorize'] = false;
+       if($this->authorizeController->statusCookies == true) {
+           $data['authorize'] = true;
+           $this->view->generate('mainView.php', 'templateView.php', $data);
+           return;
+       }
+       $this->view->generate('404View.php', 'templateView.php', $data);
     }
     function actionWelcome()
     {
-        $data[] = null;
+        $data['authorize'] = false;
         if($this->authorizeController->statusCookies == true) {
             header('Location: http://' . $_SERVER['HTTP_HOST']);
         }
