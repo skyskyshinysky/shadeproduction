@@ -60,12 +60,13 @@
     }
     function updateBoxContent(bands, music)
     {
-        if(typeof bands[0].userName !== 'undefined'){
+
+        if(bands.length != 0 && typeof bands[0].userName !== 'undefined'  ){
             for(var count = 0; count < bands.length; count++) {
                 boxContent = boxContent + '<div class="item" cat=/user/profileBand/'+ bands[count].userName +'>'+bands[count].bandName+'</div>';
             }
         }
-        if(typeof music[0].nameMusic !== 'undefined'){
+        if( music.length != 0 && typeof music[0].nameMusic !== 'undefined' ){
             for(var count = 0; count < music.length; count++) {
                 boxContent = boxContent + '<div class="item" cat="'+ music[count].nameMusic +'">'+music[count].nameMusic+'</div>';
             }
@@ -165,6 +166,7 @@
     }*/
     function updateSongsBox(items) {
    //     clearDivSongs();
+        $('.songs').html('');
         for(var count = 0; count < items.length; count++) {
             var divContainer = '<div class="audio"><audio preload="auto" controls><source src="http://' + window.location.hostname +'/'
                 + items[count].pathFile +  items[count].nameMusic + '" type="audio/mp3"/></audio></div>';
