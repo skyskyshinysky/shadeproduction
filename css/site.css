@@ -183,8 +183,6 @@ div.login {
   font-size: 14px;
   font-weight: normal;
   line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
   vertical-align: middle;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
@@ -206,7 +204,19 @@ div.login {
   box-sizing: border-box;
 
   -webkit-writing-mode: horizontal-tb;
-  -webkit-appearance: button;
+
+  align-items: flex-start;
+
+  text-align: center;
+  white-space: nowrap;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-decoration: none;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  text-align: start;
 }
 
 .button:hover,
@@ -290,4 +300,20 @@ select {
   display: inline-block;
   text-align: start;
   margin: 0em 0em 0em 0em;
+}
+
+div.contact-info-row {
+  margin-top: 10px;
+}
+
+span.contact-info-img {
+  height: 28px;
+  float: left;
+  padding-top: 2px;
+}
+
+span.contact-info-text {
+  display: inline-block;
+  line-height: 28px;
+  margin-left: 10px;
 }
