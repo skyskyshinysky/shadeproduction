@@ -46,6 +46,26 @@ class ControllerUser extends Controller
             $userService = new UserService($this->databaseInterface);
         }
     }
+    function actionGetBlockData()
+    {
+        $data = null;
+        $type = json_decode($_POST['type']);
+        $genreMusic = json_decode($_POST['jenre']);
+        require_once(ROOT . '/application/services/UserService.php');
+        if( $this->authorizeController->statusCookies == true and isset($type)
+            and !empty($type) and isset($genreMusic) and !empty($genreMusic)) {
+            $userService = new UserService($this->databaseInterface);
+            switch ($type) {
+                case 'Songs':
+                    $data = $userService->getSongs($genreMusic);
+                    break;
+                case 'Artists':
+                    $data = $userService->getSongs($genreMusic);
+                    break;
+            }
+        }
+        echo json_encode($data);
+    }
     function actionGetCountComments()
     {
         require_once(ROOT . '/application/services/CommentService.php');
@@ -58,6 +78,7 @@ class ControllerUser extends Controller
         $commentService = new CommentService($this->databaseInterface);
         echo json_encode($commentService->getComments());
     }
+
     function actionGetPageNum()
     {
         require_once(ROOT . '/application/services/CommentService.php');
@@ -103,6 +124,7 @@ class ControllerUser extends Controller
     function actionUploadMusicBand()
     {
         $data = null;
+        $data['authorize'] = false;
         require_once(ROOT . '/application/services/UserService.php');
         require_once (ROOT . '/application/services/MusicService.php');
         $musicService = new MusicService($this->databaseInterface);
@@ -113,6 +135,7 @@ class ControllerUser extends Controller
                 $musicService->uploadMusic();
             }
             $data = $this->model->getDataBand();
+            $data['authorize'] = true;
             $data['musicBand'] = $musicService->getMusicBand();
             $this->view->generate('uploadMusicBandView.php', 'templateView.php', $data);
             return;

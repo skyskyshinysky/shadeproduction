@@ -153,12 +153,48 @@
 
         $(this).addClass('current');
         $("#"+tab_id).addClass('current');
+        initializeBlock();
+    }
+    function isEmpty(value) {
+        return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+    }
+  /*  function clearDivSongs() {
+        $('.songs').fadeOut(300, function () {
+            $('.songs').removeChild();
+        });
+    }*/
+    function updateSongsBox(items) {
+   //     clearDivSongs();
+        for(var count = 0; count < items.length; count++) {
+            var divContainer = '<div class="audio"><audio preload="auto" controls><source src="http://' + window.location.hostname +'/'
+                + items[count].pathFile +  items[count].nameMusic + '" type="audio/mp3"/></audio></div>';
+            $(divContainer).hide().appendTo(".songs").fadeIn(1000);
+        }
+    }
+    function initializeBlock() {
+        var type = $(".tab-link.current").text();
+        var genreMusic = $("#genreMusic").val();
+
+        if(isEmpty(type) == false && isEmpty(genreMusic) == false) {
+            console.log(type + " " + genreMusic);
+            $.post('/user/getBlockData', 'type=' + JSON.stringify(type) +
+                '&jenre=' + JSON.stringify(genreMusic),function (data) {
+                //парсим JSON
+                var items = JSON.parse(data);
+                // строим и выводим каркас для 10 записей
+                if(type == "Songs") {
+                    updateSongsBox(items);
+                }
+            });
+        }
     }
     $(document).ready(function () {
         $("#search").on('keyup', callbackSearching);
         $("#search").on('focusout', callbackFocusout);
         $("#search").on('focusin', callbackFocusin);
         $("ul.tabs li").on('click', callbackTabs);
+        $("#genreMusic").on('change', initializeBlock);
+        initializeBlock();
     });
 </script>
 <header class="header-bg" style="background-image: url('/images/header-bg.jpg')">
@@ -185,7 +221,9 @@
             <option>Pop</option>
             <option>Punk</option>
         </select>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        <div class="songs">
+
+        </div>
     </div>
     <div id="tab-2" class="tab-content">
         <select id="genreMusic" name="genreMusic">

@@ -49,6 +49,9 @@ class UserService
         $modelUser->genreMusic = $result['genreMusic'];
         return $modelUser;
     }
+    public function getSongs($genreMusic) {
+        return $this->databaseInterface->getAll('SELECT * FROM  music WHERE genreMusic = ?s  ORDER BY time LIMIT 10', $genreMusic);;
+    }
     public function editBand($nameBand,$genreMusic)
     {
         $fullPath = explode('/', $_SERVER['HTTP_REFERER']);

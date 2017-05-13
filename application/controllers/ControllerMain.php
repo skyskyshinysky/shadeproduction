@@ -25,6 +25,7 @@ class ControllerMain extends Controller
        }
        $this->view->generate('404View.php', 'templateView.php', $data);
     }
+
     function actionWelcome()
     {
         $data['authorize'] = false;

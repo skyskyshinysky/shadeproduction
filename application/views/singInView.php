@@ -19,6 +19,10 @@
 <div id="addItem">
     <form method="post" id="form">
         <div>
+            <select id="accountType" name="typeAccount">
+                <option>user</option>
+                <option>band</option>
+            </select>
             <div id="firstNameLine" style="margin-top: 20px;">
                 <label for="firstName">First name</label>
                 <input class="form-input" id="firstName" type="text" name="firstName" placeholder="First name"/>
