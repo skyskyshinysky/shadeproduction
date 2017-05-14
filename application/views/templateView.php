@@ -31,7 +31,7 @@
                 ?>
             </div>
             <div class="navigation-bar-menu">
-                <a class="navigation-bar-link" href="">Music</a>
+                <a class="navigation-bar-link" href="http://www.socialnetwork.local/main">Music</a>
                 <a class="navigation-bar-link" href="">People</a>
             </div>
             <div class="navigation-bar-authentication">

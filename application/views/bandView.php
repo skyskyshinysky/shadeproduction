@@ -30,21 +30,41 @@
     }
 
     function sendMessageInBand() {
-        var data = $('#messageBody').val();
-        console.log('data = ' + data);
+        var now = new Date();
+        var textareaValue = $('#messageBody').val();
+        var postData = [];
+        postData["author"] = "Spiderman";
+        postData["datetime"] = now.toISOString();
+        postData["message"] = $('#messageBody').val();
         $.ajax({
             type: 'POST',
-            dataType: 'text',
             url: "/user/sendMessage",
-            data: "message=" + JSON.stringify($('#messageBody').val()),
+            data: $.extend({}, postData),
             success: function(result) {
                 $('#messageBody').val('');
+                if(result != undefined && result != null) {
+                    var tr = $("<tr></tr>");
+
+                    var author = $("<td></td>");
+                    author.text("Spiderman");
+
+                    var datetime = $("<td></td>");
+                    datetime.text(now.toLocaleString());
+
+                    var message = $("<td></td>");
+                    message.text(textareaValue);
+
+                    author.appendTo(tr);
+                    datetime.appendTo(tr);
+                    message.appendTo(tr);
+
+                    var tbody = $('table.wall tbody');
+                    tr.prependTo(tbody);
+                }
             },
             error: function(result) {
                 // todo: handle error;
             },
-            processData: false,
-            async: false
         });
     }
 
@@ -77,11 +97,6 @@
 
 <div class="profile">
     <div style="display: inline-block; position: relative;">
-        <?php
-            if($owner) {
-                echo '<div style="position: absolute; top: 0px; right: 20px; width: 24px; height: 24px; padding: 0; margin: 0;"><a href=/user/profileBandEdit/'. $userName . '><img src="/images/x24/gear.png" alt="Edit profile"></a></div>';
-            }
-        ?>
         <div class="main-profile-info">
             <div class="logo-wrapper">
                 <?php
@@ -95,70 +110,88 @@
             </div>
             <div>
                 <?php
-                    echo '<h3 style="text-align: center;" id="nameBand">Genre is here ' .$genreMusic . '</h3>';
+                    echo '<h3 style="text-align: center;" id="genreMusic">' .$genreMusic . '</h3>';
                 ?>
             </div>
-        </div>
-        <div class="profile-info">
+            <div>
+                <?php
+                    echo '<h3 style="text-align: center;" id="origin">' . 'St Albans, Hertfordshire, England, United Kingdom' . '</h3>';
+                ?>
+            </div>
+            <div>
+                <?php
+                    echo '<h3 style="text-align: center;" id="origin">' . ' 1999–present' . '</h3>';
+                ?>
+            </div>
+            <?php
+                if($owner) {
+                    echo '<div style="position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; padding: 0; margin: 0;"><a href=/user/profileBandEdit/'. $userName . '><img src="/images/x24/gear.png" alt="Edit profile"></a></div>';
+                }
+            ?>
             <div class="contact-info">
-                <h3 style="margin: 0;">Contact info</h3>
                 <div class="contact-info-row">
-                    <span class="contact-info-img"><img src="/images/x24/global.png" alt="Website" /></span>
-                    <?php echo ' <span class="contact-info-text""><b>Website:</b> <a href="mailto:'. $email . '">'. $email . '</a></span>' ?>
+                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/global.png" alt="Website" /></a></span>
                 </div>
                 <div class="contact-info-row">
-                    <span class="contact-info-img"><img src="/images/x24/facebook.png" alt="Facebook" /></span>
-                    <?php echo ' <span class="contact-info-text""><b>Facebook:</b> <a href="mailto:'. $email . '">'. $email . '</a></span>' ?>
+                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/facebook.png" alt="Facebook" /></a></span>
                 </div>
                 <div class="contact-info-row">
-                    <span class="contact-info-img"><img src="/images/x24/instagram.png" alt="Instagram" /></span>
-                    <?php echo ' <span class="contact-info-text""><b>Instagram:</b> <a href="mailto:'. $email . '">'. $email . '</a></span>' ?>
+                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/instagram.png" alt="Instagram" /></a></span>
                 </div>
                 <div class="contact-info-row">
-                    <span class="contact-info-img"><img src="/images/x24/twitter.png" alt="Twitter" /></span>
-                    <?php echo ' <span class="contact-info-text""><b>Twitter:</b> <a href="mailto:'. $email . '">'. $email . '</a></span>' ?>
+                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/twitter.png" alt="Twitter" /></a></span>
                 </div>
                 <div class="contact-info-row">
-                    <span class="contact-info-img"><img src="/images/x24/skype.png" alt="Skype" /></span>
-                    <?php echo ' <span class="contact-info-text""><b>Skype:</b> <a href="mailto:'. $email . '">'. $email . '</a></span>' ?>
+                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/skype.png" alt="Skype" /></a></span>
                 </div>
                 <div class="contact-info-row">
-                    <span class="contact-info-img"><img src="/images/x24/email.png" alt="Email" /></span>
-                    <?php echo ' <span class="contact-info-text""><b>Email:</b> <a href="mailto:'. $email . '">'. $email . '</a></span>' ?>
-                </div>
-                <div class="contact-info-row">
-                    <span class="contact-info-img"><img src="/images/x24/phone.png" alt="Phone" /></span>
-                    <?php echo ' <span class="contact-info-text""><b>Phone:</b> <a href="mailto:'. $email . '">'. $email . '</a></span>' ?>
+                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/email.png" alt="Email" /></a></span>
                 </div>
             </div>
-            
-            <div>
-                <p>
+        </div>
+        <div class="about">
+                <p style="margin: 0;">
                     <?php echo $about; ?>
                 </p>
+        </div>
+    </div>
+    <div style="width: 100%; margin-top: 30px; position: relative;">
+        <div style="text-align: center;">
+            <h3 style="margin: 0;">Music area</h3>
+            <div style="margin-top: 10px;">
+                <?php
+                    if($owner) {
+                        echo '<a style="margin-left: 10px;" href=/user/uploadMusicBand/'. $userName . '><img src="/images/x24/upload.png" alt="Upload music" /></a>';
+                    }
+                ?>
             </div>
-        </div>        
+   
+        </div>
+        <div id="wrapper">
+            <?php
+            foreach ($data['musicBand'] as $musicBand) {
+                echo '<br>' . $musicBand['nameMusic'];
+                echo '<audio preload="auto" controls>';
+                echo '<source src="http://'. $_SERVER['HTTP_HOST'] . '/' . $musicBand['pathFile'] . $musicBand['nameMusic'] . '" type="audio/mp3"/>';
+                echo '</audio>';
+            }
+            ?>
+        </div>
     </div>
-
-    <?php
-        if($owner) {
-            echo '<a class="button" href=/user/uploadMusicBand/'. $userName . '>Upload Music</a>';
-        }
-    ?>
-    <div id="wrapper">
-        <?php
-        foreach ($data['musicBand'] as $musicBand) {
-            echo '<br>' . $musicBand['nameMusic'];
-            echo '<audio preload="auto" controls>';
-            echo '<source src="http://'. $_SERVER['HTTP_HOST'] . '/' . $musicBand['pathFile'] . $musicBand['nameMusic'] . '" type="audio/mp3"/>';
-            echo '</audio>';
-        }
-        ?>
+    <div style="width: 100%; margin-top: 20px; position: relative;">
+        <h3 style="margin: 0;">Comment area</h3>
+        <table class="wall">
+            <tbody>
+                <tr>
+                    <td><b>Batman</b></td><td>12.02.2017 15:14: </td><td>It's magic</td>
+                </tr>
+                <tr>
+                    <td><b>Superman</b></td><td>12.02.2017 15:14: </td><td>Enter Shikari are a British rock band formed in St Albans, Hertfordshire, England in 1999 under the name Hybryd by bassist Chris Batten, lead vocalist and keyboardist Roughton "Rou" Reynolds, and drummer Rob Rolfe. In 2003, guitarist Liam "Rory" Clewlow joined the band to complete its current lineup, and it adopted its current name.</td>
+                </tr>
+            </tbody>
+        </table>
+        <ul id="page-numbers"></ul>
+        <textarea class="comment-input form-input" id="messageBody" placeholder="Message Body"></textarea>
+        <button style="margin-top: 10px;" onclick="sendMessageInBand"  class="button" id="sendMessageInBand">Send message</button>
     </div>
-    <br>
-    <div id="wallBand">
-    </div>
-    <ul id="page-numbers"></ul>
-    <textarea id="messageBody" placeholder="Message Body"></textarea>
-    <button id="sendMessageInBand">Send Message</button>
 </div>

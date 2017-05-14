@@ -232,7 +232,7 @@
         </h1>
     </div>
     <div id="searchContainer">
-        <input class="music-input" type="text" size="50" maxlength="100" autocomplete="off" id="search" value="Enter a name or band..."/>
+        <input class="form-input music-input" type="text" size="50" maxlength="100" autocomplete="off" id="search" value="Enter a name or band..."/>
         <div id="box"></div>
     </div>
 </header>
