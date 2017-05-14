@@ -15,6 +15,7 @@ class ModelUser extends Model
     public $email;
     public $bandName;
     public $genreMusic;
+    public $about;
 
     function __construct($username)
     {
@@ -27,7 +28,9 @@ class ModelUser extends Model
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
             'userName' => $this->userName,
-            'email' => $this->email
+            'email' => $this->email,
+            'genreMusic' => $this->genreMusic,
+            'about' => $this->about
         );
     }
     function getDataBand()
@@ -37,7 +40,8 @@ class ModelUser extends Model
             'userName' => $this->userName,
             'email' => $this->email,
             'bandName' => $this->bandName,
-            'genreMusic' => $this->genreMusic
+            'genreMusic' => $this->genreMusic,
+            'about' => $this->about
         );
     }
 

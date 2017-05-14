@@ -46,7 +46,7 @@
             </div>
             <div id="passwordUserLine" style="margin-top: 20px;">
                 <label for="passwordUser">Password</label>
-                <input class="form-input" id="passwordUser" type="text" name="passwordUser"/>
+                <input class="form-input" id="passwordUser" type="password" name="passwordUser"/>
             </div>
             <button style="margin-top: 20px;" class="button" type="submit" id="save" >Sign up</button>
         </div>

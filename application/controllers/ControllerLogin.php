@@ -55,7 +55,7 @@ class ControllerLogin extends Controller
             $status = false;
         }
         // проверяем длину password
-        if(strlen($_POST['password']) < 6 or strlen($_POST['password']) > 20){
+        if(strlen($_POST['passwordUser']) < 6 or strlen($_POST['passwordUser']) > 20){
             $data['signInStatus'] = "errorRangePassword";
             $status = false;
         }
@@ -64,6 +64,7 @@ class ControllerLogin extends Controller
     function actionActivation()
     {
         $data['activationStatus'] = null;
+        $data['authorize'] = false;
         // проверяем параметр активации
         if(!empty($_GET['code']) && isset($_GET['code']))
         {
@@ -73,6 +74,7 @@ class ControllerLogin extends Controller
                 // обновляем статус регистрации пользователя
                 $this->databaseInterface->query('UPDATE users SET statusActivation = 1');
                 $data['activationStatus'] = 'activationCompletedSuccessfully';
+                $data['authorize'] = false;
             } else {
                 $data['activationStatus'] = 'activationFailed';
             }
@@ -86,15 +88,17 @@ class ControllerLogin extends Controller
         // проверка на существование данных, которые необходимо обработать
         if((isset($_POST['firstName']) && !empty($_POST['firstName']) && isset($_POST['lastName']) &&
             !empty($_POST['lastName'])) or isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['reEnterEmail']) &&
-            !empty($_POST['reEnterEmail']) && isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['password']) &&
-            !empty($_POST['password']) && isset($_POST['typeAccount']) && !empty($_POST['typeAccount']))
+            !empty($_POST['reEnterEmail']) && isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['passwordUser']) &&
+            !empty($_POST['passwordUser']) && isset($_POST['typeAccount']) && !empty($_POST['typeAccount']))
         {
             list ($data, $status) = $this->checkCorrectParameters();
+            $data['authorize'] = false;
             if($status == true){
                 // подключаем сервис работы с пользователем
                 require_once (ROOT . '/application/services/UserService.php');
                 $serviceUser = new UserService($this->databaseInterface);
                 $data = $serviceUser->saveUser();
+                $data['authorize'] = false;
             }
         }
         $this->view->generate('singInView.php', 'templateView.php', $data);

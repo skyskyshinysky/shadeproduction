@@ -2,14 +2,23 @@
 class ControllerUser extends Controller
 {
     function actionProfile() {
-        $data = null;
+        $data['authorize'] = false;
         require_once(ROOT . '/application/services/UserService.php');
+        require_once(ROOT . '/application/services/ImageService.php');
         $userService = new UserService($this->databaseInterface);
+        $imageService = new ImageService($this->databaseInterface);
         if(isset($_GET['userNameDefaultPage']) and $this->authorizeController->statusCookies == true)
         {
             if(($this->model = $userService->getUser($_GET['userNameDefaultPage'])) != null)
             {
                 $data = $this->model->getDataUser();
+                $data['authorize'] = true;
+                $data['typeAccount'] = $this->authorizeController->typeAccount;
+                $data['owner'] = false;
+                $data['logoBand'] = $imageService->getLogoBand();
+                if(strcasecmp($_COOKIE['Id'], $this->model->id) == 0) {
+                    $data['owner'] = true;
+                }
                 $this->view->generate('userView.php', 'templateView.php', $data);
                 return;
             }
@@ -37,6 +46,69 @@ class ControllerUser extends Controller
             $userService->editBand($message, $jenreMusic);
         }
     }
+    function actionSendMesssageEditSkype() {
+        require_once(ROOT . '/application/services/UserService.php');
+        $message = json_decode($_POST['message']);
+        if( $this->authorizeController->statusCookies == true and isset($message)
+            and !empty($message)) {
+            $userService = new UserService($this->databaseInterface);
+            $userService->editSkypeBand($message);
+        }
+    }
+    function actionSendMesssageEditTwitter() {
+        require_once(ROOT . '/application/services/UserService.php');
+        $message = json_decode($_POST['message']);
+        if( $this->authorizeController->statusCookies == true and isset($message)
+            and !empty($message)) {
+            $userService = new UserService($this->databaseInterface);
+            $userService->editTwitterBand($message);
+        }
+    }
+    function actionSendMesssageEditInstagram() {
+        require_once(ROOT . '/application/services/UserService.php');
+        $message = json_decode($_POST['message']);
+        if( $this->authorizeController->statusCookies == true and isset($message)
+            and !empty($message)) {
+            $userService = new UserService($this->databaseInterface);
+            $userService->editInstagramBand($message);
+        }
+    }
+    function actionSendMesssageEditFacebook() {
+        require_once(ROOT . '/application/services/UserService.php');
+        $message = json_decode($_POST['message']);
+        if( $this->authorizeController->statusCookies == true and isset($message)
+            and !empty($message)) {
+            $userService = new UserService($this->databaseInterface);
+            $userService->editFacebookBand($message);
+        }
+    }
+    function actionSendMesssageEditWebsite() {
+        require_once(ROOT . '/application/services/UserService.php');
+        $message = json_decode($_POST['message']);
+        if( $this->authorizeController->statusCookies == true and isset($message)
+            and !empty($message)) {
+            $userService = new UserService($this->databaseInterface);
+            $userService->editWebsiteBand($message);
+        }
+    }
+    function actionSendMesssageEditPhone() {
+        require_once(ROOT . '/application/services/UserService.php');
+        $message = json_decode($_POST['message']);
+        if( $this->authorizeController->statusCookies == true and isset($message)
+            and !empty($message)) {
+            $userService = new UserService($this->databaseInterface);
+            $userService->editPhoneBand($message);
+        }
+    }
+    function actionSendMessageAboutBand() {
+        require_once(ROOT . '/application/services/UserService.php');
+        $message = json_decode($_POST['message']);
+        if( $this->authorizeController->statusCookies == true and isset($message)
+            and !empty($message)) {
+            $userService = new UserService($this->databaseInterface);
+            $userService->editAboutBand($message);
+        }
+    }
     function actionSendMessageEditMail()
     {
         require_once(ROOT . '/application/services/UserService.php');
@@ -60,7 +132,7 @@ class ControllerUser extends Controller
                     $data = $userService->getSongs($genreMusic);
                     break;
                 case 'Artists':
-                    $data = $userService->getSongs($genreMusic);
+                    $data = $userService->getBands($genreMusic);
                     break;
             }
         }
@@ -87,9 +159,20 @@ class ControllerUser extends Controller
     }
     function actionProfileBandEdit() {
 
+        require_once(ROOT . '/application/services/ImageService.php');
+        $imageService = new ImageService($this->databaseInterface);
         $data = $this->actionProfileBand(true);
-        $this->view->generate('bandEditView.php', 'templateView.php', $data);
+        if( $data['owner'] = true) {
+            if(isset($_POST['submit'])) {
+                $imageService->uploadLogo();
+            }
+            $this->view->generate('bandEditView.php', 'templateView.php', $data);
+        } else {
+            $this->view->generate('404View.php', 'templateView.php', $data);
+        }
+
     }
+
     function actionProfileBand($status = null) {
         $data = null;
         $data['authorize'] = false;
@@ -106,9 +189,11 @@ class ControllerUser extends Controller
         {
             $data = $this->model->getDataBand();
             $data['authorize'] = true;
+            $data['userName'] = $this->authorizeController->username;
             $data['logoBand'] = $imageService->getLogoBand();
             $data['musicBand'] = $musicService->getMusicBand();
             $data['owner'] = false;
+            $data['typeAccount'] = $this->authorizeController->typeAccount;
             if(strcasecmp($_COOKIE['Id'], $this->model->id) == 0) {
                 $data['owner'] = true;
             }
@@ -137,6 +222,7 @@ class ControllerUser extends Controller
             $data = $this->model->getDataBand();
             $data['authorize'] = true;
             $data['musicBand'] = $musicService->getMusicBand();
+            $data['typeAccount'] = $this->authorizeController->typeAccount;
             $this->view->generate('uploadMusicBandView.php', 'templateView.php', $data);
             return;
         }

@@ -8,10 +8,11 @@
  */
 class Authorize
 {
-
     public $databaseInterface;
     private $controllerLogin;
     public $statusCookies;
+    public $username;
+    public $typeAccount;
 
     public function __construct()
     {
@@ -32,6 +33,10 @@ class Authorize
             $this->destroyCookie();
             return false;
         }
+        // вытаскиваем Username и тип аккаунта для построения шаблона вьюхи
+        $result= $this->databaseInterface->getRow('SELECT userName,typeAccount FROM users WHERE Id = ?s', $_COOKIE['Id']);
+        $this->username = $result['userName'];
+        $this->typeAccount = $result['typeAccount'];
         return true;
     }
     /**
@@ -47,8 +52,6 @@ class Authorize
             if(isset($_COOKIE['Id']) and isset($_COOKIE['Hash']))
             {
                 if(($this->statusCookies = $this->checkHash()) == true) {
-                    // вытаскиваем Username
-                    $userName = $this->databaseInterface->getOne('SELECT userName FROM users WHERE Id = ?s', $_COOKIE['Id']);
                     // редирект на страницу пользователя, где далее маршрут будет разбирать роутер
                     header('Location: http://' . $_SERVER['HTTP_HOST'] . '/main');
                 }

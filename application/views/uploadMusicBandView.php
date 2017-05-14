@@ -4,10 +4,7 @@
         $( 'audio' ).audioPlayer();
     });
 </script>
-<?php
-    extract($data);
-    echo '<a href=/user/profileBand/'. $userName . '>Profile</a>';
-?>
+<?php extract($data); ?>
 <form action="http://www.shadeproduction.local/user/uploadMusicBand/shadeproduction" method="post" enctype="multipart/form-data" >
 <table>
     <tr>

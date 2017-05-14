@@ -28,7 +28,7 @@ class ImageService
     function uploadLogo()
     {
         // Каталог, в который мы будем принимать файл:
-        $uploadDir = ROOT . '\data\images\logo\\' ;
+        $uploadDir = ROOT . '\images\logo\\' ;
         $uploadFile = $uploadDir.basename($_FILES['uploadFileLogo']['name']);
 
         // Копируем файл из каталога для временного хранения файлов:
@@ -45,5 +45,9 @@ class ImageService
         echo "<p><b>Размер загруженного файла в байтах: ".$_FILES['uploadFileLogo']['size']."</b></p>";
         echo "<p><b>Временное имя файла: ".$_FILES['uploadFileLogo']['tmp_name']."</b></p>";
         $this->saveLogo('\data\images\logo\\');
+    }
+    public function save404Logo($guid) {
+        $this->databaseInterface->query('INSERT INTO logo (Id,nameLogo,pathFile) VALUES(?s,"404avatar.jpg","/images/logo/")',
+            $guid);
     }
 }

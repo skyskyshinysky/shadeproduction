@@ -48,6 +48,46 @@
         background-color: #6D8EB2;
         color:#fff;
     }
+
+
+    .artists{width:950px; margin:0 auto;}
+    .artists a:link{text-decoration:none;}
+    .artists article{ float:left; width:157px; height:157px; }
+
+    .fdw-background{ background-color:rgba(0,0,0,0.6);opacity:0; margin-top:-14px; width:100%; height:100%; }
+    .fdw-background .fdw-port{ text-align:center; padding:70px 40px 0; }
+    .fdw-background .fdw-port a{ padding:8px 15px; font-size:1em; }
+
+    .fdw-subtitle a{ color:#F90; }
+    /*columns*/
+    .c-two{ width:314px !important; }
+
+    /*link buttons*/
+    .fdw-port a{
+        background-color:#336699;
+        color:#fff;
+        border-radius:3px;
+        -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        -o-border-radius:3px;
+        -webkit-box-shadow: 0 3px 0 #0f3963, 3px 5px 3px #333;
+        -moz-box-shadow: 0 3px 0 #0f3963, 3px 5px 3px #333;
+        box-shadow: 0 3px 0 #0f3963, 3px 5px 3px #333;
+        -o-box-shadow: 0 3px 0 #0f3963, 3px 5px 3px #333;
+        text-shadow:0 1px 1px #000;
+    }
+    .fdw-port a:hover{
+        background-color:#f2f2f2;
+        color:#336699 !important;
+        text-shadow:0 1px 1px #ccc;
+        -webkit-box-shadow: 0 3px 0 #ccc, 3px 5px 3px #333;
+        -moz-box-shadow: 0 3px 0 #ccc, 3px 5px 3px #333;
+        box-shadow: 0 3px 0 #ccc, 3px 5px 3px #333;
+        -o-box-shadow: 0 3px 0 #ccc, 3px 5px 3px #333;
+    }
+
+
+
 </style>
 <link rel="stylesheet" href="/css/tabs.css" />
 <script>
@@ -58,17 +98,14 @@
     function getResult(){
         query = $("#search").val();
     }
-    function updateBoxContent(bands, music)
-    {
-
-        if(bands.length != 0 && typeof bands[0].userName !== 'undefined'  ){
-            for(var count = 0; count < bands.length; count++) {
-                boxContent = boxContent + '<div class="item" cat=/user/profileBand/'+ bands[count].userName +'>'+bands[count].bandName+'</div>';
-            }
-        }
-        if( music.length != 0 && typeof music[0].nameMusic !== 'undefined' ){
-            for(var count = 0; count < music.length; count++) {
-                boxContent = boxContent + '<div class="item" cat="'+ music[count].nameMusic +'">'+music[count].nameMusic+'</div>';
+    function updateBoxContent(items) {
+        if (items.length != 0) {
+            for (var count = 0; count < items.length; count++) {
+                if (typeof items[count].bandName !== 'undefined') {
+                    boxContent = boxContent + '<div class="item" cat=/user/profileBand/' + items[count].userName + '>' + items[count].bandName + '</div>';
+                } else {
+                    boxContent = boxContent + '<div class="item" cat="/user/profileBand/' + items[count].userName + '">' + items[count].nameMusic.replace(/[\d\.\.mp3]+/g,"") + '</div>';
+                }
             }
         }
     }
@@ -90,13 +127,10 @@
                     }
                     boxContent = '';
                     items = JSON.parse(data);
-                    bands = $.map(items,function (val, bands) {
+                    items = $.map(items,function (val, bands) {
                         return val;
                     });
-                    music = $.map(items,function (val, music) {
-                        return val;
-                    });
-                    updateBoxContent(bands, music);
+                    updateBoxContent(items);
                     $("#box").html(boxContent);
                     $(".item").bind("click",itmclick);
                     } else {
@@ -117,34 +151,8 @@
     function callbackFocusin() {
         if($(this).val()=='Enter a name or band...') $(this).val('');
     }
-
     function itmclick(){
         window.location.pathname = $(this).attr("cat");
-    }
-    function lightTabs() {
-        var createTabs = function () {
-            tabs = this;
-            i = 0;
-
-            showPage = function (i) {
-                $(tabs).children("div").children("div").hide();
-                $(tabs).children("div").children("div").eq(i).show();
-                $(tabs).children("ul").children("li").removeClass("active");
-                $(tabs).children("ul").children("li").eq(i).addClass("active");
-            }
-
-            showPage(0);
-
-            $(tabs).children("ul").children("li").each(function (index, element) {
-                $(element).attr("data-page", i);
-                i++;
-            });
-
-            $(tabs).children("ul").children("li").click(function () {
-                showPage(parseInt($(this).attr("data-page")));
-            });
-        };
-        return this.each(createTabs);
     }
     function callbackTabs(){
         var tab_id = $(this).attr('data-tab');
@@ -159,26 +167,39 @@
     function isEmpty(value) {
         return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
     }
-  /*  function clearDivSongs() {
-        $('.songs').fadeOut(300, function () {
-            $('.songs').removeChild();
-        });
-    }*/
     function updateSongsBox(items) {
-   //     clearDivSongs();
         $('.songs').html('');
         for(var count = 0; count < items.length; count++) {
-            var divContainer = '<div class="audio"><audio preload="auto" controls><source src="http://' + window.location.hostname +'/'
+            var divContainer = '<div><h1>' + items[count].nameMusic.replace(/[\d\.\.mp3]+/g,"") + ' - ' + items[count].bandName +
+                '</h1><audio preload="auto" controls><source src="http://' + window.location.hostname +'/'
                 + items[count].pathFile +  items[count].nameMusic + '" type="audio/mp3"/></audio></div>';
-            $(divContainer).hide().appendTo(".songs").fadeIn(1000);
+            $(divContainer).hide().appendTo(".songs").fadeIn(600);
         }
+        $( 'audio' ).audioPlayer();
+    }
+    function updateArtistsBox(items) {
+        $('.artists').html('');
+        console.log(items);
+        for(var count = 0; count < items.length; count++) {
+            var divContainer='<article class="c-two" style="background-image:url(' + items[count].pathFile + items[count].nameLogo + ');background-size: cover"> ' +
+                '<div class="fdw-background"> <p class="fdw-port"> <a href="http://'+ window.location.hostname +'/'+
+                'user/profileBand/' + items[count].userName + '">' +  items[count].bandName + '</a></p></div></article>';
+            $(divContainer).hide().appendTo('.artists').fadeIn(1000);
+        }
+        $('.fdw-background').hover(
+            function () {
+                $(this).animate({opacity:'1'});
+            },
+            function () {
+                $(this).animate({opacity:'0'});
+            }
+        );
     }
     function initializeBlock() {
         var type = $(".tab-link.current").text();
         var genreMusic = $("#genreMusic").val();
-
+        console.log(genreMusic);
         if(isEmpty(type) == false && isEmpty(genreMusic) == false) {
-            console.log(type + " " + genreMusic);
             $.post('/user/getBlockData', 'type=' + JSON.stringify(type) +
                 '&jenre=' + JSON.stringify(genreMusic),function (data) {
                 //парсим JSON
@@ -186,9 +207,14 @@
                 // строим и выводим каркас для 10 записей
                 if(type == "Songs") {
                     updateSongsBox(items);
+                } else if(type == "Artists") {
+                    updateArtistsBox(items);
                 }
             });
         }
+    }
+    function callbackFDW() {
+
     }
     $(document).ready(function () {
         $("#search").on('keyup', callbackSearching);
@@ -211,30 +237,24 @@
     </div>
 </header>
 <div class="container">
+    <select id="genreMusic" class="musicGenre" name="genreMusic">
+        <option>Rock</option>
+        <option>Classic</option>
+        <option>Rap</option>
+        <option>Pop</option>
+        <option>Punk</option>
+    </select>
     <ul class="tabs">
         <li class="tab-link current" data-tab="tab-1">Songs</li>
         <li class="tab-link" data-tab="tab-2">Artists</li>
     </ul>
     <div id="tab-1" class="tab-content current">
-        <select id="genreMusic" name="genreMusic">
-            <option>Rock</option>
-            <option>Classic</option>
-            <option>Rap</option>
-            <option>Pop</option>
-            <option>Punk</option>
-        </select>
         <div class="songs">
-
         </div>
     </div>
     <div id="tab-2" class="tab-content">
-        <select id="genreMusic" name="genreMusic">
-            <option>Rock</option>
-            <option>Classic</option>
-            <option>Rap</option>
-            <option>Pop</option>
-            <option>Punk</option>
-        </select>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div class="artists">
+        </div>
     </div>
 </div>
+

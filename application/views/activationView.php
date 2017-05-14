@@ -1,6 +1,3 @@
-<h1>Тут типа страница активации</h1>
-<a href="/login">Log in</a>
-
 <?php extract($data); ?>
 <?php if($activationStatus == "activationCompletedSuccessfully") { ?>
     <p style="color:green">Вы успешно подтвердили электронную почту</p>

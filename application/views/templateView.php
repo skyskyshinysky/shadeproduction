@@ -36,7 +36,14 @@
             </div>
             <div class="navigation-bar-authentication">
                 <?php if($data['authorize']) {
-                    echo '<a class="navigation-bar-authentication-link" href="/user/logout">Log out</a>';
+
+                    if(strcasecmp($data['typeAccount'], 'band') == 0) {
+                        $link = "/user/profileBand/" . $data['userName'];
+                    } else {
+                        $link = "/user/profile/" . $data['userName'];
+                    }
+                    echo '<a class="navigation-bar-authentication-link" href="/user/logout">Log out</a>
+                          <a class="navigation-bar-authentication-link" href=' .$link .'>My profile</a>';
                 } else {
                     echo '<a class="navigation-bar-authentication-link" href="/login">Log In</a>
                           <a class="navigation-bar-authentication-link" href="/login/signIn">Register</a>';

@@ -33,6 +33,7 @@ class UserService
         $modelUser->genreMusic = $result['genreMusic'];
         return $modelUser;
     }
+
     public function getBand($userName)
     {
         if($userName == null) {
@@ -47,10 +48,51 @@ class UserService
         $modelUser->bandName = $result['bandName'];
         $modelUser->email = $result['email'];
         $modelUser->genreMusic = $result['genreMusic'];
+        $modelUser->about = $result['about'];
         return $modelUser;
     }
     public function getSongs($genreMusic) {
-        return $this->databaseInterface->getAll('SELECT * FROM  music WHERE genreMusic = ?s  ORDER BY time LIMIT 10', $genreMusic);;
+        return $this->databaseInterface->getAll('SELECT music.nameMusic, music.pathFile,users.bandName FROM  music,users WHERE music.bandId = users.Id AND music.genreMusic = ?s ORDER BY music.time DESC LIMIT 10', $genreMusic);
+    }
+    public function getBands($genreMusic) {
+        return $this->databaseInterface->getAll('SELECT users.userName, users.genreMusic, users.bandName,
+           logo.nameLogo, logo.pathFile FROM  users,logo WHERE users.genreMusic = ?s AND users.typeAccount = "band" AND 
+           users.Id = logo.Id ORDER BY time  DESC LIMIT 10', $genreMusic);
+    }
+    function editAboutBand($message) {
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
+        $modelUser = $this->getBand($fullPath[5]);
+        $this->databaseInterface->query('UPDATE users SET about=?s  WHERE userName=?s', $message, $modelUser->userName);
+    }
+    function editSkypeBand($message) {
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
+        $modelUser = $this->getBand($fullPath[5]);
+        $this->databaseInterface->query('UPDATE users SET skype=?s  WHERE userName=?s', $message, $modelUser->userName);
+    }
+    function editInstagramBand($message) {
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
+        $modelUser = $this->getBand($fullPath[5]);
+        $this->databaseInterface->query('UPDATE users SET instagram=?s  WHERE userName=?s', $message, $modelUser->userName);
+    }
+    function editFacebookBand($message) {
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
+        $modelUser = $this->getBand($fullPath[5]);
+        $this->databaseInterface->query('UPDATE users SET facebook=?s  WHERE userName=?s', $message, $modelUser->userName);
+    }
+    function editWebsiteBand($message) {
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
+        $modelUser = $this->getBand($fullPath[5]);
+        $this->databaseInterface->query('UPDATE users SET website=?s  WHERE userName=?s', $message, $modelUser->userName);
+    }
+    function editTwitterBand($message) {
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
+        $modelUser = $this->getBand($fullPath[5]);
+        $this->databaseInterface->query('UPDATE users SET twitter=?s  WHERE userName=?s', $message, $modelUser->userName);
+    }
+    function editPhoneBand($message) {
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
+        $modelUser = $this->getBand($fullPath[5]);
+        $this->databaseInterface->query('UPDATE users SET phone=?s  WHERE userName=?s', $message, $modelUser->userName);
     }
     public function editBand($nameBand,$genreMusic)
     {
@@ -83,9 +125,13 @@ class UserService
             $this->databaseInterface->query('INSERT INTO users (Id,firstName,lastName,userName,email,activation,typeAccount) VALUES(?s,?s,?s,?s,?s,?s,?s)', $guid,
                 $_POST['firstName'], $_POST['lastName'], $_POST['userName'],  $_POST['email'],$activation, $_POST['typeAccount']);
             //убираем лишние пробелы и делаем двойное шифрование
-            $password = md5(md5(trim($_POST['password'])));
+            $password = md5(md5(trim($_POST['passwordUser'])));
             //добавляем запись в таблицу
             $this->databaseInterface->query('INSERT INTO users_password (Id, userPassword) VALUES(?s,?s)', $guid, $password);
+            //добавляем 404логотип
+            require_once (ROOT . '/application/services/ImageService.php');
+            $imagesSevice = new ImageService($this->databaseInterface);
+            $imagesSevice->save404Logo($guid);
             // формируем электронное письмо подтверждения регистрации
             $this->mail = new Mail();
             $this->mail->to=$_POST['email'];

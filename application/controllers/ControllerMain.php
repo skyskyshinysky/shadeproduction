@@ -11,7 +11,7 @@ class ControllerMain extends Controller
     function actionSearchBox()
     {
         $searchString = $_POST["searchString"];
-        $data['music'] =  $this->databaseInterface->getAll('SELECT nameMusic, genreMusic FROM music WHERE nameMusic LIKE ?s LIMIT 15', "%$searchString%");
+        $data['music'] =  $this->databaseInterface->getAll('SELECT music.nameMusic, music.genreMusic, users.userName FROM music, users WHERE music.bandId = users.Id AND music.nameMusic LIKE ?s  LIMIT 15', "%$searchString%");
         $data['bands'] = $this->databaseInterface->getAll('SELECT userName,bandName,genreMusic FROM users WHERE bandName LIKE ?s LIMIT 15', "%$searchString%");
         echo json_encode($data);
     }
@@ -20,6 +20,8 @@ class ControllerMain extends Controller
        $data['authorize'] = false;
        if($this->authorizeController->statusCookies == true) {
            $data['authorize'] = true;
+           $data['userName'] = $this->authorizeController->username;
+           $data['typeAccount'] = $this->authorizeController->typeAccount;
            $this->view->generate('mainView.php', 'templateView.php', $data);
            return;
        }

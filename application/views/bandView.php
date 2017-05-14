@@ -15,7 +15,6 @@
             }
         });
     }
-
     function initPageNumbers()
     {
         $.get('/user/getCountComments',function (data) {
@@ -57,7 +56,7 @@
             var items = JSON.parse(data);
             // строим и выводим каркас для 10 записей
             for(var count = 0; count < items.length; count++) {
-                $('#wallBand').append('<div class="comment"><div class="headingPanel"><div class="inlineUserBlock">' +
+                $('#wallBand').append('<div class="commentBox"><div class="headingPanel"><div class="inlineUserBlock">' +
                     items[count].userName + '</div><span class="date">' + items[count].time + '</span></div><ui class="list-group"><li>' +
                     items[count].message + '</li></ui></div>');
             }
@@ -135,9 +134,7 @@
             
             <div>
                 <p>
-                    Enter Shikari are a British rock band formed in St Albans, Hertfordshire, England in 1999 under the name Hybryd by bassist Chris Batten, lead vocalist and keyboardist Roughton "Rou" Reynolds, and drummer Rob Rolfe. In 2003, guitarist Liam "Rory" Clewlow joined the band to complete its current lineup, and it adopted its current name. In 2006, they performed to a growing fanbase at Download Festival as well as a sold-out concert at the London Astoria. Their debut studio album, Take to the Skies, was released in 2007 and reached number 4 in the Official UK Album Chart, and has since been certified gold in the UK. Their second, Common Dreads, was released in 2009 and debuted on the UK Albums Chart at number 16;[2] while their third, A Flash Flood of Colour, was released in 2012 and debuted on the chart at number 4. Both have since been certified silver in the UK. The band spent a considerable amount of time supporting the latter release through the A Flash Flood of Colour World Tour, before beginning work on a fourth studio album, The Mindsweep, which was released in 2015.
-
-                    Enter Shikari have their own record label, Ambush Reality. However, they have also signed distribution deals with several major labels to help with worldwide distribution. Their eclectic musical style combines influences from rock, especially punk rock and hardcore punk, with those from various electronic music genres.
+                    <?php echo $about; ?>
                 </p>
             </div>
         </div>        
@@ -148,10 +145,6 @@
             echo '<a class="button" href=/user/uploadMusicBand/'. $userName . '>Upload Music</a>';
         }
     ?>
-    <textarea id="messageBody" placeholder="Message Body"></textarea>
-    <button id="sendMessageInBand">Send Message</button>
-        <a href="/user/playlist">Playlist</a>
-        <a href="/user/photo"> Photo</a>
     <div id="wrapper">
         <?php
         foreach ($data['musicBand'] as $musicBand) {
@@ -166,4 +159,6 @@
     <div id="wallBand">
     </div>
     <ul id="page-numbers"></ul>
+    <textarea id="messageBody" placeholder="Message Body"></textarea>
+    <button id="sendMessageInBand">Send Message</button>
 </div>
