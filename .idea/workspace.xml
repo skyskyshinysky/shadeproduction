@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4e841a0f-2685-415c-be05-fc17d61a8a99" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/ControllerUser.php" afterPath="$PROJECT_DIR$/application/controllers/ControllerUser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/ModelUser.php" afterPath="$PROJECT_DIR$/application/models/ModelUser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/services/CommentService.php" afterPath="$PROJECT_DIR$/application/services/CommentService.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/services/UserService.php" afterPath="$PROJECT_DIR$/application/services/UserService.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/bandEditView.php" afterPath="$PROJECT_DIR$/application/views/bandEditView.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/bandView.php" afterPath="$PROJECT_DIR$/application/views/bandView.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/mainView.php" afterPath="$PROJECT_DIR$/application/views/mainView.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/singInView.php" afterPath="$PROJECT_DIR$/application/views/singInView.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shadeprdoctuon_social_network.sql" afterPath="$PROJECT_DIR$/shadeprdoctuon_social_network.sql" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,22 +18,22 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mainView.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mainView.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/views/mainView.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+            <state relative-caret-position="119">
+              <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
               <folding>
-                <marker date="1494812294005" expanded="true" signature="5592:5690" ph="..." />
+                <marker date="1494843981999" expanded="true" signature="5646:5744" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bandView.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bandView.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/bandView.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2516">
+            <state relative-caret-position="1881">
               <caret line="193" column="14" lean-forward="true" selection-start-line="193" selection-start-column="14" selection-end-line="193" selection-end-column="14" />
               <folding>
                 <marker date="1494811121970" expanded="true" signature="4463:4482" ph="..." />
@@ -464,12 +456,12 @@
       <workItem from="1494106922438" duration="83092000" />
       <workItem from="1494452488112" duration="8422000" />
       <workItem from="1494628836117" duration="37419000" />
-      <workItem from="1494807137996" duration="5292000" />
+      <workItem from="1494807137996" duration="7208000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209681000" />
+    <option name="totallyTimeSpent" value="211597000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-186" width="1936" height="1056" extended-state="6" />
@@ -875,19 +867,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/mainView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
-          <folding>
-            <marker date="1494812294005" expanded="true" signature="5592:5690" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/bandView.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2516">
+        <state relative-caret-position="1881">
           <caret line="193" column="14" lean-forward="true" selection-start-line="193" selection-start-column="14" selection-end-line="193" selection-end-column="14" />
           <folding>
             <marker date="1494811121970" expanded="true" signature="4463:4482" ph="..." />
@@ -895,6 +877,16 @@
             <marker date="1494811121970" expanded="true" signature="4816:4835" ph="..." />
             <marker date="1494811121970" expanded="true" signature="5031:5050" ph="..." />
             <marker date="1494811121970" expanded="true" signature="5218:5311" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/mainView.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding>
+            <marker date="1494843981999" expanded="true" signature="5646:5744" ph="..." />
           </folding>
         </state>
       </provider>

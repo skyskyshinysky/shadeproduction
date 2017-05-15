@@ -1,13 +1,15 @@
 <style>
     #box {
         display:none;
-        background-color: #EEF2F6;
-        border: 1px solid #6D8EB2;
-        margin: auto;
-        left: auto;
-        top: auto;
-        width: 300px;
+        left: 40%;
+        position:absolute;
+        width:270px;
         z-index:99;
+        color: #555;
+        font-size: 14px;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        padding-top: 2px;
     }
     .item{
         height:18px;
@@ -32,6 +34,7 @@
         background-color: #6D8EB2;
         color:#fff;
     }
+
 
     .artists{width:950px; margin:0 auto;}
     .artists a:link{text-decoration:none;}
