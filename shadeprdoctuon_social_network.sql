@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Май 14 2017 г., 02:34
+-- Время создания: Май 15 2017 г., 03:36
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.1
 
@@ -32,6 +32,26 @@ CREATE TABLE `comment` (
   `time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `message` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `comment`
+--
+
+INSERT INTO `comment` (`userName`, `idBand`, `time`, `message`) VALUES
+('shadeproduction', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:26:46', 'hello,bro!'),
+('ilyapankov', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:27:40', 'Phoenix!'),
+('ilyapankov', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:44:18', 'qwe'),
+('ilyapankov', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:44:19', 'qwe'),
+('ilyapankov', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:44:21', 'qwe'),
+('ilyapankov', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:44:22', 'ert'),
+('ilyapankov', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:44:24', 'tryu'),
+('ilyapankov', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:44:26', 'tyui'),
+('ilyapankov', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:44:28', 'yuoi'),
+('shadeproduction', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:47:37', 'qweasd'),
+('shadeproduction', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:47:39', 'qweasdadasdf'),
+('shadeproduction', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:47:41', 'sdfgsdfg'),
+('shadeproduction', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:47:42', 'zxcvzxb'),
+('shadeproduction', '1d6789f7-38f0-49e4-a96c-eabe58c037a8', '2017-05-15 02:47:45', 'asdftggh');
 
 -- --------------------------------------------------------
 
@@ -119,7 +139,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Id`, `firstName`, `lastName`, `userName`, `email`, `activation`, `statusActivation`, `typeAccount`, `genreMusic`, `bandName`, `about`, `time`, `phone`, `skype`, `twitter`, `instagram`, `facebook`, `website`) VALUES
-('1d6789f7-38f0-49e4-a96c-eabe58c037a8', '', '', 'shadeproduction', 'skyskyshinysky@gmail.com', '799ec61ea2ad0b6c2d4ea84eb8dc3c50', 1, 'band', 'Rock', 'Enter Shikari', 'Enter Shikari are a British rock band formed in St Albans, Hertfordshire, England in 1999 under the name Hybryd by bassist Chris Batten, lead vocalist and keyboardist Roughton \"Rou\" Reynolds, and drummer Rob Rolfe. In 2003, guitarist Liam \"Rory\" Clewlow joined the band to complete its current lineup, and it adopted its current name. In 2006, they performed to a growing fanbase at Download Festival as well as a sold-out concert at the London Astoria. Their debut studio album, Take to the Skies, was released in 2007 and reached number 4 in the Official UK Album Chart, and has since been certified gold in the UK. Their second, Common Dreads, was released in 2009 and debuted on the UK Albums Chart at number 16;[2] while their third, A Flash Flood of Colour, was released in 2012 and debuted on the chart at number 4. Both have since been certified silver in the UK. The band spent a considerable amount of time supporting the latter release through the A Flash Flood of Colour World Tour, before beginning work on a fourth studio album, The Mindsweep, which was released in 2015.\n\nEnter Shikari have their own record label, Ambush Reality. However, they have also signed distribution deals with several major labels to help with worldwide distribution. Their eclectic musical style combines influences from rock, especially punk rock and hardcore punk, with those from various electronic music genres.', '2017-05-13 23:01:05', ' 79818395594', NULL, NULL, NULL, NULL, NULL),
+('1d6789f7-38f0-49e4-a96c-eabe58c037a8', '', '', 'shadeproduction', 'skyskyshinysky@gmail.com', '799ec61ea2ad0b6c2d4ea84eb8dc3c50', 1, 'band', 'Rock', 'Enter Shikari', 'Enter Shikari are a British rock band formed in St Albans, Hertfordshire, England in 1999 under the name Hybryd by bassist Chris Batten, lead vocalist and keyboardist Roughton \"Rou\" Reynolds, and drummer Rob Rolfe. In 2003, guitarist Liam \"Rory\" Clewlow joined the band to complete its current lineup, and it adopted its current name. In 2006, they performed to a growing fanbase at Download Festival as well as a sold-out concert at the London Astoria. Their debut studio album, Take to the Skies, was released in 2007 and reached number 4 in the Official UK Album Chart, and has since been certified gold in the UK. Their second, Common Dreads, was released in 2009 and debuted on the UK Albums Chart at number 16;[2] while their third, A Flash Flood of Colour, was released in 2012 and debuted on the chart at number 4. Both have since been certified silver in the UK. The band spent a considerable amount of time supporting the latter release through the A Flash Flood of Colour World Tour, before beginning work on a fourth studio album, The Mindsweep, which was released in 2015.\n\nEnter Shikari have their own record label, Ambush Reality. However, they have also signed distribution deals with several major labels to help with worldwide distribution. Their eclectic musical style combines influences from rock, especially punk rock and hardcore punk, with those from various electronic music genres.', '2017-05-13 23:01:05', ' 79818395594', 'shinysky__', 'entershikari', 'entershikariofficial', 'entershikari', 'www.entershikari.com'),
 ('3eabd582-76ad-4123-b9f9-a77c72c9a9f4', '', '', 'nickelback', 'fiyuzu@doanart.com', '0c06f7152124cf68dba92c4804d4ccd2', 1, 'band', 'Rock', 'Nickelback', NULL, '2017-05-14 01:45:03', NULL, NULL, NULL, NULL, NULL, NULL),
 ('51ba78a7-95f8-4569-8e5e-7c69e4c12b4d', '', '', 'notadvised', 'pivupabi@doanart.com', '6ff33bfa0aeaa752767c0d07ce1c287d', 1, 'band', 'Rock', 'Natives', NULL, '2017-05-14 01:55:05', NULL, NULL, NULL, NULL, NULL, NULL),
 ('7d2a5c51-9709-45df-8eec-c92f5e70a23b', 'Ilya', 'Pankov', 'ilyapankov', 'skyskyshinysky@yandex.ru', 'b94acaecfd0748df89e4938ba84650d3', 1, 'user', NULL, NULL, NULL, '2017-05-13 22:52:28', NULL, NULL, NULL, NULL, NULL, NULL),
@@ -142,11 +162,11 @@ CREATE TABLE `users_password` (
 --
 
 INSERT INTO `users_password` (`Id`, `userPassword`, `userHash`) VALUES
-('1d6789f7-38f0-49e4-a96c-eabe58c037a8', 'ea1b20f09d53fe011c0369e47a8f1514', '562801358354716ebbffe06055736f87'),
-('3eabd582-76ad-4123-b9f9-a77c72c9a9f4', 'ea1b20f09d53fe011c0369e47a8f1514', '562801358354716ebbffe06055736f87'),
-('51ba78a7-95f8-4569-8e5e-7c69e4c12b4d', 'ea1b20f09d53fe011c0369e47a8f1514', '562801358354716ebbffe06055736f87'),
-('7d2a5c51-9709-45df-8eec-c92f5e70a23b', 'ea1b20f09d53fe011c0369e47a8f1514', '562801358354716ebbffe06055736f87'),
-('8528576e-b9cc-495e-a4c3-5172ddfa42f7', 'ea1b20f09d53fe011c0369e47a8f1514', '562801358354716ebbffe06055736f87');
+('1d6789f7-38f0-49e4-a96c-eabe58c037a8', 'ea1b20f09d53fe011c0369e47a8f1514', '37e51fb882f1f17b8844192e9b634dfe'),
+('3eabd582-76ad-4123-b9f9-a77c72c9a9f4', 'ea1b20f09d53fe011c0369e47a8f1514', '37e51fb882f1f17b8844192e9b634dfe'),
+('51ba78a7-95f8-4569-8e5e-7c69e4c12b4d', 'ea1b20f09d53fe011c0369e47a8f1514', '37e51fb882f1f17b8844192e9b634dfe'),
+('7d2a5c51-9709-45df-8eec-c92f5e70a23b', 'ea1b20f09d53fe011c0369e47a8f1514', '37e51fb882f1f17b8844192e9b634dfe'),
+('8528576e-b9cc-495e-a4c3-5172ddfa42f7', 'ea1b20f09d53fe011c0369e47a8f1514', '37e51fb882f1f17b8844192e9b634dfe');
 
 --
 -- Индексы сохранённых таблиц

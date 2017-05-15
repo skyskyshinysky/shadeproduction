@@ -17,6 +17,13 @@ class ModelUser extends Model
     public $genreMusic;
     public $about;
 
+    public $phone;
+    public $skype;
+    public $twitter;
+    public $instagram;
+    public $facebook;
+    public $website;
+
     function __construct($username)
     {
         $this->userName = $username;
@@ -41,7 +48,13 @@ class ModelUser extends Model
             'email' => $this->email,
             'bandName' => $this->bandName,
             'genreMusic' => $this->genreMusic,
-            'about' => $this->about
+            'about' => $this->about,
+            'phone' => $this->phone,
+            'skype' => $this->skype,
+            'twitter' => $this->twitter,
+            'instagram' => $this->instagram,
+            'facebook' => $this->facebook,
+            'website' => $this->website
         );
     }
 

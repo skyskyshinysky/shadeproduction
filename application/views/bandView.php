@@ -3,15 +3,32 @@
 
     function getPage(page_num)
     {
-        $('#wallBand').html('');
+        $('table.wall tbody').html('');
         $.get('/user/getPageNum/?pageNum='+page_num, function(data){
             //парсим JSON
             var items = JSON.parse(data);
             // строим и выводим каркас для 10 записей
             for(var count = 0; count < items.length; count++) {
-                $('#wallBand').append('<div class="comment"><div class="headingPanel"><div class="inlineUserBlock">' +
-                    items[count].userName + '</div><span class="date">' + items[count].time + '</span></div><ui class="list-group"><li>' +
-                    items[count].message + '</li></ui></div>');
+                var tr = $("<tr></tr>");
+
+                var td = $("<td></td>");
+                var author = $("<b></b>");
+
+                author.text(items[count].userName);
+                author.appendTo(td);
+
+                var datetime = $("<td></td>");
+                datetime.text(items[count].time);
+
+                var message = $("<td></td>");
+                message.text(items[count].message);
+
+                author.appendTo(tr);
+                datetime.appendTo(tr);
+                message.appendTo(tr);
+
+                var tbody = $('table.wall tbody');
+                tr.prependTo(tbody);
             }
         });
     }
@@ -43,6 +60,7 @@
             success: function(result) {
                 $('#messageBody').val('');
                 if(result != undefined && result != null) {
+
                     var tr = $("<tr></tr>");
 
                     var author = $("<td></td>");
@@ -76,9 +94,27 @@
             var items = JSON.parse(data);
             // строим и выводим каркас для 10 записей
             for(var count = 0; count < items.length; count++) {
-                $('#wallBand').append('<div class="commentBox"><div class="headingPanel"><div class="inlineUserBlock">' +
-                    items[count].userName + '</div><span class="date">' + items[count].time + '</span></div><ui class="list-group"><li>' +
-                    items[count].message + '</li></ui></div>');
+
+                var tr = $("<tr></tr>");
+
+                var td = $("<td></td>");
+                var author = $("<b></b>");
+
+                author.text(items[count].userName);
+                author.appendTo(td);
+
+                var datetime = $("<td></td>");
+                datetime.text(items[count].time);
+
+                var message = $("<td></td>");
+                message.text(items[count].message);
+
+                author.appendTo(tr);
+                datetime.appendTo(tr);
+                message.appendTo(tr);
+
+                var tbody = $('table.wall tbody');
+                tr.prependTo(tbody);
             }
         });
     }
@@ -129,24 +165,26 @@
                 }
             ?>
             <div class="contact-info">
-                <div class="contact-info-row">
-                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/global.png" alt="Website" /></a></span>
-                </div>
-                <div class="contact-info-row">
-                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/facebook.png" alt="Facebook" /></a></span>
-                </div>
-                <div class="contact-info-row">
-                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/instagram.png" alt="Instagram" /></a></span>
-                </div>
-                <div class="contact-info-row">
-                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/twitter.png" alt="Twitter" /></a></span>
-                </div>
-                <div class="contact-info-row">
-                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/skype.png" alt="Skype" /></a></span>
-                </div>
-                <div class="contact-info-row">
-                    <span class="contact-info-img"><a <?php echo 'href="mailto:'. $email . '"' ?>><img src="/images/x24/email.png" alt="Email" /></a></span>
-                </div>
+                <?php
+                    if(!empty($website)) {
+                        echo '<div class="contact-info-row"><span class="contact-info-img"><a href="http://' . $website . '"><img src="/images/x24/global.png" alt="Website" /></a></span></div>';
+                    }
+                    if(!empty($facebook)) {
+                        echo '<div class="contact-info-row"><span class="contact-info-img"><a href="http://www.facebook.com/' . $facebook . '"><img src="/images/x24/facebook.png" alt="Facebook" /></a></span></div>';
+                    }
+                    if(!empty($instagram)) {
+                        echo '<div class="contact-info-row"><span class="contact-info-img"><a href="http://www.instagram.com/' . $instagram . '"><img src="/images/x24/instagram.png" alt="Instagram" /></a></span></div>';
+                    }
+                    if(!empty($twitter)) {
+                        echo '<div class="contact-info-row"><span class="contact-info-img"><a href="http://www.twitter.com/' . $twitter . '"><img src="/images/x24/twitter.png" alt="Twitter" /></a></span></div>';
+                    }
+                    if(!empty($skype)) {
+                        echo '<div class="contact-info-row"><span class="contact-info-img"><a href="skype:' . $skype . '?chat"><img src="/images/x24/skype.png" alt="Skype" /></a></span></div>';
+                    }
+                    if(!empty($email)) {
+                        echo '<div class="contact-info-row"><span class="contact-info-img"><a href="mailto:' . $email . '"><img src="/images/x24/email.png" alt="Email" /></a></span></div>';
+                    }
+                ?>
             </div>
         </div>
         <div class="about">
@@ -182,12 +220,7 @@
         <h3 style="margin: 0;">Comment area</h3>
         <table class="wall">
             <tbody>
-                <tr>
-                    <td><b>Batman</b></td><td>12.02.2017 15:14: </td><td>It's magic</td>
-                </tr>
-                <tr>
-                    <td><b>Superman</b></td><td>12.02.2017 15:14: </td><td>Enter Shikari are a British rock band formed in St Albans, Hertfordshire, England in 1999 under the name Hybryd by bassist Chris Batten, lead vocalist and keyboardist Roughton "Rou" Reynolds, and drummer Rob Rolfe. In 2003, guitarist Liam "Rory" Clewlow joined the band to complete its current lineup, and it adopted its current name.</td>
-                </tr>
+
             </tbody>
         </table>
         <ul id="page-numbers"></ul>

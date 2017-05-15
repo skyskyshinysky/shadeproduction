@@ -1,41 +1,13 @@
 <style>
     #box {
         display:none;
-        position:absolute;
-        width:300px;
-        z-index:99;
-        left: auto;
-        top: auto;
-        margin-left:2px;
-        margin-top:1px;
         background-color: #EEF2F6;
         border: 1px solid #6D8EB2;
-        padding-top: 2px;
-    }
-    .item{
-        height:18px;
-        cursor:pointer;
-        padding-left: 3px;
-        padding-top: 2px;
-        font-size:12px;
-    }
-    .item:hover{
-        background-color: #6D8EB2;
-        color:#fff;
-    }
-
-    #box {
-        display:none;
-        position:center;
-        width:300px;
-        z-index:99;
+        margin: auto;
         left: auto;
         top: auto;
-        margin-left:2px;
-        margin-top:1px;
-        background-color: #f0d0b0;
-        border: 1px solid #6D8EB2;
-        padding-top: 2px;
+        width: 300px;
+        z-index:99;
     }
     .item{
         height:18px;
@@ -49,6 +21,17 @@
         color:#fff;
     }
 
+    .item{
+        height:18px;
+        cursor:pointer;
+        padding-left: 3px;
+        padding-top: 2px;
+        font-size:12px;
+    }
+    .item:hover{
+        background-color: #6D8EB2;
+        color:#fff;
+    }
 
     .artists{width:950px; margin:0 auto;}
     .artists a:link{text-decoration:none;}
@@ -170,8 +153,8 @@
     function updateSongsBox(items) {
         $('.songs').html('');
         for(var count = 0; count < items.length; count++) {
-            var divContainer = '<div><h1>' + items[count].nameMusic.replace(/[\d\.\.mp3]+/g,"") + ' - ' + items[count].bandName +
-                '</h1><audio preload="auto" controls><source src="http://' + window.location.hostname +'/'
+            var divContainer = '<div>' + items[count].nameMusic.replace(/[\d\.\.mp3]+/g,"") + ' - ' + items[count].bandName +
+                '<audio preload="auto" controls><source src="http://' + window.location.hostname +'/'
                 + items[count].pathFile +  items[count].nameMusic + '" type="audio/mp3"/></audio></div>';
             $(divContainer).hide().appendTo(".songs").fadeIn(600);
         }

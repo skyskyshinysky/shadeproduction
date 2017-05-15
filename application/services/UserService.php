@@ -49,6 +49,12 @@ class UserService
         $modelUser->email = $result['email'];
         $modelUser->genreMusic = $result['genreMusic'];
         $modelUser->about = $result['about'];
+        $modelUser->phone = $result['phone'];
+        $modelUser->skype = $result['skype'];
+        $modelUser->twitter = $result['twitter'];
+        $modelUser->instagram = $result['instagram'];
+        $modelUser->facebook = $result['facebook'];
+        $modelUser->website = $result['website'];
         return $modelUser;
     }
     public function getSongs($genreMusic) {

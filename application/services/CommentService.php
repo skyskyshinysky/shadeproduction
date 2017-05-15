@@ -33,7 +33,7 @@ class CommentService
     public function addComment()
     {
         require_once (ROOT . '/application/models/ModelComment.php');
-        $message = json_decode($_POST['message']);
+        $message = $_POST['message'];
         $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
         if(!empty($fullPath[5]) and isset($message) and !empty($message)) {
            $modelComment = new ModelComment();

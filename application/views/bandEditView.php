@@ -110,28 +110,23 @@
     }
     function sendMesssageEditSkype()
     {
-        console.log(validatePhone($('#skype').val()));
-        if(validatePhone($('#skype').val())) {
-            $.ajax({
+        $.ajax({
                 type: 'POST',
                 dataType: 'text',
                 url: "/user/sendMesssageEditSkype",
-                data: 'message=' + JSON.stringify($('#phone').val()),
+                data: 'message=' + JSON.stringify($('#skype').val()),
                 success: function(result) {
                     $('#spnSkypeStatus').html('Edited!');
                     $('#spnSkypeStatus').css('color', 'green');
 
                 },
                 error: function(result) {
-                    // todo: handle error;
+                    $('#spnPhoneStatus').html('Invalid');
+                    $('#spnPhoneStatus').css('color', 'red');
                 },
                 processData: false,
                 async: false
-            });
-        }else {
-            $('#spnPhoneStatus').html('Invalid');
-            $('#spnPhoneStatus').css('color', 'red');
-        }
+        });
     }
     function sendMesssageEditPhone()
     {
@@ -160,8 +155,6 @@
     }
     function sendMesssageEditTwitter()
     {
-        console.log(validatePhone($('#phone').val()));
-        if(validatePhone($('#phone').val())) {
             $.ajax({
                 type: 'POST',
                 dataType: 'text',
@@ -173,21 +166,16 @@
 
                 },
                 error: function(result) {
-                    // todo: handle error;
+                    $('#spnPhoneStatus').html('Invalid');
+                    $('#spnPhoneStatus').css('color', 'red');
                 },
                 processData: false,
                 async: false
             });
-        }else {
-            $('#spnPhoneStatus').html('Invalid');
-            $('#spnPhoneStatus').css('color', 'red');
-        }
     }
     function sendMesssageEditInstagram()
     {
-        console.log(validatePhone($('#instagram').val()));
-        if(validatePhone($('#instagram').val())) {
-            $.ajax({
+        $.ajax({
                 type: 'POST',
                 dataType: 'text',
                 url: "/user/sendMesssageEditInstagram",
@@ -198,21 +186,16 @@
 
                 },
                 error: function(result) {
-                    // todo: handle error;
+                    $('#spnPhoneStatus').html('Invalid');
+                    $('#spnPhoneStatus').css('color', 'red');
                 },
                 processData: false,
                 async: false
-            });
-        }else {
-            $('#spnPhoneStatus').html('Invalid');
-            $('#spnPhoneStatus').css('color', 'red');
-        }
+        });
     }
     function sendMesssageEditFacebook()
     {
-        console.log(validatePhone($('#facebook').val()));
-        if(validatePhone($('#facebook').val())) {
-            $.ajax({
+        $.ajax({
                 type: 'POST',
                 dataType: 'text',
                 url: "/user/sendMesssageEditFacebook",
@@ -223,21 +206,16 @@
 
                 },
                 error: function(result) {
-                    // todo: handle error;
+                    $('#spnPhoneStatus').html('Invalid');
+                    $('#spnPhoneStatus').css('color', 'red');
                 },
                 processData: false,
                 async: false
             });
-        }else {
-            $('#spnPhoneStatus').html('Invalid');
-            $('#spnPhoneStatus').css('color', 'red');
-        }
     }
     function sendMesssageEditWebsite()
     {
-        console.log(validatePhone($('#website').val()));
-        if(validatePhone($('#website').val())) {
-            $.ajax({
+        $.ajax({
                 type: 'POST',
                 dataType: 'text',
                 url: "/user/sendMesssageEditWebsite",
@@ -248,15 +226,12 @@
 
                 },
                 error: function(result) {
-                    // todo: handle error;
+                    $('#spnPhoneStatus').html('Invalid');
+                    $('#spnPhoneStatus').css('color', 'red');
                 },
                 processData: false,
                 async: false
             });
-        }else {
-            $('#spnPhoneStatus').html('Invalid');
-            $('#spnPhoneStatus').css('color', 'red');
-        }
     }
     function initializeCallback() {
         $("#renameBand").on('focusout', callbackFocusoutRenameBand);

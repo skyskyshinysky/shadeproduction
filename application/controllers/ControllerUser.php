@@ -28,9 +28,8 @@ class ControllerUser extends Controller
     function actionSendMessage(){
 
         require_once(ROOT . '/application/services/CommentService.php');
-        $message = json_decode($_POST['message']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
+        if( $this->authorizeController->statusCookies == true and isset($_POST['message'])
+            and !empty($_POST['message'])) {
             $commentService = new CommentService($this->databaseInterface);
             $commentService->addComment();
         }
