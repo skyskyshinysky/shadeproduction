@@ -49,12 +49,13 @@ class UserService
         $modelUser->email = $result['email'];
         $modelUser->genreMusic = $result['genreMusic'];
         $modelUser->about = $result['about'];
-        $modelUser->phone = $result['phone'];
         $modelUser->skype = $result['skype'];
         $modelUser->twitter = $result['twitter'];
         $modelUser->instagram = $result['instagram'];
         $modelUser->facebook = $result['facebook'];
         $modelUser->website = $result['website'];
+        $modelUser->origin = $result['origin'];
+        $modelUser->yearsActive = $result['yearsActive'];
         return $modelUser;
     }
     public function getSongs($genreMusic) {
@@ -65,40 +66,12 @@ class UserService
            logo.nameLogo, logo.pathFile FROM  users,logo WHERE users.genreMusic = ?s AND users.typeAccount = "band" AND 
            users.Id = logo.Id ORDER BY time  DESC LIMIT 10', $genreMusic);
     }
-    function editAboutBand($message) {
-        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
-        $modelUser = $this->getBand($fullPath[5]);
-        $this->databaseInterface->query('UPDATE users SET about=?s  WHERE userName=?s', $message, $modelUser->userName);
-    }
-    function editSkypeBand($message) {
-        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
-        $modelUser = $this->getBand($fullPath[5]);
-        $this->databaseInterface->query('UPDATE users SET skype=?s  WHERE userName=?s', $message, $modelUser->userName);
-    }
-    function editInstagramBand($message) {
-        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
-        $modelUser = $this->getBand($fullPath[5]);
-        $this->databaseInterface->query('UPDATE users SET instagram=?s  WHERE userName=?s', $message, $modelUser->userName);
-    }
-    function editFacebookBand($message) {
-        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
-        $modelUser = $this->getBand($fullPath[5]);
-        $this->databaseInterface->query('UPDATE users SET facebook=?s  WHERE userName=?s', $message, $modelUser->userName);
-    }
-    function editWebsiteBand($message) {
-        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
-        $modelUser = $this->getBand($fullPath[5]);
-        $this->databaseInterface->query('UPDATE users SET website=?s  WHERE userName=?s', $message, $modelUser->userName);
-    }
-    function editTwitterBand($message) {
-        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
-        $modelUser = $this->getBand($fullPath[5]);
-        $this->databaseInterface->query('UPDATE users SET twitter=?s  WHERE userName=?s', $message, $modelUser->userName);
-    }
-    function editPhoneBand($message) {
-        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
-        $modelUser = $this->getBand($fullPath[5]);
-        $this->databaseInterface->query('UPDATE users SET phone=?s  WHERE userName=?s', $message, $modelUser->userName);
+    public function updateInformationBand()
+    {
+        $this->databaseInterface->query('UPDATE users SET bandName = ?s, genreMusic = ?s,email = ?s,about = ?s,skype = ?s,twitter = ?s,instagram = ?s,
+            facebook = ?s,website = ?s,origin = ?s,yearsActive = ?s WHERE  Id = ?s',
+            $_POST['nameBand'], $_POST['genreMusic'], $_POST['email'],$_POST['aboutBand'], $_POST['skype'],$_POST['twitter'],$_POST['instagram'], $_POST['facebook'],
+            $_POST['website'],$_POST['origin'],$_POST['yearsActive'], $_COOKIE['Id']);
     }
     public function editBand($nameBand,$genreMusic)
     {

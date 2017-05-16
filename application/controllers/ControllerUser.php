@@ -34,89 +34,7 @@ class ControllerUser extends Controller
             $commentService->addComment();
         }
     }
-    function actionSendMessageRenameBand()
-    {
-        require_once(ROOT . '/application/services/UserService.php');
-        $message = json_decode($_POST['message']);
-        $jenreMusic = json_decode($_POST['jenre']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
-            $userService = new UserService($this->databaseInterface);
-            $userService->editBand($message, $jenreMusic);
-        }
-    }
-    function actionSendMesssageEditSkype() {
-        require_once(ROOT . '/application/services/UserService.php');
-        $message = json_decode($_POST['message']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
-            $userService = new UserService($this->databaseInterface);
-            $userService->editSkypeBand($message);
-        }
-    }
-    function actionSendMesssageEditTwitter() {
-        require_once(ROOT . '/application/services/UserService.php');
-        $message = json_decode($_POST['message']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
-            $userService = new UserService($this->databaseInterface);
-            $userService->editTwitterBand($message);
-        }
-    }
-    function actionSendMesssageEditInstagram() {
-        require_once(ROOT . '/application/services/UserService.php');
-        $message = json_decode($_POST['message']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
-            $userService = new UserService($this->databaseInterface);
-            $userService->editInstagramBand($message);
-        }
-    }
-    function actionSendMesssageEditFacebook() {
-        require_once(ROOT . '/application/services/UserService.php');
-        $message = json_decode($_POST['message']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
-            $userService = new UserService($this->databaseInterface);
-            $userService->editFacebookBand($message);
-        }
-    }
-    function actionSendMesssageEditWebsite() {
-        require_once(ROOT . '/application/services/UserService.php');
-        $message = json_decode($_POST['message']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
-            $userService = new UserService($this->databaseInterface);
-            $userService->editWebsiteBand($message);
-        }
-    }
-    function actionSendMesssageEditPhone() {
-        require_once(ROOT . '/application/services/UserService.php');
-        $message = json_decode($_POST['message']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
-            $userService = new UserService($this->databaseInterface);
-            $userService->editPhoneBand($message);
-        }
-    }
-    function actionSendMessageAboutBand() {
-        require_once(ROOT . '/application/services/UserService.php');
-        $message = json_decode($_POST['message']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
-            $userService = new UserService($this->databaseInterface);
-            $userService->editAboutBand($message);
-        }
-    }
-    function actionSendMessageEditMail()
-    {
-        require_once(ROOT . '/application/services/UserService.php');
-        $message = json_decode($_POST['message']);
-        if( $this->authorizeController->statusCookies == true and isset($message)
-            and !empty($message)) {
-            $userService = new UserService($this->databaseInterface);
-        }
-    }
+
     function actionGetBlockData()
     {
         $data = null;
@@ -161,9 +79,17 @@ class ControllerUser extends Controller
         require_once(ROOT . '/application/services/ImageService.php');
         $imageService = new ImageService($this->databaseInterface);
         $data = $this->actionProfileBand(true);
-        if( $data['owner'] = true) {
-            if(isset($_POST['submit'])) {
-                $imageService->uploadLogo();
+
+        if( $data['owner'] = true)
+        {
+            if(isset($_POST['save']))
+            {
+
+                if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
+                    $imageService->uploadLogo();
+                }
+                $userService = new UserService($this->databaseInterface);
+                $userService->updateInformationBand();
             }
             $this->view->generate('bandEditView.php', 'templateView.php', $data);
         } else {
