@@ -86,7 +86,7 @@
                 'user/profileBand/' + items[count].userName + '">' +  items[count].bandName + '</a></p></div></td>';
 
             $(divContainer).hide().appendTo(row).fadeIn(1000);
-            if(count == 1 || count%2 == 1){
+            if(count%2 == 1) {
                 $(".artists").append(row);
                 row = $('<tr></tr>');
             }
@@ -104,11 +104,15 @@
     }
     function initializeBlock() {
         var type = $(".tab-link.current").text();
-        var genreMusic = $("#genreMusic").val();
+        if(type == "Songs") {
+            var genre = $("#genreMusic").val();
+        }else {
+            var genre = $("#genreArtist").val();
+        }
         console.log(genreMusic);
         if(isEmpty(type) == false && isEmpty(genreMusic) == false) {
             $.post('/user/getBlockData', 'type=' + JSON.stringify(type) +
-                '&jenre=' + JSON.stringify(genreMusic),function (data) {
+                '&jenre=' + JSON.stringify(genre),function (data) {
                 //парсим JSON
                 var items = JSON.parse(data);
                 // строим и выводим каркас для 10 записей
@@ -129,6 +133,7 @@
         $("#search").on('focusin', callbackFocusin);
         $("ul.tabs li").on('click', callbackTabs);
         $("#genreMusic").on('change', initializeBlock);
+        $("#genreArtist").on('change', initializeBlock);
         initializeBlock();
     });
 </script>

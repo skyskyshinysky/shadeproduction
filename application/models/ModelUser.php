@@ -17,7 +17,8 @@ class ModelUser extends Model
     public $genreMusic;
     public $about;
 
-    public $phone;
+    public $origin;
+    public $yearsActive;
     public $skype;
     public $twitter;
     public $instagram;
@@ -49,8 +50,9 @@ class ModelUser extends Model
             'bandName' => $this->bandName,
             'genreMusic' => $this->genreMusic,
             'about' => $this->about,
-            'phone' => $this->phone,
             'skype' => $this->skype,
+            'origin' => $this->origin,
+            'yearsActive' => $this->yearsActive,
             'twitter' => $this->twitter,
             'instagram' => $this->instagram,
             'facebook' => $this->facebook,

@@ -151,12 +151,12 @@
             </div>
             <div>
                 <?php
-                    echo '<h3 style="text-align: center;" id="origin">' . 'St Albans, Hertfordshire, England, United Kingdom' . '</h3>';
+                    echo '<h3 style="text-align: center;" id="origin">' . $origin . '</h3>';
                 ?>
             </div>
             <div>
                 <?php
-                    echo '<h3 style="text-align: center;" id="origin">' . ' 1999–present' . '</h3>';
+                    echo '<h3 style="text-align: center;" id="origin">' . $yearsActive . '</h3>';
                 ?>
             </div>
             <?php
