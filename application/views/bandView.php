@@ -63,16 +63,25 @@
 
                     var tr = $("<tr></tr>");
 
-                    var author = $("<td></td>");
-                    author.text("Spiderman");
+                    var td = $('<td></td>').attr({
+                        style: 'padding: 6px 12px; vertical-align: top;',
+                    });
+                    var author = $("<b></b>");
 
-                    var datetime = $("<td></td>");
+                    author.text('shadeproduction');
+                    author.appendTo(td);
+
+                    var datetime = $("<td></td>").attr({
+                        style: 'padding: 6px 12px; white-space: nowrap; vertical-align: top;',
+                    });
                     datetime.text(now.toLocaleString());
 
-                    var message = $("<td></td>");
+                    var message = $("<td></td>").attr({
+                        style: 'padding: 6px 12px; word-wrap: break-word; word-break: break-all;',
+                    });
                     message.text(textareaValue);
 
-                    author.appendTo(tr);
+                    td.appendTo(tr);
                     datetime.appendTo(tr);
                     message.appendTo(tr);
 
@@ -97,19 +106,25 @@
 
                 var tr = $("<tr></tr>");
 
-                var td = $("<td></td>");
+                var td = $('<td></td>').attr({
+                    style: 'padding: 6px 12px; vertical-align: top;',
+                });
                 var author = $("<b></b>");
 
                 author.text(items[count].userName);
                 author.appendTo(td);
 
-                var datetime = $("<td></td>");
+                var datetime = $('<td></td>').attr({
+                    style: 'padding: 6px 12px; white-space: nowrap; vertical-align: top;',
+                });
                 datetime.text(items[count].time);
 
-                var message = $("<td></td>");
+                var message = $('<td></td>').attr({
+                    style: 'padding: 6px 12px; word-wrap: break-word; word-break: break-all;',
+                });
                 message.text(items[count].message);
 
-                author.appendTo(tr);
+                td.appendTo(tr);
                 datetime.appendTo(tr);
                 message.appendTo(tr);
 
