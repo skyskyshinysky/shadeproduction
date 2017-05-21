@@ -1,8 +1,39 @@
 <script type="text/javascript">
     var rowsPerPage = 10;
 
+    function helperActive(page_num) {
+        if(page_num > 0) {
+            $('.pagination').find('a').css("class", "active").removeClass('active');
+            $('#page' + page_num).addClass('active');
+            return page_num;
+        } else {
+            var maxLength = $('.pagination').find("a").length - 2;
+            var value = parseInt($('.active').text(), 10);
+            if(page_num == -1) {
+                value = value - 1;
+                if(value == 0) {
+                    return 1;
+                }
+            }
+            else {
+                value = value + 1;
+                if(value >= maxLength) {
+                    $('.pagination').find('a').css("class", "active").removeClass('active');
+                    $('#page' + maxLength).addClass('active');
+                    return maxLength;
+                }
+            }
+            $('.pagination').find('a').css("class", "active").removeClass('active');
+            $('#page' + value).addClass('active');
+            return value;
+        }
+    }
     function getPage(page_num)
     {
+        page_num = helperActive(page_num)
+        if(page_num < 0 ) {
+            return;
+        }
         $('table.wall tbody').html('');
         $.get('/user/getPageNum/?pageNum='+page_num, function(data){
             //парсим JSON
@@ -11,19 +42,19 @@
             for(var count = 0; count < items.length; count++) {
                 var tr = $("<tr></tr>");
 
-                var td = $("<td></td>");
+                var td = $('<td style="padding: 6px 12px; vertical-align: top;"><b></b></td>');
                 var author = $("<b></b>");
-
                 author.text(items[count].userName);
                 author.appendTo(td);
+                console.log(td);
 
-                var datetime = $("<td></td>");
+                var datetime = $('<td style="padding: 6px 12px; white-space: nowrap; vertical-align: top;"></td>');
                 datetime.text(items[count].time);
 
-                var message = $("<td></td>");
+                var message = $('<td style="padding: 6px 12px; word-wrap: break-word; word-break: break-all;"></td>');
                 message.text(items[count].message);
 
-                author.appendTo(tr);
+                td.appendTo(tr);
                 datetime.appendTo(tr);
                 message.appendTo(tr);
 
@@ -38,10 +69,16 @@
             totalRows = parseInt(data);
             if(totalRows > 10) {
                 var count = 1;
+                $('.pagination').append('<a href="#" onclick="getPage(-1);">&laquo;</a>');
                 for (var x = 0; x < totalRows; x += rowsPerPage) {
-                    $('#page-numbers').append('<li><a href="#' + count + '" onclick="getPage(' + count + ');">' + count + '</a></li>');
+                    if(count == 1) {
+                        $('.pagination').append('<a id=page' + count + ' class="active" href="#' + count + '" onclick="getPage(' + count + ');">' + count + '</a>');
+                    }else {
+                        $('.pagination').append('<a id=page' + count + ' href="#' + count + '" onclick="getPage(' + count + ');">' + count + '</a>');
+                    }
                     count++;
                 }
+                $('.pagination').append('<a href="#" onclick="getPage(-2);">&raquo;</a>');
             }
         });
     }
@@ -223,10 +260,8 @@
         <div id="wrapper">
             <?php
             foreach ($data['musicBand'] as $musicBand) {
-                echo '<br>' . $musicBand['nameMusic'];
-                echo '<audio preload="auto" controls>';
-                echo '<source src="http://'. $_SERVER['HTTP_HOST'] . '/' . $musicBand['pathFile'] . $musicBand['nameMusic'] . '" type="audio/mp3"/>';
-                echo '</audio>';
+                echo  '<b>' . preg_replace("/[\d\.\.mp3]/", '', $musicBand['nameMusic']) . '</b><audio preload="auto" controls>
+                <source src="http://'. $_SERVER['HTTP_HOST'] . '/' . $musicBand['pathFile'] . $musicBand['nameMusic'] . '" type="audio/mp3"/></audio>';
             }
             ?>
         </div>
@@ -239,6 +274,10 @@
             </tbody>
         </table>
         <ul id="page-numbers"></ul>
+        <div class="center">
+            <div class="pagination">
+            </div>
+        </div>
         <textarea class="comment-input form-input" id="messageBody" placeholder="Message Body"></textarea>
         <button style="margin-top: 10px;" onclick="sendMessageInBand"  class="button" id="sendMessageInBand">Send message</button>
     </div>

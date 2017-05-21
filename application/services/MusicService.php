@@ -4,8 +4,7 @@ class MusicService
 {
     private $databaseInterface;
 
-    function __construct($interface)
-    {
+    function __construct($interface){
         $this->databaseInterface = $interface;
     }
 

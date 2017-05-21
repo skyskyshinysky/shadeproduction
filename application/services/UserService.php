@@ -15,8 +15,7 @@ class UserService
     {
         $this->databaseInterface = $interface;
     }
-    public function getUser($userName = null)
-    {
+    public function getUser($userName = null){
         if($userName == null) {
             $userName = $this->databaseInterface->getRow('SELECT userName FROM users WHERE Id = ?s', $_COOKIE['Id']);
         }
@@ -34,8 +33,7 @@ class UserService
         return $modelUser;
     }
 
-    public function getBand($userName)
-    {
+    public function getBand($userName){
         if($userName == null) {
             return null;
         }
@@ -66,31 +64,30 @@ class UserService
            logo.nameLogo, logo.pathFile FROM  users,logo WHERE users.genreMusic = ?s AND users.typeAccount = "band" AND 
            users.Id = logo.Id ORDER BY time  DESC LIMIT 10', $genreMusic);
     }
-    public function updateInformationBand()
-    {
+    public function updateInformationBand(){
         $this->databaseInterface->query('UPDATE users SET bandName = ?s, genreMusic = ?s,email = ?s,about = ?s,skype = ?s,twitter = ?s,instagram = ?s,
             facebook = ?s,website = ?s,origin = ?s,yearsActive = ?s WHERE  Id = ?s',
             $_POST['nameBand'], $_POST['genreMusic'], $_POST['email'],$_POST['aboutBand'], $_POST['skype'],$_POST['twitter'],$_POST['instagram'], $_POST['facebook'],
             $_POST['website'],$_POST['origin'],$_POST['yearsActive'], $_COOKIE['Id']);
     }
-    public function editBand($nameBand,$genreMusic)
-    {
+    public function actionGetBlockDataPeople() {
+
+    }
+    public function editBand($nameBand,$genreMusic){
         $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
         $modelUser = $this->getBand($fullPath[5]);
         $modelUser->bandName = $nameBand;
         $modelUser->genreMusic = $genreMusic;
         $this->updateUser($modelUser);
     }
-    public function updateUser($modelUser)
-    {
+    public function updateUser($modelUser){
         $this->databaseInterface->query('UPDATE users SET email=?s ,genreMusic=?s, bandName=?s WHERE userName=?s',$modelUser->email, $modelUser->genreMusic, $modelUser->bandName, $modelUser->userName);
     }
     public function getNameUser()
     {
         return $this->getUser()->userName;
     }
-    public function saveUser()
-    {
+    public function saveUser(){
         // попытка получения записи с заданным почтовым ящиком или ником
         $result = $this->databaseInterface->getOne("SELECT Id FROM users WHERE email = ?s OR username = ?s", $_POST['email'], $_POST['userName']);
         // если пользователя не существует

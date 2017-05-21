@@ -80,11 +80,8 @@ class ControllerUser extends Controller
         $imageService = new ImageService($this->databaseInterface);
         $data = $this->actionProfileBand(true);
 
-        if( $data['owner'] = true)
-        {
-            if(isset($_POST['save']))
-            {
-
+        if( $data['owner'] = true) {
+            if(isset($_POST['save'])) {
                 if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
                     $imageService->uploadLogo();
                 }

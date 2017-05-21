@@ -495,3 +495,22 @@ table.wall {
         box-shadow: 0 3px 0 #ccc, 3px 5px 3px #333;
         -o-box-shadow: 0 3px 0 #ccc, 3px 5px 3px #333;
     }
+    .pagination {
+        display: inline-block;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+    .center {
+        text-align: center;
+    }

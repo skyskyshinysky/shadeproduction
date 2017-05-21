@@ -32,31 +32,31 @@ class ModelUser extends Model
     function getDataUser()
     {
         return array(
-            'Id' => $this->id,
-            'firstName' => $this->firstName,
-            'lastName' => $this->lastName,
-            'userName' => $this->userName,
-            'email' => $this->email,
-            'genreMusic' => $this->genreMusic,
-            'about' => $this->about
+            'Id' => htmlspecialchars($this->id),
+            'firstName' => htmlspecialchars($this->firstName),
+            'lastName' => htmlspecialchars($this->lastName),
+            'userName' => htmlspecialchars($this->userName),
+            'email' => htmlspecialchars($this->email),
+            'genreMusic' => htmlspecialchars($this->genreMusic),
+            'about' => htmlspecialchars($this->about)
         );
     }
     function getDataBand()
     {
         return array(
-            'Id' => $this->id,
-            'userName' => $this->userName,
-            'email' => $this->email,
-            'bandName' => $this->bandName,
+            'Id' => htmlspecialchars($this->id),
+            'userName' => htmlspecialchars($this->userName),
+            'email' => htmlspecialchars($this->email),
+            'bandName' => htmlspecialchars($this->bandName),
             'genreMusic' => $this->genreMusic,
-            'about' => $this->about,
-            'skype' => $this->skype,
-            'origin' => $this->origin,
-            'yearsActive' => $this->yearsActive,
-            'twitter' => $this->twitter,
-            'instagram' => $this->instagram,
-            'facebook' => $this->facebook,
-            'website' => $this->website
+            'about' => htmlspecialchars($this->about),
+            'skype' => htmlspecialchars($this->skype),
+            'origin' => htmlspecialchars($this->origin),
+            'yearsActive' => htmlspecialchars($this->yearsActive),
+            'twitter' => htmlspecialchars($this->twitter),
+            'instagram' => htmlspecialchars($this->instagram),
+            'facebook' => htmlspecialchars($this->facebook),
+            'website' => htmlspecialchars($this->website)
         );
     }
 

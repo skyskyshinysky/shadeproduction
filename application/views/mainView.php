@@ -92,7 +92,6 @@
             }
         }
         $(".artists").append(row);
-
         $('.fdw-background').hover(
             function () {
                 $(this).animate({opacity:'1'});
