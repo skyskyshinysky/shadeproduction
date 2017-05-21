@@ -28,12 +28,11 @@
             });
         }
     }
+    function itmclick(){
+        window.location.pathname = $(this).attr("cat");
+    }
     function isEmpty(value) {
         return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
-    }
-    function updatePeopleBox(items) {
-
-
     }
     function callbackFocusout() {
         if($(this).val()=='') $(this).val('Enter a first name or last name...');
@@ -48,17 +47,43 @@
             {
                 //парсим JSON
                 var items = JSON.parse(data);
+                console.log(items);
                 // строим и выводим каркас для 10 записей
                 updatePeopleBox(items);
             });
         }
     }
+    function updatePeopleBox(items) {
+        $('.people').html('');
 
+        var row = $('<tr></tr>');
+        for(var count = 0; count < items.length; count++) {
+            var divContainer='<td class="c-two" style="background-image:url(' + items[count].pathFile + items[count].nameLogo + ');background-size: cover"> ' +
+                '<div class="fdw-background"> <p class="fdw-port"> <a href="http://'+ window.location.hostname +'/'+
+                'user/profile/' + items[count].userName + '">' +  items[count].firstName + ' ' + items[count].lastName + '</a></p></div></td>';
+
+            $(divContainer).hide().appendTo(row).fadeIn(1000);
+            if(count%2 == 1) {
+                $(".people").append(row);
+                row = $('<tr></tr>');
+            }
+        }
+        $(".people").append(row);
+        $('.fdw-background').hover(
+            function () {
+                $(this).animate({opacity:'1'});
+            },
+            function () {
+                $(this).animate({opacity:'0'});
+            }
+        );
+    }
     $(document).ready(function () {
         $("#search").on('keyup', callbackSearching);
         $("#search").on('focusout', callbackFocusout);
         $("#search").on('focusin', callbackFocusin);
-     //   initializeBlock();
+        $("#genreMusic").on('change', initializeBlock);
+        initializeBlock();
     });
 </script>
 
@@ -93,31 +118,4 @@
 
         </tbody>
     </table>
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-    asdlkfjahslkdfjhalksdfhlkasjdlkasjdhfklasdhfkajshfdkasjhfdlkasdf;lajflq;wekfjla;djfl;asjdfl;aksdjfl;asdjfl;asd
-    asdfasdfasdfalsdkfja;sldfj;asldjfl;asjdf;lasjdf;laskjdf;lakjsdl;fjas;ldfjaslkdjf;laskjdfl;asjdf;lajsdlf;kjas;dlfkj
-
 </div>

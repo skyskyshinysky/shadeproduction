@@ -59,6 +59,11 @@ class UserService
     public function getSongs($genreMusic) {
         return $this->databaseInterface->getAll('SELECT music.nameMusic, music.pathFile,users.bandName FROM  music,users WHERE music.bandId = users.Id AND music.genreMusic = ?s ORDER BY music.time DESC LIMIT 10', $genreMusic);
     }
+    public function getPeople($genreMusic) {
+        return $this->databaseInterface->getAll('SELECT users.firstName,users.lastName,users.userName,
+            logo.nameLogo, logo.pathFile FROM users,logo WHERE users.genreMusic = ?s AND users.typeAccount = "user" 
+            AND logo.Id = users.Id ORDER BY time DESC LIMIT 10', $genreMusic);
+    }
     public function getBands($genreMusic) {
         return $this->databaseInterface->getAll('SELECT users.userName, users.genreMusic, users.bandName,
            logo.nameLogo, logo.pathFile FROM  users,logo WHERE users.genreMusic = ?s AND users.typeAccount = "band" AND 

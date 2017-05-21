@@ -43,8 +43,10 @@ class ControllerUser extends Controller
         require_once(ROOT . '/application/services/UserService.php');
         if( $this->authorizeController->statusCookies == true and
             isset($genreMusic) and !empty($genreMusic)) {
-
+            $userService = new UserService($this->databaseInterface);
+            $data = $userService->getPeople($genreMusic);
         }
+        echo json_encode($data);
     }
     function actionGetBlockData()
     {
@@ -88,9 +90,17 @@ class ControllerUser extends Controller
     function actionProfileEdit()
     {
         require_once(ROOT . '/application/services/ImageService.php');
-       // $imageService = new ImageService($this->databaseInterface);
+        $imageService = new ImageService($this->databaseInterface);
         $data = $this->actionProfile(true);
-        if( $data['owner'] = true) {
+        if( $data['owner'] = true)
+        {
+            if(isset($_POST['save'])) {
+                if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
+                    $imageService->uploadLogo();
+                }
+              //  $userService = new UserService($this->databaseInterface);
+              //  $userService->updateInformationBand();
+            }
             $this->view->generate('userEditView.php', 'templateView.php', $data);
         } else {
             $this->view->generate('404View.php', 'templateView.php', $data);
