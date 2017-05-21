@@ -15,8 +15,16 @@ class ControllerMain extends Controller
         echo json_encode($data);
     }
     function actionPeople(){
-        $data = null;
-        $this->view->generate('peopleView.php', 'templateView.php', $data);
+        $data['authorize'] = false;
+        if($this->authorizeController->statusCookies == true) {
+            $data['authorize'] = true;
+            $data['userName'] = $this->authorizeController->username;
+            $data['typeAccount'] = $this->authorizeController->typeAccount;
+            $this->view->generate('peopleView.php', 'templateView.php', $data);
+        }
+        else {
+            $this->view->generate('404View.php', 'templateView.php', $data);
+        }
     }
     function actionSearchBox(){
         $searchString = $_POST["searchString"];

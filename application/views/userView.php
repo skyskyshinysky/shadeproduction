@@ -107,7 +107,7 @@
             </div>
             <div>
                 <?php
-                    echo '<h2 style="text-align: center;" id="userName">' . 'Ilya Pankov' . '</h2>';
+                    echo '<h2 style="text-align: center;" id="userName">' . $firstName . ' ' . $lastName . '</h2>';
                 ?>
             </div>
             <div>

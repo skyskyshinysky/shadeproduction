@@ -5,7 +5,7 @@
     var boxContent = '';
 
     function updateBoxContent(items) {
-        for (var count = 0; count < items.length; count++) {
+              for (var count = 0; count < items.length; count++) {
             boxContent = boxContent + '<tr class="search-row"><td class="item" cat=/user/profile/' + items[count].userName + '>' +
                 items[count].firstName + ' ' + items[count].lastName + '</td><tr>';
         }
@@ -14,13 +14,15 @@
     {
         $("#box").children().not(":first()").remove();
         querySearhing = $("#search").val();
-        console.log(querySearhing);
         if(querySearhing.length >= 3) {
             boxContent = '';
             $.post("/main/searchBoxPeople", {searchString: querySearhing},function(data){
                 if(data!='') {
                     boxContent = '';
                     items = JSON.parse(data);
+                    items = $.map(items,function (val, people) {
+                        return val;
+                    });
                     updateBoxContent(items);
                     $("#box").append(boxContent);
                     $(".item").bind("click",itmclick);

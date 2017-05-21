@@ -12,6 +12,7 @@ class ControllerUser extends Controller
             if(($this->model = $userService->getUser($_GET['userNameDefaultPage'])) != null)
             {
                 $data = $this->model->getDataUser();
+                $data['userName'] = $this->authorizeController->username;
                 $data['authorize'] = true;
                 $data['typeAccount'] = $this->authorizeController->typeAccount;
                 $data['owner'] = false;
@@ -98,8 +99,8 @@ class ControllerUser extends Controller
                 if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
                     $imageService->uploadLogo();
                 }
-              //  $userService = new UserService($this->databaseInterface);
-              //  $userService->updateInformationBand();
+                $userService = new UserService($this->databaseInterface);
+                $userService->updateInformationUser();
             }
             $this->view->generate('userEditView.php', 'templateView.php', $data);
         } else {

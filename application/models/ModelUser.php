@@ -38,7 +38,14 @@ class ModelUser extends Model
             'userName' => htmlspecialchars($this->userName),
             'email' => htmlspecialchars($this->email),
             'genreMusic' => htmlspecialchars($this->genreMusic),
-            'about' => htmlspecialchars($this->about)
+            'about' => htmlspecialchars($this->about),
+            'skype' => htmlspecialchars($this->skype),
+            'origin' => htmlspecialchars($this->origin),
+            'yearsActive' => htmlspecialchars($this->yearsActive),
+            'twitter' => htmlspecialchars($this->twitter),
+            'instagram' => htmlspecialchars($this->instagram),
+            'facebook' => htmlspecialchars($this->facebook),
+            'website' => htmlspecialchars($this->website)
         );
     }
     function getDataBand()

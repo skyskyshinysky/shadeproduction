@@ -15,12 +15,12 @@
             </div>
             <div style="margin-top: 20px;">
                 <?php
-                    echo '<input class="form-input" name="firstName" style="text-align: center; max-width: 100%;" id="nameBand" placeholder="First Name" value="' . 'Ilya' . '" />';
+                    echo '<input class="form-input" name="firstName" style="text-align: center; max-width: 100%;" id="nameBand" placeholder="First Name" value="' . $firstName . '" />';
                 ?>
             </div>
             <div style="margin-top: 20px;">
                 <?php
-                    echo '<input class="form-input" name="lastName" style="text-align: center; max-width: 100%;" id="nameBand" placeholder="Last Name" value="' . 'Pankov' . '" />';
+                    echo '<input class="form-input" name="lastName" style="text-align: center; max-width: 100%;" id="nameBand" placeholder="Last Name" value="' . $lastName . '" />';
                 ?>
             </div>
             <div style="margin-top: 20px;">
