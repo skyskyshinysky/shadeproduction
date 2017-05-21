@@ -1,7 +1,7 @@
 <?php
 class ControllerUser extends Controller
 {
-    function actionProfile() {
+    function actionProfile($status = null) {
         $data['authorize'] = false;
         require_once(ROOT . '/application/services/UserService.php');
         require_once(ROOT . '/application/services/ImageService.php');
@@ -19,6 +19,9 @@ class ControllerUser extends Controller
                 if(strcasecmp($_COOKIE['Id'], $this->model->id) == 0) {
                     $data['owner'] = true;
                 }
+                if($status == true) {
+                    return $data;
+                }
                 $this->view->generate('userView.php', 'templateView.php', $data);
                 return;
             }
@@ -34,7 +37,15 @@ class ControllerUser extends Controller
             $commentService->addComment();
         }
     }
+    function actionGetBlockDataPeople() {
+        $data = null;
+        $genreMusic = json_decode($_POST['genre']);
+        require_once(ROOT . '/application/services/UserService.php');
+        if( $this->authorizeController->statusCookies == true and
+            isset($genreMusic) and !empty($genreMusic)) {
 
+        }
+    }
     function actionGetBlockData()
     {
         $data = null;
@@ -73,6 +84,17 @@ class ControllerUser extends Controller
         require_once(ROOT . '/application/services/CommentService.php');
         $commentService = new CommentService($this->databaseInterface);
         echo json_encode($commentService->getComments($_GET['pageNum']));
+    }
+    function actionProfileEdit()
+    {
+        require_once(ROOT . '/application/services/ImageService.php');
+       // $imageService = new ImageService($this->databaseInterface);
+        $data = $this->actionProfile(true);
+        if( $data['owner'] = true) {
+            $this->view->generate('userEditView.php', 'templateView.php', $data);
+        } else {
+            $this->view->generate('404View.php', 'templateView.php', $data);
+        }
     }
     function actionProfileBandEdit() {
 

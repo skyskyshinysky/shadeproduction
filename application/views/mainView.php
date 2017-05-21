@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="/css/tabs.css" />
 
 <script>
-    var visib = false;
+
     var querySearhing;
-    var ra;
+
     var boxContent = '';
     function getResult(){
         query = $("#search").val();

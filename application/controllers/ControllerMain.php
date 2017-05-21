@@ -8,9 +8,10 @@
  */
 class ControllerMain extends Controller
 {
-    function SearchBoxPeople(){
+    function actionSearchBoxPeople(){
         $searchString = $_POST["searchString"];
-        $data['people'] =  $this->databaseInterface->getAll('SELECT music.nameMusic, music.genreMusic, users.userName FROM music, users WHERE music.bandId = users.Id AND music.nameMusic LIKE ?s  LIMIT 15', "%$searchString%");
+        $data['people'] =  $this->databaseInterface->getAll('SELECT firstName, lastName, userName FROM users WHERE firstName LIKE ?s  OR lastName LIKE ?s LIMIT 15',
+            "%$searchString%", "%$searchString%");
         echo json_encode($data);
     }
     function actionPeople(){

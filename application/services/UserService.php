@@ -70,9 +70,6 @@ class UserService
             $_POST['nameBand'], $_POST['genreMusic'], $_POST['email'],$_POST['aboutBand'], $_POST['skype'],$_POST['twitter'],$_POST['instagram'], $_POST['facebook'],
             $_POST['website'],$_POST['origin'],$_POST['yearsActive'], $_COOKIE['Id']);
     }
-    public function actionGetBlockDataPeople() {
-
-    }
     public function editBand($nameBand,$genreMusic){
         $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
         $modelUser = $this->getBand($fullPath[5]);

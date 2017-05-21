@@ -1,19 +1,27 @@
+<link rel="stylesheet" href="/css/tabs.css" />
+
 <script>
+    var querySearhing;
+    var boxContent = '';
+
+    function updateBoxContent(items) {
+        for (var count = 0; count < items.length; count++) {
+            boxContent = boxContent + '<tr class="search-row"><td class="item" cat=/user/profile/' + items[count].userName + '>' +
+                items[count].firstName + ' ' + items[count].lastName + '</td><tr>';
+        }
+    }
     function callbackSearching(code)
     {
         $("#box").children().not(":first()").remove();
-
         querySearhing = $("#search").val();
+        console.log(querySearhing);
         if(querySearhing.length >= 3) {
             boxContent = '';
             $.post("/main/searchBoxPeople", {searchString: querySearhing},function(data){
                 if(data!='') {
                     boxContent = '';
                     items = JSON.parse(data);
-                    items = $.map(items,function (val, bands) {
-                        return val;
-                    });
-                //    updateBoxContent(items);
+                    updateBoxContent(items);
                     $("#box").append(boxContent);
                     $(".item").bind("click",itmclick);
                 }
@@ -24,6 +32,7 @@
         return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
     }
     function updatePeopleBox(items) {
+
 
     }
     function callbackFocusout() {
@@ -49,7 +58,7 @@
         $("#search").on('keyup', callbackSearching);
         $("#search").on('focusout', callbackFocusout);
         $("#search").on('focusin', callbackFocusin);
-        initializeBlock();
+     //   initializeBlock();
     });
 </script>
 
