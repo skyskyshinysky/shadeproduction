@@ -31,7 +31,7 @@
                 ?>
             </div>
             <div class="navigation-bar-menu">
-                <a class="navigation-bar-link" href="http://www.socialnetwork.local/main">Music</a>
+                <a class="navigation-bar-link"<?php echo 'href="http://' . $_SERVER['HTTP_HOST'] . '/main"'; ?>>Music</a>
                 <a class="navigation-bar-link" <?php echo 'href="http://' . $_SERVER['HTTP_HOST'] . '/main/people"'; ?>>People</a>
             </div>
             <div class="navigation-bar-authentication">

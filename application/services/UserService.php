@@ -28,7 +28,14 @@ class UserService
         $modelUser->firstName = $result['firstName'];
         $modelUser->lastName = $result['lastName'];
         $modelUser->email = $result['email'];
-        $modelUser->bandName = $result['bandName'];
+        $modelUser->about = $result['about'];
+        $modelUser->skype = $result['skype'];
+        $modelUser->twitter = $result['twitter'];
+        $modelUser->instagram = $result['instagram'];
+        $modelUser->facebook = $result['facebook'];
+        $modelUser->website = $result['website'];
+        $modelUser->origin = $result['origin'];
+        $modelUser->yearsActive = $result['yearsActive'];
         $modelUser->genreMusic = $result['genreMusic'];
         return $modelUser;
     }
@@ -59,10 +66,21 @@ class UserService
     public function getSongs($genreMusic) {
         return $this->databaseInterface->getAll('SELECT music.nameMusic, music.pathFile,users.bandName FROM  music,users WHERE music.bandId = users.Id AND music.genreMusic = ?s ORDER BY music.time DESC LIMIT 10', $genreMusic);
     }
+    public function getPeople($genreMusic) {
+        return $this->databaseInterface->getAll('SELECT users.firstName,users.lastName,users.userName,
+            logo.nameLogo, logo.pathFile FROM users,logo WHERE users.genreMusic = ?s AND users.typeAccount = "user" 
+            AND logo.Id = users.Id ORDER BY time DESC LIMIT 10', $genreMusic);
+    }
     public function getBands($genreMusic) {
         return $this->databaseInterface->getAll('SELECT users.userName, users.genreMusic, users.bandName,
            logo.nameLogo, logo.pathFile FROM  users,logo WHERE users.genreMusic = ?s AND users.typeAccount = "band" AND 
            users.Id = logo.Id ORDER BY time  DESC LIMIT 10', $genreMusic);
+    }
+    public function updateInformationUser() {
+        $this->databaseInterface->query('UPDATE users SET firstName = ?s, lastName = ?s, genreMusic = ?s, email = ?s, about = ?s, skype = ?s, twitter = ?s, instagram = ?s,
+            facebook = ?s,website = ?s,origin = ?s,yearsActive = ?s WHERE  Id = ?s',
+            $_POST['firstName'], $_POST['lastName'], $_POST['genreMusic'], $_POST['email'],$_POST['aboutBand'], $_POST['skype'],$_POST['twitter'],$_POST['instagram'], $_POST['facebook'],
+            $_POST['website'],$_POST['origin'],$_POST['yearsActive'], $_COOKIE['Id']);
     }
     public function updateInformationBand(){
         $this->databaseInterface->query('UPDATE users SET bandName = ?s, genreMusic = ?s,email = ?s,about = ?s,skype = ?s,twitter = ?s,instagram = ?s,

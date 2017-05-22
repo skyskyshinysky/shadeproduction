@@ -102,12 +102,12 @@
         <div class="main-profile-info">
             <div class="logo-wrapper">
                 <?php
-                    echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . $logoBand['pathFile'] . $logoBand['nameLogo'] . '" />';
+                    echo '<img class="profile-image"  src="http://' . $_SERVER['HTTP_HOST']  . $logoBand['pathFile'] . $logoBand['nameLogo'] . '" />';
                 ?>
             </div>
             <div>
                 <?php
-                    echo '<h2 style="text-align: center;" id="userName">' . 'Ilya Pankov' . '</h2>';
+                    echo '<h2 style="text-align: center;" id="userName">' . $firstName . ' ' . $lastName . '</h2>';
                 ?>
             </div>
             <div>
@@ -132,7 +132,7 @@
             </div>
             <?php
                 if($owner) {
-                    echo '<div style="position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; padding: 0; margin: 0;"><a href=/user/profileUserEdit/'. $userName . '><img src="/images/x24/gear.png" alt="Edit profile"></a></div>';
+                    echo '<div style="position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; padding: 0; margin: 0;"><a href=/user/profileEdit/'. $userName . '><img src="/images/x24/gear.png" alt="Edit profile"></a></div>';
                 }
             ?>
             <div class="contact-info">

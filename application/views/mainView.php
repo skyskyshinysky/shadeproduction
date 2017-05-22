@@ -123,9 +123,6 @@
             });
         }
     }
-    function callbackFDW() {
-
-    }
     $(document).ready(function () {
         $("#search").on('keyup', callbackSearching);
         $("#search").on('focusout', callbackFocusout);
