@@ -241,7 +241,7 @@
         </div>
         <div class="about">
                 <p style="margin: 0;">
-                    <?php echo $about; ?>
+                    <?php echo trim($about); ?>
                 </p>
         </div>
     </div>
@@ -278,7 +278,7 @@
             <div class="pagination">
             </div>
         </div>
-        <textarea class="comment-input form-input" id="messageBody" placeholder="Message Body"></textarea>
+        <textarea class="comment-input form-input" style="height: 100px;" id="messageBody" placeholder="Message Body"></textarea>
         <button style="margin-top: 10px;" onclick="sendMessageInBand"  class="button" id="sendMessageInBand">Send message</button>
     </div>
 </div>

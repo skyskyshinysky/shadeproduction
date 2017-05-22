@@ -11,7 +11,10 @@
                 ?>
             </div>
             <div style="margin-top: 20px;">
-                <input type="file" name="uploadFileLogo" class="button" />
+                <label class="button"> 
+                    Select profile image file...
+                    <input type="file" name="uploadFileLogo" style="display: none;" />
+                </label>
             </div>
             <div style="margin-top: 20px;">
                 <?php
@@ -105,13 +108,56 @@
     </div>
     <div style="width: 100%; margin-top: 20px; position: relative;">
         <div class="about">
-            <textarea class="comment-input form-input" name="aboutBand" id="aboutBand" placeholder="About Band">
-                <?php if(!empty($about)) {
-                    echo $about;
-                } ?>
-            </textarea>
+            <textarea class="comment-input form-input" style="height: 200px;" name="aboutBand" id="aboutBand" placeholder="About"><?php if(!empty(trim($about))) { echo trim($about); } ?></textarea>
         </div>
     </div>
     <input style="margin-top: 20px;" class="button" type="submit" name="save" value="Save" />
 </div>
 </form>
+
+<script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $.validator.addMethod("aboutBand", function(value, element) {
+                return value.trim() != "";
+        }, "Please enter info about...")
+        $('#editUser').validate({
+            rules: {
+                firstName: {
+                    required: true
+                },
+                lastName: {
+                    required: true
+                },
+                hometown: {
+                    required: true
+                },
+                language: {
+                    required: true
+                },
+                aboutBand: {
+                    aboutBand: true
+                },
+                email: {
+                    email: true
+                },
+            },
+            messages: {
+                firstName: {
+                    required: "Please enter your first name..."
+                },
+                lastName: {
+                    required: "Please enter your last name..."
+                },
+                hometown: {
+                    required: "Please enter your hometown..."
+                },
+                language: {
+                    required: "Please enter your language..."
+                },
+                email: {
+                    email: "Please enter correct email address..."
+                },
+            },
+        });
+    });
+</script>
