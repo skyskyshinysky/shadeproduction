@@ -11,11 +11,14 @@
                 ?>
             </div>
             <div style="margin-top: 20px;">
-                <input type="file" name="uploadFileLogo" class="button" />
+                <label class="button"> 
+                    Select logo file...
+                    <input type="file" name="uploadFileLogo" style="display: none;" />
+                </label>
             </div>
             <div style="margin-top: 20px;">
                 <?php
-                    echo '<input class="form-input" name="nameBand" style="text-align: center; max-width: 100%;" id="nameBand" placeholder="Band Name" value="' . $bandName . '" />';
+                    echo '<input class="form-input required" name="nameBand" style="text-align: center; max-width: 100%;" id="nameBand" placeholder="Band Name" value="' . $bandName . '" />';
                 ?>
             </div>
             <div style="margin-top: 20px;">
@@ -104,13 +107,44 @@
     </div>
     <div style="width: 100%; margin-top: 20px; position: relative;">
         <div class="about">
-            <textarea class="comment-input form-input" name="aboutBand" id="aboutBand" placeholder="About Band">
-                <?php if(!empty($about)) {
-                    echo $about;
-                } ?>
-            </textarea>
+            <textarea class="comment-input form-input" style="height: 200px;" name="aboutBand" id="aboutBand" placeholder="About Band"><?php if(!empty(trim($about))) { echo trim($about); } ?></textarea>
         </div>
     </div>
     <input style="margin-top: 20px;" class="button" type="submit" name="save" value="Save" />
 </div>
 </form>
+
+<script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $.validator.addMethod("aboutBand", function(value, element) {
+                return value.trim() != "";
+        }, "Please enter info about band...")
+        $('#editBand').validate({
+            rules: {
+                nameBand: {
+                    required: true
+                },
+                origin: {
+                    required: true
+                },
+                yearsActive: {
+                    required: true
+                },
+                aboutBand: {
+                    aboutBand: true
+                },
+            },
+            messages: {
+                nameBand: {
+                    required: "Please enter your band name..."
+                },
+                origin: {
+                    required: "Please enter your band origin..."
+                },
+                yearsActive: {
+                    required: "Please enter your band years active..."
+                },
+            },
+        });
+    });
+</script>

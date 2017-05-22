@@ -10,7 +10,7 @@
 <form action="http://www.shadeproduction.local/user/uploadMusicBand/shadeproduction" method="post" enctype="multipart/form-data" >
     <div style="width: 100%; margin-top: 30px; position: relative;">
         <label class="button"> 
-            Select file
+            Select file...
             <input type="file" name="uploadFile" style="display: none;" />
         </label>
     </div>
