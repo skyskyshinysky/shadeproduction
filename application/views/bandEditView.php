@@ -133,6 +133,9 @@
                 aboutBand: {
                     aboutBand: true
                 },
+                email: {
+                    email: true
+                },
             },
             messages: {
                 nameBand: {
@@ -143,6 +146,9 @@
                 },
                 yearsActive: {
                     required: "Please enter your band years active..."
+                },
+                email: {
+                    email: "Please enter correct email address..."
                 },
             },
         });
