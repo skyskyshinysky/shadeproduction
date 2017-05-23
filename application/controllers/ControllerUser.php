@@ -40,12 +40,10 @@ class ControllerUser extends Controller
     }
     function actionGetBlockDataPeople() {
         $data = null;
-        $genreMusic = json_decode($_POST['genre']);
         require_once(ROOT . '/application/services/UserService.php');
-        if( $this->authorizeController->statusCookies == true and
-            isset($genreMusic) and !empty($genreMusic)) {
+        if( $this->authorizeController->statusCookies == true) {
             $userService = new UserService($this->databaseInterface);
-            $data = $userService->getPeople($genreMusic);
+            $data = $userService->getPeople();
         }
         echo json_encode($data);
     }
@@ -95,12 +93,13 @@ class ControllerUser extends Controller
         $data = $this->actionProfile(true);
         if( $data['owner'] = true)
         {
-            if(isset($_POST['save'])) {
+            if(isset($_POST['save']) and $_COOKIE['Hash'] = $_POST['token']) {
                 if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
                     $imageService->uploadLogo();
                 }
                 $userService = new UserService($this->databaseInterface);
                 $userService->updateInformationUser();
+                $data = $this->actionProfile(true);
             }
             $this->view->generate('userEditView.php', 'templateView.php', $data);
         } else {
@@ -114,7 +113,7 @@ class ControllerUser extends Controller
         $data = $this->actionProfileBand(true);
 
         if( $data['owner'] = true) {
-            if(isset($_POST['save'])) {
+            if(isset($_POST['save']) and $_COOKIE['Hash'] = $_POST['token']) {
                 if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
                     $imageService->uploadLogo();
                 }
@@ -170,7 +169,7 @@ class ControllerUser extends Controller
         $musicService = new MusicService($this->databaseInterface);
         $userService = new UserService($this->databaseInterface);
         if(($this->model = $userService->getBand($_GET['userNameMusicBand'])) != null
-            and $this->authorizeController->statusCookies == true) {
+            and $this->authorizeController->statusCookies == true and $_COOKIE['Hash'] = $_POST['token']) {
             if(isset($_POST['submit'])) {
                 $musicService->uploadMusic();
             }

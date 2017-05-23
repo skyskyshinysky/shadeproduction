@@ -43,17 +43,13 @@
         if($(this).val()=='Enter a first name or last name...') $(this).val('');
     }
     function initializeBlock() {
-        var genreMusic = $("#genreMusic").val();
-        if(isEmpty(genreMusic) == false) {
-            $.post('/user/getBlockDataPeople', 'genre=' + JSON.stringify(genreMusic),function (data)
-            {
-                //парсим JSON
-                var items = JSON.parse(data);
-                console.log(items);
-                // строим и выводим каркас для 10 записей
-                updatePeopleBox(items);
-            });
-        }
+        $.post('/user/getBlockDataPeople',function (data)
+        {
+            //парсим JSON
+            var items = JSON.parse(data);
+            // строим и выводим каркас для 10 записей
+            updatePeopleBox(items);
+        });
     }
     function updatePeopleBox(items) {
         $('.people').html('');
@@ -84,7 +80,6 @@
         $("#search").on('keyup', callbackSearching);
         $("#search").on('focusout', callbackFocusout);
         $("#search").on('focusin', callbackFocusin);
-        $("#genreMusic").on('change', initializeBlock);
         initializeBlock();
     });
 </script>
@@ -108,13 +103,6 @@
     </div>
 </header>
 <div class="container" style="background: #ededed;">
-    <select id="genreMusic" class="button" name="genreMusic">
-        <option>Rock</option>
-        <option>Classic</option>
-        <option>Rap</option>
-        <option>Pop</option>
-        <option>Punk</option>
-    </select>
     <table class="people">
         <tbody>
 

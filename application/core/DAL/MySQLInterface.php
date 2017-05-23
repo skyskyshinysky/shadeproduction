@@ -15,8 +15,8 @@ class MySQLInterface
     protected $defaults = array(
         'host'      => 'localhost',
         'user'      => 'shadeproduction',
-        'pass'      => '12qw!@QW',
-        'db'        => 'shadeprdoctuon_social_network',
+        'pass'      => 'Ctkmab12qw!@QW',
+        'db'        => 'shadeproduction_social_network',
         'port'      => NULL,
         'socket'    => NULL,
         'pconnect'  => FALSE,

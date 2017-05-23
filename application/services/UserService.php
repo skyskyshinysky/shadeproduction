@@ -66,10 +66,10 @@ class UserService
     public function getSongs($genreMusic) {
         return $this->databaseInterface->getAll('SELECT music.nameMusic, music.pathFile,users.bandName FROM  music,users WHERE music.bandId = users.Id AND music.genreMusic = ?s ORDER BY music.time DESC LIMIT 10', $genreMusic);
     }
-    public function getPeople($genreMusic) {
+    public function getPeople() {
         return $this->databaseInterface->getAll('SELECT users.firstName,users.lastName,users.userName,
-            logo.nameLogo, logo.pathFile FROM users,logo WHERE users.genreMusic = ?s AND users.typeAccount = "user" 
-            AND logo.Id = users.Id ORDER BY time DESC LIMIT 10', $genreMusic);
+            logo.nameLogo, logo.pathFile FROM users,logo WHERE users.typeAccount = "user" 
+            AND logo.Id = users.Id ORDER BY time DESC LIMIT 10');
     }
     public function getBands($genreMusic) {
         return $this->databaseInterface->getAll('SELECT users.userName, users.genreMusic, users.bandName,
@@ -77,10 +77,10 @@ class UserService
            users.Id = logo.Id ORDER BY time  DESC LIMIT 10', $genreMusic);
     }
     public function updateInformationUser() {
-        $this->databaseInterface->query('UPDATE users SET firstName = ?s, lastName = ?s, genreMusic = ?s, email = ?s, about = ?s, skype = ?s, twitter = ?s, instagram = ?s,
-            facebook = ?s,website = ?s,origin = ?s,yearsActive = ?s WHERE  Id = ?s',
-            $_POST['firstName'], $_POST['lastName'], $_POST['genreMusic'], $_POST['email'],$_POST['aboutBand'], $_POST['skype'],$_POST['twitter'],$_POST['instagram'], $_POST['facebook'],
-            $_POST['website'],$_POST['origin'],$_POST['yearsActive'], $_COOKIE['Id']);
+        $this->databaseInterface->query('UPDATE users SET firstName = ?s, lastName = ?s, male = ?s, email = ?s, about = ?s, skype = ?s, twitter = ?s, instagram = ?s,
+            facebook = ?s,website = ?s WHERE  Id = ?s',
+            $_POST['firstName'], $_POST['lastName'], $_POST['male'], $_POST['email'],$_POST['aboutUser'], $_POST['skype'],$_POST['twitter'],$_POST['instagram'], $_POST['facebook'],
+            $_POST['website'], $_COOKIE['Id']);
     }
     public function updateInformationBand(){
         $this->databaseInterface->query('UPDATE users SET bandName = ?s, genreMusic = ?s,email = ?s,about = ?s,skype = ?s,twitter = ?s,instagram = ?s,

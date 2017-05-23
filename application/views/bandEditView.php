@@ -2,6 +2,7 @@
     extract($data);
 ?>
 <form method="post" id="editBand" enctype="multipart/form-data">
+    <input name="token" type="hidden" value="<?php echo $_COOKIE['Hash'] ?>" />
 <div class="profile">
     <div style="display: inline-block; position: relative;">
         <div class="main-profile-info">

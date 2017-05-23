@@ -14,6 +14,7 @@ class Authorize
     public $username;
     public $typeAccount;
 
+
     public function __construct()
     {
         require_once (ROOT . '/application/controllers/ControllerLogin.php');
