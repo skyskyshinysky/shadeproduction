@@ -139,7 +139,7 @@
                 },
                 email: {
                     email: true
-                },
+                }
             },
             messages: {
                 firstName: {
@@ -156,7 +156,7 @@
                 },
                 email: {
                     email: "Please enter correct email address..."
-                },
+                }
             },
         });
     });

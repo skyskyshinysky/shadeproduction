@@ -17,8 +17,8 @@
 
 <div id="addItem">
     <form method="post" id="form">
-        <div>
-            <select id="accountType" name="typeAccount">
+        <div style="margin-top: 20px;">
+            <select class="form-input" id="accountType" name="typeAccount">
                 <option>user</option>
                 <option>band</option>
             </select>
@@ -45,7 +45,7 @@
             </div>
             <div id="passwordUserLine" style="margin-top: 20px;">
                 <label for="passwordUser">Password</label>
-                <input class="form-input" id="passwordUser" type="password" name="passwordUser"/>
+                <input class="form-input" id="passwordUser" type="password" name="passwordUser" placeholder="Password"/>
             </div>
             <button style="margin-top: 20px;" class="button" type="submit" id="save" >Sign up</button>
         </div>
@@ -65,3 +65,66 @@
 <?php }  elseif($signInStatus == "errorCorrectEmail") { ?>
     <p style="color:red">Email не совпадает.</p>
 <?php }  ?>
+
+<script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $.validator.addMethod("passwordCheck", function(value, element) {
+                return value.trim() != "" && /^[A-Za-z0-9\d=!\-@._*]*$/.test(value)
+                   && /[a-z]/.test(value)
+                   && /\d/.test(value)
+            }, "Password must have a lowecase and uppercase letters and digit...")
+            $.validator.addMethod("reEnterEmailCheck", function(value, element) {
+                return value == $("#email").val();
+            }, "Please enter same email...")
+            $('#form').validate({
+                rules: {
+                    firstName: {
+                        required: true
+                    },
+                    lastName: {
+                        required: true
+                    },
+                    userName: {
+                        required: true
+                    },
+                    email: {
+                        email: true,
+                        required: true
+                    },
+                    reEnterEmail: {
+                        email: true,
+                        required: true,
+                        reEnterEmailCheck: true
+                    },
+                    passwordUser: {
+                        passwordCheck: true,
+                        minlength: 6,
+                        maxlength: 20
+                    }
+                },
+                messages: {
+                    firstName: {
+                        required: "Please enter your first name..."
+                    },
+                    lastName: {
+                        required: "Please enter your last name..."
+                    },
+                    userName: {
+                        required: "Please enter your login..."
+                    },
+                    email: {
+                        email: "Please enter correct email address...",
+                        required: "Please enter email..."
+                    },
+                    reEnterEmail: {
+                        email: "Please enter correct email address...",
+                        required: "Please enter email..."
+                    },
+                    passwordUser: {
+                        minlength: "Password must have a minimum 6 and maximum 10 simbols...",
+                        maxlength: "Password must have a minimum 6 and maximum 10 simbols..."
+                    }
+                },
+            });
+    });
+</script>

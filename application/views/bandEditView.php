@@ -135,7 +135,7 @@
                 },
                 email: {
                     email: true
-                },
+                }
             },
             messages: {
                 nameBand: {
@@ -149,7 +149,7 @@
                 },
                 email: {
                     email: "Please enter correct email address..."
-                },
+                }
             },
         });
     });
