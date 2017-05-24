@@ -79,13 +79,16 @@
             $('#form').validate({
                 rules: {
                     firstName: {
-                        required: true
+                        required: true,
+                        maxlength: 50
                     },
                     lastName: {
-                        required: true
+                        required: true,
+                        maxlength: 50
                     },
                     userName: {
-                        required: true
+                        required: true,
+                        maxlength: 30
                     },
                     email: {
                         email: true,
@@ -104,13 +107,16 @@
                 },
                 messages: {
                     firstName: {
-                        required: "Please enter your first name..."
+                        required: "Please enter your first name...",
+                        maxlength: "First name must have a maximum 50 symbols..."
                     },
                     lastName: {
-                        required: "Please enter your last name..."
+                        required: "Please enter your last name...",
+                        maxlength: "Last name must have a maximum 50 symbols..."
                     },
                     userName: {
-                        required: "Please enter your login..."
+                        required: "Please enter your login...",
+                        maxlength: "Login name must have a maximum 30 symbols..."
                     },
                     email: {
                         email: "Please enter correct email address...",
