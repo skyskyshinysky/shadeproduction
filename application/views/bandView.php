@@ -213,7 +213,7 @@
             </div>
             <?php
                 if($owner) {
-                    echo '<div style="position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; padding: 0; margin: 0;"><a href=/user/profileBandEdit/'. $userName . '><img src="/images/x24/gear.png" alt="Edit profile"></a></div>';
+                    echo '<div style="position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; padding: 0; margin: 0;"><a href=/user/profileBandEdit/'. $userName . '><img src="/images/x24/gear.png" title="Edit profile" alt="Edit profile"></a></div>';
                 }
             ?>
             <div class="contact-info">

@@ -1,7 +1,8 @@
 <?php
     extract($data);
 ?>
-<form method="post" id="editUser" enctype="multipart/form-data">
+<form method="post" id="editUser" enctype="multipart/form-data" <?php echo 'action="/user/profileEdit/'. $userName . '"'; ?> >
+    <input name="token" type="hidden" value="<?php echo $_COOKIE['Hash'] ?>" />
 <div class="profile">
     <div style="display: inline-block; position: relative;">
         <div class="main-profile-info">
@@ -27,9 +28,10 @@
                 ?>
             </div>
             <div style="margin-top: 20px;">
-                <?php
-                    echo '<input class="form-input" name="sex" style="text-align: center; max-width: 100%;" id="nameBand" placeholder="Sex" value="' . 'Male' . '" />';
-                ?>
+                <select class="form-input" id="male" name="male" style="max-width: 100%; text-align: center;">
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
             </div>
             <div style="margin-top: 20px;">
                 <?php
@@ -108,7 +110,7 @@
     </div>
     <div style="width: 100%; margin-top: 20px; position: relative;">
         <div class="about">
-            <textarea class="comment-input form-input" style="height: 200px;" name="aboutBand" id="aboutBand" placeholder="About"><?php if(!empty(trim($about))) { echo trim($about); } ?></textarea>
+            <textarea class="comment-input form-input" style="height: 200px;" name="aboutUser" id="aboutUser" placeholder="About"><?php if(!empty(trim($about))) { echo trim($about); } ?></textarea>
         </div>
     </div>
     <input style="margin-top: 20px;" class="button" type="submit" name="save" value="Save" />

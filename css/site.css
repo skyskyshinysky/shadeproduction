@@ -511,7 +511,7 @@ table.wall {
 }
 
 .pagination a.active {
-    background-color: #4CAF50;
+    background-color: #000000;
     color: white;
 }
 .pagination a:hover:not(.active) {background-color: #ddd;}
