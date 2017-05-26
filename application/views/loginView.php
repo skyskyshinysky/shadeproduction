@@ -7,7 +7,7 @@
 			</div>
 			<div style="margin-top: 20px;">
 				<label for="password">Password</label>
-			    <input class="form-input" type="password" name="password" id="password"/>	
+			    <input class="form-input" type="password" name="password" id="password" autocomplete="off"/>
 			</div>
 		    <button style="margin-top: 20px;" class="button" type="submit" id="save" >Log in</button>
 		</div>

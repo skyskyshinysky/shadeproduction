@@ -114,7 +114,9 @@ class UserService
             //добавляем в таблицу и генерируем activation code
             $activation=md5($_POST['email'].time());
             $this->databaseInterface->query('INSERT INTO users (Id,firstName,lastName,userName,email,activation,typeAccount) VALUES(?s,?s,?s,?s,?s,?s,?s)', $guid,
-                $_POST['firstName'], $_POST['lastName'], $_POST['userName'],  $_POST['email'],$activation, $_POST['typeAccount']);
+                quotemeta($_POST['firstName']), quotemeta($_POST['lastName']),
+                quotemeta($_POST['userName']),  quotemeta($_POST['email']),
+                $activation, quotemeta($_POST['typeAccount']));
             //убираем лишние пробелы и делаем двойное шифрование
             $password = md5(md5(trim($_POST['passwordUser'])));
             //добавляем запись в таблицу

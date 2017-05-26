@@ -93,7 +93,7 @@ class ControllerUser extends Controller
         $data = $this->actionProfile(true);
         if( $data['owner'] = true)
         {
-            if(isset($_POST['save']) and $_COOKIE['Hash'] = $_POST['token']) {
+            if(isset($_POST['save']) and $_COOKIE['Hash'] == $_POST['token']) {
                 if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
                     $imageService->uploadLogo();
                 }
@@ -113,12 +113,13 @@ class ControllerUser extends Controller
         $data = $this->actionProfileBand(true);
 
         if( $data['owner'] = true) {
-            if(isset($_POST['save']) and $_COOKIE['Hash'] = $_POST['token']) {
+            if(isset($_POST['save']) and $_COOKIE['Hash'] == $_POST['token']) {
                 if(isset($_FILES['uploadFileLogo']['name']) and !empty($_FILES['uploadFileLogo']['name'])) {
                     $imageService->uploadLogo();
                 }
                 $userService = new UserService($this->databaseInterface);
                 $userService->updateInformationBand();
+                $data = $this->actionProfile(true);
             }
             $this->view->generate('bandEditView.php', 'templateView.php', $data);
         } else {

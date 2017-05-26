@@ -159,9 +159,9 @@
             </div>
         </div>
         <div class="about">
-                <p style="margin: 0;">
-                    <?php echo $about; ?>
-                </p>
+            <p style="margin: 0;">
+                <?php echo trim($about); ?>
+            </p>
         </div>
     </div>
     <div style="width: 100%; margin-top: 20px; position: relative;">

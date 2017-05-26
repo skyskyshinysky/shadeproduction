@@ -7,6 +7,6 @@
  */
     //Общие настройки
     define('ROOT', dirname(__FILE__));
-    ini_set('display_errors', 1);
+  //  ini_set('display_errors', 1);
     //Подключение файлов системы
     require_once(ROOT . '/application/bootstrap.php');

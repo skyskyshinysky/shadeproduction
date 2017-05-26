@@ -45,7 +45,7 @@
             </div>
             <div id="passwordUserLine" style="margin-top: 20px;">
                 <label for="passwordUser">Password</label>
-                <input class="form-input" id="passwordUser" type="password" name="passwordUser" placeholder="Password"/>
+                <input class="form-input" id="passwordUser" type="password" name="passwordUser" placeholder="Password" autocomplete="off"/>
             </div>
             <button style="margin-top: 20px;" class="button" type="submit" id="save" >Sign up</button>
         </div>

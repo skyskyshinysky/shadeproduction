@@ -30,13 +30,13 @@ class ControllerLogin extends Controller
                 } else {
                     $data['login_status'] = 'access_denied';
                     $data['authorize'] = false;
-                    return array($data, false);
+                    return array($data, false, null);
                 }
             }
         } else {
             $data['login_status'] = 'access_denied';
             $data['authorize'] = false;
-            return array($data, false);
+            return array($data, false, null);
         }
         return array ($data, true, $result['typeAccount']);
     }
@@ -91,6 +91,8 @@ class ControllerLogin extends Controller
             !empty($_POST['reEnterEmail']) && isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['passwordUser']) &&
             !empty($_POST['passwordUser']) && isset($_POST['typeAccount']) && !empty($_POST['typeAccount']))
         {
+            if((is_string($_POST['typeAccount']) && strcasecmp($_POST['typeAccount'], 'user') == 0) or
+                (is_string($_POST['typeAccount']) && strcasecmp($_POST['typeAccount'], 'band') == 0)){
             list ($data, $status) = $this->checkCorrectParameters();
             $data['authorize'] = false;
             if($status == true){
@@ -100,6 +102,8 @@ class ControllerLogin extends Controller
                 $data = $serviceUser->saveUser();
                 $data['authorize'] = false;
             }
+        }
+
         }
         $this->view->generate('singInView.php', 'templateView.php', $data);
     }
@@ -112,7 +116,8 @@ class ControllerLogin extends Controller
             // редиректим со страницы логина
             header('Location: http://' . $_SERVER['HTTP_HOST'] . '/');
         }
-        if(isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['password']) && !empty($_POST['password']))
+        if(isset($_POST['userName']) && !empty($_POST['userName']) && is_string($_POST['userName'])
+            && isset($_POST['password']) && !empty($_POST['password']) && is_string($_POST['password']))
         {
             // проводим аутентификацию, если $status == true, то редиректим на дефолтную страницу пользователя в случае его парвого посещения
             // иначе выкидываем на мейнПейдж
