@@ -37,6 +37,9 @@ class UserService
         $modelUser->origin = $result['origin'];
         $modelUser->yearsActive = $result['yearsActive'];
         $modelUser->genreMusic = $result['genreMusic'];
+        $modelUser->male = $result['male'];
+        $modelUser->city = $result['city'];
+        $modelUser->language = $result['language'];
         return $modelUser;
     }
 
@@ -78,9 +81,9 @@ class UserService
     }
     public function updateInformationUser() {
         $this->databaseInterface->query('UPDATE users SET firstName = ?s, lastName = ?s, male = ?s, email = ?s, about = ?s, skype = ?s, twitter = ?s, instagram = ?s,
-            facebook = ?s,website = ?s WHERE  Id = ?s',
+            facebook = ?s,website = ?s, city = ?s, language = ?s WHERE  Id = ?s',
             $_POST['firstName'], $_POST['lastName'], $_POST['male'], $_POST['email'],$_POST['aboutUser'], $_POST['skype'],$_POST['twitter'],$_POST['instagram'], $_POST['facebook'],
-            $_POST['website'], $_COOKIE['Id']);
+            $_POST['website'],$_POST['hometown'], $_POST['language'], $_COOKIE['Id']);
     }
     public function updateInformationBand(){
         $this->databaseInterface->query('UPDATE users SET bandName = ?s, genreMusic = ?s,email = ?s,about = ?s,skype = ?s,twitter = ?s,instagram = ?s,

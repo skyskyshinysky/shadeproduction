@@ -117,17 +117,17 @@
             </div>
             <div>
                 <?php
-                    echo '<h3 style="text-align: center;" id="male">' . 'Male' . '</h3>';
+                    echo '<h3 style="text-align: center;" id="male">' . $male . '</h3>';
                 ?>
             </div>
             <div>
                 <?php
-                    echo '<h3 style="text-align: center;" id="hometown">' . 'Votkinsk' . '</h3>';
+                    echo '<h3 style="text-align: center;" id="hometown">' . $city . '</h3>';
                 ?>
             </div>
             <div>
                 <?php
-                    echo '<h3 style="text-align: center;" id="language">' . 'Russian' . '</h3>';
+                    echo '<h3 style="text-align: center;" id="language">' . $language . '</h3>';
                 ?>
             </div>
             <?php

@@ -24,6 +24,9 @@ class ModelUser extends Model
     public $instagram;
     public $facebook;
     public $website;
+    public $male;
+    public $city;
+    public $language;
 
     function __construct($username)
     {
@@ -45,7 +48,10 @@ class ModelUser extends Model
             'twitter' => htmlspecialchars($this->twitter),
             'instagram' => htmlspecialchars($this->instagram),
             'facebook' => htmlspecialchars($this->facebook),
-            'website' => htmlspecialchars($this->website)
+            'website' => htmlspecialchars($this->website),
+            'male' => htmlspecialchars($this->male),
+            'city' => htmlspecialchars($this->city),
+            'language' => htmlspecialchars($this->language)
         );
     }
     function getDataBand()
