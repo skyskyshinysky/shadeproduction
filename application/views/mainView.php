@@ -108,7 +108,6 @@
         }else {
             var genre = $("#genreArtist").val();
         }
-        console.log(genreMusic);
         if(isEmpty(type) == false && isEmpty(genreMusic) == false) {
             $.post('/user/getBlockData', 'type=' + JSON.stringify(type) +
                 '&jenre=' + JSON.stringify(genre),function (data) {
@@ -123,6 +122,13 @@
             });
         }
     }
+    function getPesenki() {
+        $.post("/main/getSongs",function(data){
+            var items = JSON.parse(data);
+            var songs =
+            console.log(items);
+        });
+    }
     $(document).ready(function () {
         $("#search").on('keyup', callbackSearching);
         $("#search").on('focusout', callbackFocusout);
@@ -130,6 +136,7 @@
         $("ul.tabs li").on('click', callbackTabs);
         $("#genreMusic").on('change', initializeBlock);
         $("#genreArtist").on('change', initializeBlock);
+        getPesenki();
         initializeBlock();
     });
 </script>

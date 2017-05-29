@@ -26,6 +26,17 @@ class ControllerMain extends Controller
             $this->view->generate('404View.php', 'templateView.php', $data);
         }
     }
+    function actionGetSongs() {
+        $result =  $this->databaseInterface->getAll('SELECT music.nameMusic, music.pathFile, users.bandName FROM music, users WHERE users.Id = music.bandId LIMIT 15');
+        $data = [];
+        for ($count = 0; $count < count($result); $count++) {
+            $data[$count] = array(
+                "name" => $result[0]['nameMusic'],
+                "artist" => $result[0]['bandName'],
+                "url" => $result[0]['pathFile'] . $result[0]['nameMusic']);
+        }
+        echo json_encode($data);
+    }
     function actionSearchBox(){
         $searchString = $_POST["searchString"];
         $data['music'] =  $this->databaseInterface->getAll('SELECT music.nameMusic, music.genreMusic, users.userName FROM music, users WHERE music.bandId = users.Id AND music.nameMusic LIKE ?s  LIMIT 15', "%$searchString%");
