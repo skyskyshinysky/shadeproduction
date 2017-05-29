@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Sound Side</title>
-
     <script src="/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/js/sha256.js" type="text/javascript"></script>
+
     <script src="/js/jquery.validate.min.js" type="text/javascript"></script>
     <script src="/js/audioplayer.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="/css/site.css">
+
     <link rel="stylesheet" type="text/css" href="/css/audioPlayer.css">
     <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
@@ -46,7 +48,7 @@
                         $link = "/user/profile/" . $data['userName'];
                     }
                     echo '<a class="navigation-bar-authentication-link" href="/user/logout">Log out</a>
-                          <a class="navigation-bar-authentication-link" href=' .$link .'>My profile</a>';
+                          <a class="navigation-bar-authentication-link" id="myProfile" href=' .$link .'>My profile</a>';
                 } else {
                     echo '<a class="navigation-bar-authentication-link" href="/login">Log In</a>
                           <a class="navigation-bar-authentication-link" href="/login/signIn">Register</a>';

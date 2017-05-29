@@ -1,3 +1,4 @@
+
 <script>
     function selectEditInformation()
     {
@@ -10,13 +11,49 @@
         }
 
     }
+    function parseAnswer(result) {
+        boxContent = '';
+        switch(result) {
+            case 'registrationCompletedSuccessfully':
+                boxContent = '<p style="color:green">Registration successfully completed. Please, check email!</p>';
+                break;
+            case 'registrationFailed':
+                boxContent = '<p style="color:red">A user with such a login already exists in the database</p>';
+                break;
+        }
+        $("#resultoperations").append(boxContent);
+    }
+    function passwordChange() {
+        if($('#form').valid()) {
+            var postData = [];
+            postData["typeAccount"] = $('#accountType').val();
+            postData["firstName"] = $('#firstName').val();
+            postData["lastName"] = $('#lastName').val();
+            postData["userName"] = $('#userName').val();
+            postData["email"] = $('#email').val();
+            postData["reEnterEmail"] = $('#reEnterEmail').val();
+            var sha256Class = new jsSHA($('#passwordUser').val());
+            postData["passwordUser"] = sha256Class.getHash("SHA-256", "HEX");
+            $.ajax( {
+                type: 'POST',
+                url: "/login/registerUser",
+                data: $.extend({}, postData),
+                success: function(result) {
+                    parseAnswer(result);
+                },
+                error: function(result) {
+                    // todo: handle error;
+                },
+            });
+        }
+    }
     $(document).ready(function() {
         $('#accountType').on('change', selectEditInformation);
+        $('#save').on('click', passwordChange);
     });
 </script>
-
 <div id="addItem">
-    <form method="post" id="form">
+    <form method="post" action="" id="form">
         <div style="margin-top: 20px;">
             <select class="form-input" id="accountType" name="typeAccount">
                 <option>user</option>
@@ -47,24 +84,14 @@
                 <label for="passwordUser">Password</label>
                 <input class="form-input" id="passwordUser" type="password" name="passwordUser" placeholder="Password" autocomplete="off"/>
             </div>
-            <button style="margin-top: 20px;" class="button" type="submit" id="save" >Sign up</button>
+            <button style="margin-top: 20px;" class="button" type="button" id="save" >Sign up</button>
         </div>
     </form>
 </div>
+<div id="resultoperations">
 
+</div>
 <?php extract($data); ?>
-<?php
-    if($signInStatus == "registrationCompletedSuccessfully") { ?>
-    <p style="color:green">Регистрация прошла успешно. Пожалуйста, проверьте электронную почту</p>
-<?php } elseif($signInStatus == "registrationFailed") { ?>
-    <p style="color:red">Пользователь с таким логином уже существует в базе данных.</p>
-<?php } elseif($signInStatus == "errorRangeUsername") { ?>
-    <p style="color:red">Username должен быть не меньше 3-х символов и не больше 30.</p>
-<?php }  elseif($signInStatus == "errorRangePassword") { ?>
-    <p style="color:red">Пароль должен быть не меньше 6-х символов и не больше 20.</p>
-<?php }  elseif($signInStatus == "errorCorrectEmail") { ?>
-    <p style="color:red">Email не совпадает.</p>
-<?php }  ?>
 
 <script type="text/javascript">
         jQuery(document).ready(function($) {

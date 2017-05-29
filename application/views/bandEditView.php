@@ -1,5 +1,6 @@
 <?php
     extract($data);
+   // var_dump($data);
 ?>
 <form method="post" id="editBand" enctype="multipart/form-data">
     <input name="token" type="hidden" value="<?php echo $_COOKIE['Hash'] ?>" />

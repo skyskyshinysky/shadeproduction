@@ -158,7 +158,10 @@
                 ?>
             </div>
         </div>
-        <div class="about">
+    </div>
+    <div style="width: 100%; margin-top: 20px; position: relative;">
+        <h3 style="margin: 0;">About</h3>
+         <div class="about">
             <p style="margin: 0;">
                 <?php echo trim($about); ?>
             </p>

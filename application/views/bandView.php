@@ -105,7 +105,7 @@
                     });
                     var author = $("<b></b>");
 
-                    author.text('shadeproduction');
+                    author.text($('#myProfile').attr('href').split('/')[3]);
                     author.appendTo(td);
 
                     var datetime = $("<td></td>").attr({

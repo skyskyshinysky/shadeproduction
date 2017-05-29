@@ -118,10 +118,12 @@ class UserService
             $activation=md5($_POST['email'].time());
             $this->databaseInterface->query('INSERT INTO users (Id,firstName,lastName,userName,email,activation,typeAccount) VALUES(?s,?s,?s,?s,?s,?s,?s)', $guid,
                 quotemeta($_POST['firstName']), quotemeta($_POST['lastName']),
-                quotemeta($_POST['userName']),  quotemeta($_POST['email']),
+                quotemeta($_POST['userName']),  $_POST['email'],
                 $activation, quotemeta($_POST['typeAccount']));
             //убираем лишние пробелы и делаем двойное шифрование
-            $password = md5(md5(trim($_POST['passwordUser'])));
+
+          //  $password = md5(md5(trim($_POST['passwordUser'])));
+            $password = password_hash(trim($_POST['passwordUser']), PASSWORD_BCRYPT);
             //добавляем запись в таблицу
             $this->databaseInterface->query('INSERT INTO users_password (Id, userPassword) VALUES(?s,?s)', $guid, $password);
             //добавляем 404логотип

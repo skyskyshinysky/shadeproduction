@@ -119,7 +119,7 @@ class ControllerUser extends Controller
                 }
                 $userService = new UserService($this->databaseInterface);
                 $userService->updateInformationBand();
-                $data = $this->actionProfile(true);
+                $data = $this->actionProfileBand(true);
             }
             $this->view->generate('bandEditView.php', 'templateView.php', $data);
         } else {
@@ -158,6 +158,7 @@ class ControllerUser extends Controller
             $this->view->generate('bandView.php', 'templateView.php', $data);
             return;
         }
+
         $this->view->generate('404View.php', 'templateView.php', $data);
     }
 
@@ -170,8 +171,9 @@ class ControllerUser extends Controller
         $musicService = new MusicService($this->databaseInterface);
         $userService = new UserService($this->databaseInterface);
         if(($this->model = $userService->getBand($_GET['userNameMusicBand'])) != null
-            and $this->authorizeController->statusCookies == true and $_COOKIE['Hash'] = $_POST['token']) {
-            if(isset($_POST['submit'])) {
+            and $this->authorizeController->statusCookies == true) {
+            if(isset($_POST['submit']) and isset($_POST['token']) and
+                $_COOKIE['Hash'] == $_POST['token']) {
                 $musicService->uploadMusic();
             }
             $data = $this->model->getDataBand();

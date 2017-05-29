@@ -7,7 +7,7 @@
 
 <?php extract($data); ?>
 
-<form action="http://www.shadeproduction.local/user/uploadMusicBand/shadeproduction" method="post" enctype="multipart/form-data" >
+<form action= <?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/user/uploadMusicBand/' . $userName;?>  method="post" enctype="multipart/form-data" >
     <input name="token" type="hidden" value="<?php echo $_COOKIE['Hash'] ?>" />
     <div style="width: 100%; margin-top: 30px; position: relative;">
         <label class="button"> 

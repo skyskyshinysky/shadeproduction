@@ -10,19 +10,20 @@ class ControllerLogin extends Controller
 {
     public function setCookie($hash,$id)
     {
-        setcookie("Id", $id, time()+60*60*24*30);
-        setcookie("Hash", $hash, time()+60*60*24*30);
+        setcookie("Id", $id, time()+60*60*24*30, "/");
+        setcookie("Hash", $hash, time()+60*60*24*30, "/");
     }
     private function checkAuthorizeParameters()
     {
         $data['login_status'] = 'access_granted';
         $data['authorize'] = true;
         $result = $this->databaseInterface->getRow('SELECT *  FROM users WHERE userName = ?s', $_POST['userName']);
+
         if(!empty($result['Id']) and $result['statusActivation'] != null)
         {
             $userPassword = $this->databaseInterface->getOne('SELECT userPassword FROM users_password WHERE Id = ?s', $result['Id']);
             if(!empty($userPassword)) {
-                if($userPassword === md5(md5($_POST['password']))) {
+                if(password_verify(trim($_POST['password']),$userPassword )) {
                     $data['userHash'] = $this->databaseInterface->getOne('SELECT userHash FROM users_password WHERE Id = ?s', $result['Id']);
                     $hash = md5($this->databaseInterface->generateCode(10));
                     $this->databaseInterface->query('UPDATE users_password SET userHash = ?s',$hash);
@@ -55,7 +56,7 @@ class ControllerLogin extends Controller
             $status = false;
         }
         // проверяем длину password
-        if(strlen($_POST['passwordUser']) < 6 or strlen($_POST['passwordUser']) > 20){
+        if(strlen($_POST['passwordUser']) < 6){
             $data['signInStatus'] = "errorRangePassword";
             $status = false;
         }
@@ -81,41 +82,39 @@ class ControllerLogin extends Controller
         }
         $this->view->generate('activationView.php', 'templateView.php', $data);
     }
-    function actionSignIn()
-    {
-        $data['signInStatus'] = null;
-        $data['authorize'] = false;
+    public function actionRegisterUser() {
+
         // проверка на существование данных, которые необходимо обработать
         if((isset($_POST['firstName']) && !empty($_POST['firstName']) && isset($_POST['lastName']) &&
-            !empty($_POST['lastName'])) or isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['reEnterEmail']) &&
+                !empty($_POST['lastName'])) or isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['reEnterEmail']) &&
             !empty($_POST['reEnterEmail']) && isset($_POST['userName']) && !empty($_POST['userName']) && isset($_POST['passwordUser']) &&
             !empty($_POST['passwordUser']) && isset($_POST['typeAccount']) && !empty($_POST['typeAccount']))
         {
             if((is_string($_POST['typeAccount']) && strcasecmp($_POST['typeAccount'], 'user') == 0) or
                 (is_string($_POST['typeAccount']) && strcasecmp($_POST['typeAccount'], 'band') == 0)){
-            list ($data, $status) = $this->checkCorrectParameters();
-            $data['authorize'] = false;
-            if($status == true){
-                // подключаем сервис работы с пользователем
-                require_once (ROOT . '/application/services/UserService.php');
-                $serviceUser = new UserService($this->databaseInterface);
-                $data = $serviceUser->saveUser();
-                $data['authorize'] = false;
+                list ($data, $status) = $this->checkCorrectParameters();
+                if($status == true){
+                    // подключаем сервис работы с пользователем
+                    require_once (ROOT . '/application/services/UserService.php');
+                    $serviceUser = new UserService($this->databaseInterface);
+                    $data = $serviceUser->saveUser();
+                }
             }
+            echo $data['signInStatus'];
         }
-
+    }
+    function actionSignIn()
+    {
+        $data['signInStatus'] = null;
+        $data['authorize'] = false;
+        if($this->authorizeController->statusCookies == true) {
+            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/main' );
+            return;
         }
         $this->view->generate('singInView.php', 'templateView.php', $data);
     }
-    function actionIndex()
+    public function actionCheckUser()
     {
-        $data['login_status'] = null;
-        $data['authorize'] = false;
-        // проверяем присутствие куков
-        if($this->authorizeController->statusCookies == true) {
-            // редиректим со страницы логина
-            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/');
-        }
         if(isset($_POST['userName']) && !empty($_POST['userName']) && is_string($_POST['userName'])
             && isset($_POST['password']) && !empty($_POST['password']) && is_string($_POST['password']))
         {
@@ -125,15 +124,25 @@ class ControllerLogin extends Controller
             if($status == true and strcasecmp($typeAccount, 'user') == 0) {
                 if($data['userHash'] == null) {
                     // редирект на дефолтную страницу пользователя
-                    header('Location: http://' . $_SERVER['HTTP_HOST'] . '/user/profile/' . $_POST['userName']);
+                    echo 'http://' . $_SERVER['HTTP_HOST'] . '/user/profile/' . $_POST['userName'];
                 } else {
                     // если не первая авторизация, то редиректим на мейнпейдж
-                    header('Location: http://' . $_SERVER['HTTP_HOST'] . '/main');
+                    echo 'http://' . $_SERVER['HTTP_HOST'] . '/main';
                 }
             } elseif ($status == true and strcasecmp($typeAccount, 'band') == 0) {
                 // редирект на дефолтную страницу банды
-                header('Location: http://' . $_SERVER['HTTP_HOST'] . '/user/profileBand/' . $_POST['userName']);
+                echo 'http://' . $_SERVER['HTTP_HOST'] . '/user/profileBand/' . $_POST['userName'];
             }
+        }
+    }
+    function actionIndex()
+    {
+        $data['login_status'] = null;
+        $data['authorize'] = false;
+        // проверяем присутствие куков
+        if($this->authorizeController->statusCookies == true) {
+            // редиректим со страницы логина
+            header('Location: http://' . $_SERVER['HTTP_HOST'] . '/');
         }
         $this->view->generate('loginView.php', 'templateView.php', $data);
     }
