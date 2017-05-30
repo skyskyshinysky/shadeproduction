@@ -1,7 +1,4 @@
-<link rel="stylesheet" href="/css/tabs.css" />
-
 <script>
-
     var querySearhing;
 
     var boxContent = '';
@@ -68,14 +65,56 @@
     }
     function updateSongsBox(items) {
         $('.songs').html('');
+        console.log(items);
         for(var count = 0; count < items.length; count++) {
-            var divContainer = '<div><h3>' + items[count].nameMusic.replace(/[\d\.\.mp3]+/g,"") + ' - ' + items[count].bandName +
-                '</h3><audio preload="auto" controls><source src="http://' + window.location.hostname +'/'
-                + items[count].pathFile +  items[count].nameMusic + '" type="audio/mp3"/></audio></div>';
-            $(divContainer).hide().appendTo(".songs").fadeIn(600);
+            var row = $('<tr></tr>').attr({
+                'song-index': count,
+            });
+
+            var song = {
+                "artist": items[count].bandName,
+                "name": items[count].nameMusic.replace(/[\d\.\.mp3]+/g,""),
+                "url": items[count].pathFile + items[count].nameMusic
+            };
+
+            var playImgSrc = <?php echo '"http://' . $_SERVER['HTTP_HOST']  . '/images/player/play.png"'?>;
+            var playCell = $('<td></td>');
+            var personalPlay = $('<div></div>').addClass('player-image');
+            personalPlay.on('click', function() {
+                playTrack($(this).parent().parent().attr('song-index'));
+            });
+            var playImg = $('<img>').addClass('profile-image').attr({
+                src: playImgSrc
+            });
+
+            playImg.appendTo(personalPlay);
+            personalPlay.appendTo(playCell);
+
+
+            var songCell = $('<td></td>')
+            var divContainer = '<h3>' + items[count].bandName + ' - ' + items[count].nameMusic.replace(/[\d\.\.mp3]+/g,"") +
+                '</h3>'
+            var hidden = $('<input>').attr({
+                type: 'hidden'
+            });
+            hidden.val(JSON.stringify(song));
+            songCell.append(divContainer);
+            songCell.append(hidden);
+
+            row.append(playCell);
+            row.append(songCell);
+
+            $('.songs').append(row);
         }
-        $( 'audio' ).audioPlayer();
     }
+
+    function playTrack(index){
+        var jsonSong = $("tr[song-index='" + index + "']").find('input').val();
+        var songObject = $.parseJSON(jsonSong);
+        Amplitude.playNow(songObject);
+    }
+
+
     function updateArtistsBox(items) {
         $('.artists').html('');
         console.log(items);
@@ -122,11 +161,18 @@
             });
         }
     }
-    function getPesenki() {
-        $.post("/main/getSongs",function(data){
-            var items = JSON.parse(data);
-            var songs =
-            console.log(items);
+    function initializePlayer() {
+        $.get("/main/getSongs",function(data){
+            if(data != undefined) {
+                var songs = $.parseJSON(data);
+                console.log(songs);
+                Amplitude.init({ songs: songs, "volume": .35 });
+                Amplitude.bindNewElements();
+
+                for(var index = 0; index < songs.length; index++){
+
+                }
+            }
         });
     }
     $(document).ready(function () {
@@ -136,10 +182,11 @@
         $("ul.tabs li").on('click', callbackTabs);
         $("#genreMusic").on('change', initializeBlock);
         $("#genreArtist").on('change', initializeBlock);
-        getPesenki();
+        initializePlayer();
         initializeBlock();
     });
 </script>
+
 <header class="header-bg" style="background-image: url('/images/header-bg.jpg')">
     <div class="header-title">
         <h1>
@@ -172,8 +219,14 @@
         <option>Pop</option>
         <option>Punk</option>
     </select>
-        <div class="songs">
+        <div id="amplitude-player">
+            <span class="amplitude-play"></span>
         </div>
+        <table class="songs">
+            <tbody>
+                
+            </tbody>
+        </table>
     </div>
     <div id="tab-2" class="tab-content">
     <select id="genreArtist" class="button" name="genreMusic">
@@ -191,3 +244,57 @@
     </div>
 </div>
 
+<div class="player">
+    <div class="player-wrapper">
+        <div class="player-image amplitude-prev">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/prev.png" />';
+            ?>
+        </div>
+        <div class="player-image amplitude-play">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/play.png" />';
+            ?>
+        </div>
+        <div class="player-image amplitude-pause">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/pause.png" />';
+            ?>
+        </div>
+        <div class="player-image amplitude-stop">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/stop.png" />';
+            ?>
+        </div>
+        <div class="player-image amplitude-next">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/next.png" />';
+            ?>
+        </div>
+        <div class="slider">
+            <div id="slider">
+                <input class="bar amplitude-volume-slider" type="range" id="rangeinput" value="35" onchange="rangevalue.value=value" />
+                <span class="highlight"></span>
+                <output id="rangevalue">35</output>
+            </div>
+        </div>
+        <div class="song-info">
+            <span class="amplitude-current-time" amplitude-main-current-time="true"></span>
+        </div>
+        <div class="song-info">
+            <span amplitude-song-info="artist" amplitude-main-song-info="true"></span>
+            <span> - </span>
+            <span amplitude-song-info="name" amplitude-main-song-info="true" class="song-name"></span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('.player-image').hover(function() {
+        var currentSrc = $(this).find('img').attr('src').slice(0, -4);
+        $(this).find('img').attr('src', currentSrc + 'Hover.png');
+    }, function() {
+        var currentSrc = $(this).find('img').attr('src').slice(0, -9);
+        $(this).find('img').attr('src', currentSrc + '.png');
+    });
+</script>

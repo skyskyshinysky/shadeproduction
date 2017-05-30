@@ -10,6 +10,8 @@
 
     <script src="/js/jquery.validate.min.js" type="text/javascript"></script>
     <script src="/js/audioplayer.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/tabs.css" />
+    <script src="/js/amplitude.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="/css/site.css">
 
     <link rel="stylesheet" type="text/css" href="/css/audioPlayer.css">

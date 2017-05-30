@@ -30,10 +30,10 @@ class ControllerMain extends Controller
         $result =  $this->databaseInterface->getAll('SELECT music.nameMusic, music.pathFile, users.bandName FROM music, users WHERE users.Id = music.bandId LIMIT 15');
         $data = [];
         for ($count = 0; $count < count($result); $count++) {
-            $data[$count] = array(
-                "name" => $result[0]['nameMusic'],
-                "artist" => $result[0]['bandName'],
-                "url" => $result[0]['pathFile'] . $result[0]['nameMusic']);
+            $data[$count] = array( 
+                "name" => $result[$count]['nameMusic'], 
+                "artist" => $result[$count]['bandName'], 
+                "url" => $result[$count]['pathFile'] . $result[$count]['nameMusic']);
         }
         echo json_encode($data);
     }
