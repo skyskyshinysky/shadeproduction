@@ -83,6 +83,18 @@
             personalPlay.on('click', function() {
                 playTrack($(this).parent().parent().attr('song-index'));
             });
+            personalPlay.hover(function() {
+                var currentSrc = $(this).find('img').attr('src').slice(0, -4);
+                $(this).find('img').attr('src', currentSrc + 'HoverBlack.png');
+            }, function() {
+                var currentSrc = $(this).find('img').attr('src').slice(0, -14);
+                $(this).find('img').attr('src', currentSrc + '.png');
+            });
+            personalPlay.hover(function() {
+                /* Stuff to do when the mouse enters the element */
+            }, function() {
+                /* Stuff to do when the mouse leaves the element */
+            });
             var playImg = $('<img>').addClass('profile-image').attr({
                 src: playImgSrc
             });
