@@ -161,7 +161,19 @@ class ControllerUser extends Controller
 
         $this->view->generate('404View.php', 'templateView.php', $data);
     }
-
+    function actionGetSongsBand() {
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']);
+        $result =  $this->databaseInterface->getAll('SELECT music.nameMusic, music.pathFile, users.bandName FROM music, users WHERE users.userName = ?s  LIMIT 15',
+            $fullPath[5]);
+        $data = [];
+        for ($count = 0; $count < count($result); $count++) {
+            $data[$count] = array(
+                "name" => $result[$count]['nameMusic'],
+                "artist" => $result[$count]['bandName'],
+                "url" => $result[$count]['pathFile'] . $result[$count]['nameMusic']);
+        }
+        echo json_encode($data);
+    }
     function actionUploadMusicBand()
     {
         $data = null;

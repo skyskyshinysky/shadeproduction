@@ -170,12 +170,20 @@
             }
         });
     }
-
+    function initializePlayer() {
+        $.get("/user/getSongsBand",function(data){
+            if(data != undefined) {
+                var songs = $.parseJSON(data);
+                console.log(songs);
+            }
+        });
+    }
     $(document).ready(function() {
         $('#sendMessageInBand').on('click', sendMessageInBand);
         initializeComments();
         $( 'audio' ).audioPlayer();
         initPageNumbers();
+        initializePlayer();
     });
 </script>
 
