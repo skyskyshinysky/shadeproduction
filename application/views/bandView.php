@@ -175,6 +175,8 @@
             if(data != undefined) {
                 var songs = $.parseJSON(data);
                 console.log(songs);
+                Amplitude.init({ songs: songs, "volume": .35 });
+                Amplitude.bindNewElements();
             }
         });
     }
@@ -184,7 +186,75 @@
         $( 'audio' ).audioPlayer();
         initPageNumbers();
         initializePlayer();
+        initializeBlock();
     });
+
+    function updateSongsBox(items) {
+        $('.songs').html('');
+        console.log(items);
+        for(var count = 0; count < items.length; count++) {
+            var row = $('<tr></tr>').attr({
+                'song-index': count,
+            });
+
+            var song = {
+                "artist": items[count].bandName,
+                "name": items[count].nameMusic.replace(/[\d\.\.mp3]+/g,""),
+                "url": items[count].pathFile + items[count].nameMusic
+            };
+
+            var playImgSrc = <?php echo '"http://' . $_SERVER['HTTP_HOST']  . '/images/player/play.png"'?>;
+            var playCell = $('<td></td>');
+            var personalPlay = $('<div></div>').addClass('player-image');
+            personalPlay.on('click', function() {
+                playTrack($(this).parent().parent().attr('song-index'));
+            });
+            personalPlay.hover(function() {
+                var currentSrc = $(this).find('img').attr('src').slice(0, -4);
+                $(this).find('img').attr('src', currentSrc + 'HoverBlack.png');
+            }, function() {
+                var currentSrc = $(this).find('img').attr('src').slice(0, -14);
+                $(this).find('img').attr('src', currentSrc + '.png');
+            });
+            var playImg = $('<img>').addClass('profile-image').attr({
+                src: playImgSrc
+            });
+
+            playImg.appendTo(personalPlay);
+            personalPlay.appendTo(playCell);
+
+
+            var songCell = $('<td></td>')
+            var divContainer = '<h3>' + items[count].bandName + ' - ' + items[count].nameMusic.replace(/[\d\.\.mp3]+/g,"") +
+                '</h3>'
+            var hidden = $('<input>').attr({
+                type: 'hidden'
+            });
+            hidden.val(JSON.stringify(song));
+            songCell.append(divContainer);
+            songCell.append(hidden);
+
+            row.append(playCell);
+            row.append(songCell);
+
+            $('.songs').append(row);
+        }
+    }
+
+    function initializeBlock() { 
+        $.get("/user/getBlockDataSongs",function(data){ 
+            if(data != undefined) { 
+                var items = $.parseJSON(data); 
+                updateSongsBox(items); 
+            } 
+        }); 
+    }
+
+    function playTrack(index){
+        var jsonSong = $("tr[song-index='" + index + "']").find('input').val();
+        var songObject = $.parseJSON(jsonSong);
+        Amplitude.playNow(songObject);
+    }
 </script>
 
 <?php
@@ -265,28 +335,85 @@
             </div>
    
         </div>
-        <div id="wrapper">
-            <?php
-            foreach ($data['musicBand'] as $musicBand) {
-                echo  '<b>' . preg_replace("/[\d\.\.mp3]/", '', $musicBand['nameMusic']) . '</b><audio preload="auto" controls>
-                <source src="http://'. $_SERVER['HTTP_HOST'] . '/' . $musicBand['pathFile'] . $musicBand['nameMusic'] . '" type="audio/mp3"/></audio>';
-            }
-            ?>
+        <div id="amplitude-player">
+                <span class="amplitude-play"></span>
         </div>
-    </div>
-    <div style="width: 100%; margin-top: 20px; position: relative;">
-        <h3 style="margin: 0;">Comment area</h3>
-        <table class="wall">
-            <tbody>
+        <div>
+            <table class="songs">
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div style="width: 100%; margin-top: 20px; position: relative;">
+            <h3 style="margin: 0;">Comment area</h3>
+            <table class="wall">
+                <tbody>
 
-            </tbody>
-        </table>
-        <ul id="page-numbers"></ul>
-        <div class="center">
-            <div class="pagination">
+                </tbody>
+            </table>
+            <ul id="page-numbers"></ul>
+            <div class="center">
+                <div class="pagination">
+                </div>
             </div>
+            <textarea class="comment-input form-input" style="height: 100px;" id="messageBody" placeholder="Message Body"></textarea>
+            <button style="margin-top: 10px;" onclick="sendMessageInBand"  class="button" id="sendMessageInBand">Send message</button>
         </div>
-        <textarea class="comment-input form-input" style="height: 100px;" id="messageBody" placeholder="Message Body"></textarea>
-        <button style="margin-top: 10px;" onclick="sendMessageInBand"  class="button" id="sendMessageInBand">Send message</button>
     </div>
 </div>
+
+<div class="player">
+    <div class="player-wrapper">
+        <div class="player-image amplitude-prev">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/prev.png" />';
+            ?>
+        </div>
+        <div class="player-image amplitude-play">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/play.png" />';
+            ?>
+        </div>
+        <div class="player-image amplitude-pause">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/pause.png" />';
+            ?>
+        </div>
+        <div class="player-image amplitude-stop">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/stop.png" />';
+            ?>
+        </div>
+        <div class="player-image amplitude-next">
+            <?php
+                echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/next.png" />';
+            ?>
+        </div>
+        <div class="slider">
+            <div id="slider">
+                <input class="bar amplitude-volume-slider" type="range" id="rangeinput" value="35" onchange="rangevalue.value=value" />
+                <span class="highlight"></span>
+                <output id="rangevalue">35</output>
+            </div>
+        </div>
+        <div class="song-info">
+            <span class="amplitude-current-time" amplitude-main-current-time="true"></span>
+        </div>
+        <div class="song-info">
+            <span amplitude-song-info="artist" amplitude-main-song-info="true"></span>
+            <span> - </span>
+            <span amplitude-song-info="name" amplitude-main-song-info="true" class="song-name"></span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('.player-image').hover(function() {
+        var currentSrc = $(this).find('img').attr('src').slice(0, -4);
+        $(this).find('img').attr('src', currentSrc + 'Hover.png');
+    }, function() {
+        var currentSrc = $(this).find('img').attr('src').slice(0, -9);
+        $(this).find('img').attr('src', currentSrc + '.png');
+    });
+</script>

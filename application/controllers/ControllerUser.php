@@ -206,4 +206,15 @@ class ControllerUser extends Controller
     {
         echo 'actionIndex';
     }
+
+    function actionGetBlockDataSongs() 
+    { 
+        $data = null; 
+        require_once(ROOT . '/application/services/UserService.php'); 
+        if( $this->authorizeController->statusCookies == true ) { 
+        $userService = new UserService($this->databaseInterface); 
+        $data = $userService->getSongsBand(); 
+        } 
+        echo json_encode($data); 
+    }
 }

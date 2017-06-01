@@ -142,4 +142,8 @@ class UserService
         }
         return $data;
     }
+    public function getSongsBand() { 
+        $fullPath = explode('/', $_SERVER['HTTP_REFERER']); 
+        return $this->databaseInterface->getAll('SELECT music.nameMusic, music.pathFile,users.bandName FROM music,users WHERE users.userName = ?s ORDER BY music.time DESC LIMIT 10', $fullPath[5]); 
+    }
 }
