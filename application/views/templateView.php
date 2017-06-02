@@ -25,6 +25,74 @@
 <body>
     <div class="navigation-bar">
         <div class="navigation-bar-wrapper">
+            <div id="listMenu" style="display: none;">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <?php 
+                                    if($data['authorize']) {
+                                        $uri = 'http://' . $_SERVER['HTTP_HOST'] . '/main';
+                                    } else {
+                                        $uri = 'http://' . $_SERVER['HTTP_HOST'] . '/main/welcome';
+                                    }
+                                    echo '<a class="list-link" href="'. $uri .'">Sound Side</a>';
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php 
+                                    if($data['authorize']) {
+                                    echo '<a class="list-link" href="http://' . $_SERVER['HTTP_HOST'] . '/main">Music</a>';
+                                    }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php 
+                                    if($data['authorize']) {
+                                    echo '<a class="list-link" href="http://' . $_SERVER['HTTP_HOST'] . '/main/people">People</a>';
+                                    }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php 
+                                    if($data['authorize']) {
+                                        if(strcasecmp($data['typeAccount'], 'band') == 0) {
+                                            $link = "/user/profileBand/" . $data['userName'];
+                                        } else {
+                                            $link = "/user/profile/" . $data['userName'];
+                                        }
+                                        echo '<a class="list-link" href="/user/logout">Log out</a>';
+                                    } else {
+                                    echo '<a class="list-link href="/login">Log In</a>';
+                                    }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?php 
+                                    if($data['authorize']) {
+                                        if(strcasecmp($data['typeAccount'], 'band') == 0) {
+                                            $link = "/user/profileBand/" . $data['userName'];
+                                        } else {
+                                            $link = "/user/profile/" . $data['userName'];
+                                        }
+                                        echo '<a class="list-link" id="myProfile" href=' .$link .'>My profile</a>';
+                                    } else {
+                                    echo '<a class="list-link" href="/login/signIn">Register</a>';
+                                    }
+                                ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="navigation-bar-header">
                 <?php if($data['authorize']) {
                     $uri = 'http://' . $_SERVER['HTTP_HOST'] . '/main';
@@ -56,7 +124,6 @@
                           <a class="navigation-bar-authentication-link" href="/login/signIn">Register</a>';
                 }
                 ?>
-
             </div>
         </div>
     </div>
@@ -69,3 +136,50 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    var navigationBarCollapse = function () {
+        if ( $(window).width() < 700) {
+            $(function(){
+                $('div.navigation-bar-header').hide();
+                $('div.navigation-bar-menu').hide();
+                $('div.navigation-bar-authentication').hide();
+                $('#listMenu').show();
+            });
+        }
+        else {
+            $(function(){
+                $('div.navigation-bar-header').show();
+                $('div.navigation-bar-menu').show();
+                $('div.navigation-bar-authentication').show();
+                $('#listMenu').hide();
+            });
+        }
+        if ( $(window).width() < 920) {
+            $(function(){
+                $('div.song-info').hide();
+                $('div.slider').hide();
+            });
+        }
+        else {
+            $(function(){
+                $('div.song-info').show();
+                $('div.slider').show();
+            });
+        }
+        if ( $(window).width() < 660) {
+            $(function(){
+                $('#listPlayerWrapper').show();
+                $('div.player-wrapper').hide();
+            });
+        }
+        else {
+            $(function(){
+                $('#listPlayerWrapper').hide();
+                $('div.player-wrapper').show();
+            });
+        }
+    }
+
+    $(window).resize(navigationBarCollapse); 
+</script>>

@@ -78,10 +78,22 @@ body {
   line-height: 20px;
   color: #777;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.list-link {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  line-height: 12px;
+  color: #777;
+  text-decoration: none;
+  text-align: center;
 }
 
 .navigation-bar-link:hover,
-.navigation-bar-link:focus {
+.navigation-bar-link:focus,
+.list-link:hover {
   color: #fff;
 }
 
@@ -106,6 +118,11 @@ body {
 .navigation-bar-authentication-link:hover,
 .navigation-bar-authentication-link:focus {
   color: #fff;
+}
+
+#list a {
+  margin: 0;
+  padding: 5px!important;
 }
 
 div.content {

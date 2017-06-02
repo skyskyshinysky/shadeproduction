@@ -252,7 +252,28 @@
 </div>
 
 <div class="player">
-    <div class="player-wrapper">
+    <div id="listPlayerWrapper" style="display: none;">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="#" class="amplitude-play list-link" style="padding: 0px 15px">Play</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" class="amplitude-pause list-link" style="padding: 0px 15px">Pause</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" class="amplitude-stop list-link"  style="padding: 0px 15px">Stop</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="" class="player-wrapper">
         <div class="player-image amplitude-prev">
             <?php
                 echo '<img class="profile-image" src="http://' . $_SERVER['HTTP_HOST']  . '/images/player/prev.png" />';
