@@ -22,10 +22,10 @@ class Mail
         $mail->IsSMTP(true);            // используем протокол SMTP
         $mail->IsHTML(true);
         $mail->SMTPAuth   = true;                  // разрешить SMTP аутентификацию
-        $mail->Host       = "tls://smtp.gmail.com"; // SMTP хост
+        $mail->Host       = "#######"; // SMTP хост
         $mail->Port       =  465;                    // устанавливаем SMTP порт
-        $mail->Username   = "skyskyshinysky";  //имя пользователя SMTP
-        $mail->Password   = "12qw!@QWCtkmab";  // SMTP пароль
+        $mail->Username   = "######";  //имя пользователя SMTP
+        $mail->Password   = "######";  // SMTP пароль
         $mail->SetFrom($from, 'skyskyshinysky developer');
         $mail->AddReplyTo($from,'skyskyshinysky developer');
         $mail->Subject    = $this->subject;
